@@ -1,9 +1,13 @@
 import './App.css';
+import axios from 'axios';
+import Login from './login/Login';
 
 function App() {
+    axios.defaults.baseURL = 'https://slackapi.avionschool.com/';
+
     return (
         <div className="App">
-            <h1>Test</h1>
+            <Login />
         </div>
     );
 }
