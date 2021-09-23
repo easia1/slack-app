@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Button from '../components/Button'
 import { useEffect, useState } from 'react';
 
 const Login = () => {
@@ -23,7 +24,7 @@ const Login = () => {
                     name="login-password"
                     id="login-password"
                 />
-                <button type="submit">Submit</button>
+                <Button text="Submit" />
             </form>
         </div>
     );

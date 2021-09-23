@@ -10,7 +10,7 @@ function App() {
         <div className="App">
             <Login />
             <br />
-            <Register/>
+            <Register />       
         </div>
     );
 }
