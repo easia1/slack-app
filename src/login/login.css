@@ -1,0 +1,90 @@
+.login-main-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+}
+.login-hero {
+    display: none;
+}
+
+.login-page {
+    width: 100%;
+    padding: 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.login-title {
+    font-size: 3em;
+    font-weight: 900;
+}
+.login-subtitle {
+    font-size: 1em;
+    font-weight: 400;
+    margin-bottom: 2vmin;
+}
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.input-container span {
+    z-index: 1;
+    transform: translate(2vmin, 140%);
+    text-transform: uppercase;
+    font-size: 0.7em;
+    color: grey;
+}
+
+.input-container input {
+    border: none;
+    outline: none;
+    width: 100%;
+    height: 3em;
+    font-size: 1.1em;
+    font-weight: bolder;
+    padding: 2em 2vmin 1em 2vmin;
+    /* padding: 5vmin 2vmin 3vmin 4vmin; */
+    border-radius: 1vmin;
+    border: 1px solid grey;
+    transition: 0.2s ease;
+}
+
+.input-container input:hover {
+    border: 1px solid purple;
+}
+
+.input-container input:focus {
+    border: 1px solid purple;
+}
+
+.input-container input:focus {
+    border: 1px solid purple;
+}
+
+.input-container input:focus ~ span {
+    color: purple;
+}
+
+@media screen and (min-width: 900px) {
+    .login-hero {
+        background: url(../components/hero.svg);
+        background-size: 150%;
+        width: 50%;
+        height: 100%;
+        display: block;
+    }
+    .login-page {
+        width: 50%;
+    }
+}

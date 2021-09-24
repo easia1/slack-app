@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@700&display=swap');
+
+.loading-logo span {
+    font-size: 30vmin;
+    color: white;
+    transform: scale(1);
+    animation: move 1s ease-in-out infinite;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+@keyframes move {
+    0% {
+        transform: translate(-30%, 0);
+        color: white;
+    }
+    50% {
+        text-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+        color: #f95959;
+    }
+    100% {
+        transform: translate(30%, 0);
+        color: white;
+    }
+}
+
+.loading-logo span:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.loading-logo span:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+.loading-logo span:nth-child(4) {
+    animation-delay: 0.3s;
+}
+
+.hero-logo {
+    font-family: 'Ubuntu', sans-serif;
+    color: #f95959;
+}
