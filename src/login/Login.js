@@ -4,7 +4,13 @@ import { userSessionAPI } from '../api/API';
 import { Router, Route, Switch, NavLink } from 'react-router-dom';
 import Button from '../components/button/Button';
 
-const Login = ({ setIsLoggedIn, setHeaders, setUser, setLoginMessage }) => {
+const Login = ({
+    setIsLoggedIn,
+    setHeaders,
+    setUser,
+    setLoginMessage,
+    localStorageLogin,
+}) => {
     let loginEmailRef = useRef(null);
     let loginPasswordRef = useRef(null);
 
@@ -40,7 +46,9 @@ const Login = ({ setIsLoggedIn, setHeaders, setUser, setLoginMessage }) => {
                     setUser(res.data.data);
                     setLoginMessage('Logged in!');
                     setIsLoggedIn(true);
+                    localStorageLogin(res.data.data, res.headers);
                 })
+
                 .catch((err) => {
                     if (err.response) {
                         // Request made and server responded
@@ -76,27 +84,27 @@ const Login = ({ setIsLoggedIn, setHeaders, setUser, setLoginMessage }) => {
                 <label>
                     Email
                     <input
-                        type="email"
-                        name="login-email"
-                        id="login-email"
+                        type='email'
+                        name='login-email'
+                        id='login-email'
                         ref={loginEmailRef}
                     />
                 </label>
                 <label>
                     Password
                     <input
-                        type="password"
-                        name="login-password"
-                        id="login-password"
+                        type='password'
+                        name='login-password'
+                        id='login-password'
                         ref={loginPasswordRef}
                     />
                 </label>
-                <Button type="submit" text="Login" />
+                <Button type='submit' text='Login' />
                 <label>
                     <input
-                        type="checkbox"
-                        name="remember-user"
-                        id="remember-user"
+                        type='checkbox'
+                        name='remember-user'
+                        id='remember-user'
                     />
                     Keep me logged in
                 </label>
