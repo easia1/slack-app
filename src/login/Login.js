@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { useEffect, useState, useRef } from 'react';
-import { loginAPI } from '../api/API';
+import { userSessionAPI } from '../api/API';
+import { Router, Route, Switch, NavLink } from 'react-router-dom';
+import Button from '../components/button/Button';
 
 const Login = ({ setIsLoggedIn, setHeaders, setUser, setLoginMessage }) => {
     let loginEmailRef = useRef(null);
@@ -17,6 +19,7 @@ const Login = ({ setIsLoggedIn, setHeaders, setUser, setLoginMessage }) => {
             loginPasswordRef.current.value !== ''
         ) {
             const data = {
+                url: 'auth/sign_in',
                 email: loginEmailRef.current.value,
                 password: loginPasswordRef.current.value,
             };
@@ -29,7 +32,7 @@ const Login = ({ setIsLoggedIn, setHeaders, setUser, setLoginMessage }) => {
             //         password: loginPasswordRef.current.value,
             //     },
             // })
-            loginAPI(data)
+            userSessionAPI(data)
                 .then((res) => {
                     // console.log(res);
                     // console.log(res.data.email);
@@ -39,11 +42,6 @@ const Login = ({ setIsLoggedIn, setHeaders, setUser, setLoginMessage }) => {
                     setIsLoggedIn(true);
                 })
                 .catch((err) => {
-                    // setHeaders('');
-                    // setUser('');
-                    // console.log(err);
-                    // console.log(err.response.data.errors[0]);
-                    //setLoginMessage(err.response.data.errors[0]);
                     if (err.response) {
                         // Request made and server responded
                         console.log(err.response.data);
@@ -93,18 +91,18 @@ const Login = ({ setIsLoggedIn, setHeaders, setUser, setLoginMessage }) => {
                         ref={loginPasswordRef}
                     />
                 </label>
-                <input type="submit" value="Login" />
+                <Button type="submit" text="Login" />
                 <label>
                     <input
                         type="checkbox"
                         name="remember-user"
                         id="remember-user"
                     />
-                    Remember me
+                    Keep me logged in
                 </label>
             </form>
             <div>
-                Don't have an account yet? <a href="#">Sign up here.</a>
+                Don't have an account yet? <a>Sign up here.</a>
             </div>
         </div>
     );

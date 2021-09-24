@@ -1,8 +1,8 @@
 import './App.css';
-import axios from 'axios';
 import Login from './login/Login';
-import Register from './login/Register'
+import Register from './login/Register';
 import { useState } from 'react';
+import { Router, Route, Switch } from 'react-router-dom';
 
 function App() {
     //Current user information
@@ -23,7 +23,6 @@ function App() {
 
     return (
         <div className="App">
-
             {!isLoggedIn ? (
                 <Login
                     setIsLoggedIn={setIsLoggedIn}
@@ -49,8 +48,7 @@ function App() {
                 ''
             )}
             <br />
-            <Register />       
-
+            <Register />
         </div>
     );
 }

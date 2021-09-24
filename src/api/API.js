@@ -3,15 +3,14 @@ import axios from 'axios';
 //Set default URL for the API
 axios.defaults.baseURL = 'https://slackapi.avionschool.com/api/v1/';
 
-export const loginAPI = ({ email, password }) => {
+export const userSessionAPI = (data) => {
     return axios({
         method: 'post',
-        url: 'auth/sign_in',
+        url: data.url,
         data: {
-            email: email,
-            password: password,
+            email: data.email,
+            password: data.password,
+            password_confirmation: data.password_confirmation,
         },
     });
-    // .then((res) => res)
-    // .catch((err) => err);
 };
