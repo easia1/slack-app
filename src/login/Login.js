@@ -5,6 +5,7 @@ import { Router, Route, Switch, NavLink } from 'react-router-dom';
 import Button from '../components/button/Button';
 import Loading from '../components/loading/Loading';
 import './login.css';
+import Logo from '../components/logo/Logo';
 
 const Login = ({
     setIsLoggedIn,
@@ -91,6 +92,7 @@ const Login = ({
     return (
         <div className="login-page">
             {isLoading ? <Loading /> : ''}
+            <Logo className="hero-logo" />
             <h2 className="login-title">Let's go!</h2>
             <p className="login-subtitle">
                 Log in to your account and start connecting
@@ -135,7 +137,7 @@ const Login = ({
                     />
                     <span>Keep me logged in</span>
                 </label>
-                <Button type="submit" text="Login" />
+                <Button type="submit" text="Login" className="login-button" />
             </form>
 
             <div>

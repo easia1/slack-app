@@ -1,0 +1,29 @@
+.login-button {
+    border: none;
+    background: none;
+    background-color: #f95959;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    border-radius: 1vmin;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em;
+    font-weight: bolder;
+    padding: 10px 1em 10px 1em;
+    align-self: flex-start;
+    transition: 0.1s ease;
+    cursor: pointer;
+    color: white;
+    width: 100%;
+    box-shadow: 0 0.5vmin 1vmin 0vmin rgba(255, 128, 128, 0.1);
+}
+
+.login-button:hover {
+    background-color: #ff6464;
+}
+
+.login-button:active {
+    background-color: #d84f4f;
+    transform: scale(0.97);
+}

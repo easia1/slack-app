@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { userSessionAPI } from './api/API';
 import Loginhero from './login/Loginhero';
+import Main from './Main';
 
 function App() {
     //Current user information
@@ -109,7 +110,7 @@ function App() {
                         </Switch>
                     </div>
                 ) : (
-                    <button onClick={logoutFunction}>Logout</button>
+                    <Main logoutFunction={logoutFunction} />
                 )}
                 {/* {loginMessage ? <div>{loginMessage}</div> : ''}
             {currentUser ? <div>Email: {currentUser.email}</div> : ''}

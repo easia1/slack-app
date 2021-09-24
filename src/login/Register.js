@@ -70,7 +70,11 @@ const Register = () => {
                     />
                 </label>
 
-                <Button text="Register" type="submit" />
+                <Button
+                    text="Register"
+                    type="submit"
+                    className="login-button"
+                />
             </form>
             <div>
                 Already have an account? <NavLink to="/">Log in.</NavLink>

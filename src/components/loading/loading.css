@@ -10,6 +10,7 @@
     background-color: white;
     animation: 0.2s ease loader;
     user-select: none;
+    z-index: 1000;
 }
 
 @keyframes loader {
