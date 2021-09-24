@@ -14,11 +14,6 @@ const Login = ({
     let loginEmailRef = useRef(null);
     let loginPasswordRef = useRef(null);
 
-    // const [loginMessage, setLoginMessage] = useState('');
-    // const [errorMessage, setErrorMessage] = useState('');
-    // const [currentUser, setUser] = useState('');
-    // const [currentHeaders, setHeaders] = useState('');
-
     const loginFunction = () => {
         if (
             loginEmailRef.current.value !== '' &&
@@ -30,18 +25,8 @@ const Login = ({
                 password: loginPasswordRef.current.value,
             };
             setLoginMessage('Logging you in...');
-            // axios({
-            //     method: 'post',
-            //     url: 'auth/sign_in',
-            //     data: {
-            //         email: loginEmailRef.current.value,
-            //         password: loginPasswordRef.current.value,
-            //     },
-            // })
             userSessionAPI(data)
                 .then((res) => {
-                    // console.log(res);
-                    // console.log(res.data.email);
                     setHeaders(res.headers);
                     setUser(res.data.data);
                     setLoginMessage('Logged in!');
@@ -84,27 +69,27 @@ const Login = ({
                 <label>
                     Email
                     <input
-                        type='email'
-                        name='login-email'
-                        id='login-email'
+                        type="email"
+                        name="login-email"
+                        id="login-email"
                         ref={loginEmailRef}
                     />
                 </label>
                 <label>
                     Password
                     <input
-                        type='password'
-                        name='login-password'
-                        id='login-password'
+                        type="password"
+                        name="login-password"
+                        id="login-password"
                         ref={loginPasswordRef}
                     />
                 </label>
-                <Button type='submit' text='Login' />
+                <Button type="submit" text="Login" />
                 <label>
                     <input
-                        type='checkbox'
-                        name='remember-user'
-                        id='remember-user'
+                        type="checkbox"
+                        name="remember-user"
+                        id="remember-user"
                     />
                     Keep me logged in
                 </label>

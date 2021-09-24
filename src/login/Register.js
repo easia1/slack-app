@@ -37,9 +37,9 @@ const Register = () => {
                 <label>
                     Email
                     <input
-                        type='email'
-                        name='register-email'
-                        id='register-email'
+                        type="email"
+                        name="register-email"
+                        id="register-email"
                         ref={registerEmailRef}
                     />
                 </label>
@@ -47,9 +47,9 @@ const Register = () => {
                 <label>
                     Password
                     <input
-                        type='password'
-                        name='register-name'
-                        id='register-name'
+                        type="password"
+                        name="register-name"
+                        id="register-name"
                         ref={registerPasswordRef}
                     />
                 </label>
@@ -57,14 +57,14 @@ const Register = () => {
                 <label>
                     Confirm Password
                     <input
-                        type='password'
-                        name='register-name'
-                        id='register-name'
+                        type="password"
+                        name="register-name"
+                        id="register-name"
                         ref={registerConfirmPasswordRef}
                     />
                 </label>
 
-                <Button text='Register' type='submit' />
+                <Button text="Register" type="submit" />
             </form>
 
             {message}
