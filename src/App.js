@@ -1,6 +1,7 @@
 import './App.css';
 import axios from 'axios';
 import Login from './login/Login';
+import Register from './login/Register'
 import { useState } from 'react';
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
 
     return (
         <div className="App">
+
             {!isLoggedIn ? (
                 <Login
                     setIsLoggedIn={setIsLoggedIn}
@@ -46,6 +48,9 @@ function App() {
             ) : (
                 ''
             )}
+            <br />
+            <Register />       
+
         </div>
     );
 }
