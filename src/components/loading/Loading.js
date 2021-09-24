@@ -1,11 +1,11 @@
 import './loading.css';
-
+import Logo from '../logo/Logo';
 import React from 'react';
 
 const Loading = () => {
     return (
         <div className="loading-container">
-            <h1>t:lk</h1>
+            <Logo className="loading-logo" />
         </div>
     );
 };
