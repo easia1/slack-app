@@ -1,30 +1,111 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
+import { loginAPI } from '../api/API';
 
-const Login = () => {
-    useEffect(() => {
-        axios
-            .post('/api/v1/auth/sign_in', {
-                email: 'easia@test.com',
-                password: 'password',
-            })
-            .then(({ data: data }) => console.log(data));
-    });
+const Login = ({ setIsLoggedIn, setHeaders, setUser, setLoginMessage }) => {
+    let loginEmailRef = useRef(null);
+    let loginPasswordRef = useRef(null);
+
+    // const [loginMessage, setLoginMessage] = useState('');
+    // const [errorMessage, setErrorMessage] = useState('');
+    // const [currentUser, setUser] = useState('');
+    // const [currentHeaders, setHeaders] = useState('');
+
+    const loginFunction = () => {
+        if (
+            loginEmailRef.current.value !== '' &&
+            loginPasswordRef.current.value !== ''
+        ) {
+            const data = {
+                email: loginEmailRef.current.value,
+                password: loginPasswordRef.current.value,
+            };
+            setLoginMessage('Logging you in...');
+            // axios({
+            //     method: 'post',
+            //     url: 'auth/sign_in',
+            //     data: {
+            //         email: loginEmailRef.current.value,
+            //         password: loginPasswordRef.current.value,
+            //     },
+            // })
+            loginAPI(data)
+                .then((res) => {
+                    // console.log(res);
+                    // console.log(res.data.email);
+                    setHeaders(res.headers);
+                    setUser(res.data.data);
+                    setLoginMessage('Logged in!');
+                    setIsLoggedIn(true);
+                })
+                .catch((err) => {
+                    // setHeaders('');
+                    // setUser('');
+                    // console.log(err);
+                    // console.log(err.response.data.errors[0]);
+                    //setLoginMessage(err.response.data.errors[0]);
+                    if (err.response) {
+                        // Request made and server responded
+                        console.log(err.response.data);
+                        console.log(err.response.status);
+                        console.log(err.response.headers);
+                        setHeaders('');
+                        setUser('');
+                        setLoginMessage(err.response.data.errors[0]);
+                    } else if (err.request) {
+                        // The request was made but no response was received
+                        console.log(err.request);
+                    } else {
+                        // Something happened in setting up the request that triggered an Error
+                        console.log('Error', err.message);
+                    }
+                });
+        } else {
+            setLoginMessage('Please fill out the required fields');
+        }
+    };
 
     return (
         <div>
-            <form action="">
-                <label htmlFor="login-email">Email</label>
-                <input type="text" name="login-email" id="login-email" />
-
-                <label htmlFor="login-password">Password</label>
-                <input
-                    type="password"
-                    name="login-password"
-                    id="login-password"
-                />
-                <button type="submit">Submit</button>
+            <form
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    console.log(loginEmailRef.current.value);
+                    console.log(loginPasswordRef.current.value);
+                    loginFunction({});
+                }}
+            >
+                <label>
+                    Email
+                    <input
+                        type="email"
+                        name="login-email"
+                        id="login-email"
+                        ref={loginEmailRef}
+                    />
+                </label>
+                <label>
+                    Password
+                    <input
+                        type="password"
+                        name="login-password"
+                        id="login-password"
+                        ref={loginPasswordRef}
+                    />
+                </label>
+                <input type="submit" value="Login" />
+                <label>
+                    <input
+                        type="checkbox"
+                        name="remember-user"
+                        id="remember-user"
+                    />
+                    Remember me
+                </label>
             </form>
+            <div>
+                Don't have an account yet? <a href="#">Sign up here.</a>
+            </div>
         </div>
     );
 };
