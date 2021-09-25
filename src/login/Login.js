@@ -32,6 +32,10 @@ const Login = ({
         }
     };
 
+    //Toast Message
+    const [message, setMessage] = useState();
+    const [showToast, setShowToast] = useState(false);
+
     //Login function
     const loginFunction = () => {
         if (
@@ -61,8 +65,8 @@ const Login = ({
                         localStorageLogin(
                             /* res.data.data, res.headers */ data
                         );
+                        console.log(res.headers);
                     }
-
                     setIsLoading(false);
                 })
                 .catch((err) => {
@@ -86,13 +90,18 @@ const Login = ({
                     }
                 });
         } else {
-            setLoginMessage('Please fill out the required fields');
+            setMessage('Please fill out the required fields');
+            setShowToast(true);
         }
     };
 
     return (
         <div className='login-page'>
-            <Toast className='toast-message' text='Invalid Credentials' />
+            {showToast ? (
+                <Toast className='toast-message' text={message} />
+            ) : (
+                <></>
+            )}
             {isLoading ? <Loading /> : ''}
             <Logo className='hero-logo' />
             <h2 className='login-title'>Let's go!</h2>

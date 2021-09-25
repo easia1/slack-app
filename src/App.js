@@ -28,6 +28,8 @@ function App() {
         setLoginMessage('');
     };
 
+    //Toast Message
+
     const localStorageLogin = (data /* , headers */) => {
         localStorage.setItem('User', JSON.stringify(data));
         /* localStorage.setItem('Headers', JSON.stringify(headers)); */
