@@ -6,6 +6,7 @@ import Button from '../components/button/Button';
 import Loading from '../components/loading/Loading';
 import './login.css';
 import Logo from '../components/logo/Logo';
+import Toast from '../components/toast/Toast';
 
 const Login = ({
     setIsLoggedIn,
@@ -90,15 +91,16 @@ const Login = ({
     };
 
     return (
-        <div className="login-page">
+        <div className='login-page'>
+            <Toast className='toast-message' text='Invalid Credentials' />
             {isLoading ? <Loading /> : ''}
-            <Logo className="hero-logo" />
-            <h2 className="login-title">Let's go!</h2>
-            <p className="login-subtitle">
+            <Logo className='hero-logo' />
+            <h2 className='login-title'>Let's go!</h2>
+            <p className='login-subtitle'>
                 Log in to your account and start connecting
             </p>
             <form
-                className="login-container"
+                className='login-container'
                 onSubmit={(e) => {
                     e.preventDefault();
                     console.log(loginEmailRef.current.value);
@@ -106,43 +108,43 @@ const Login = ({
                     loginFunction({});
                 }}
             >
-                <label className="input-container">
+                <label className='input-container'>
                     <span>Email</span>
                     <input
-                        type="email"
-                        name="login-email"
-                        id="login-email"
+                        type='email'
+                        name='login-email'
+                        id='login-email'
                         ref={loginEmailRef}
                     />
                 </label>
 
-                <label className="input-container">
+                <label className='input-container'>
                     <span>Password</span>
                     <input
-                        type="password"
-                        name="login-password"
-                        id="login-password"
+                        type='password'
+                        name='login-password'
+                        id='login-password'
                         ref={loginPasswordRef}
                     />
                 </label>
 
                 <label>
                     <input
-                        type="checkbox"
-                        name="remember-user"
-                        id="remember-user"
+                        type='checkbox'
+                        name='remember-user'
+                        id='remember-user'
                         onClick={(e) => {
                             isRememberUser(e);
                         }}
                     />
                     <span>Keep me logged in</span>
                 </label>
-                <Button type="submit" text="Login" className="login-button" />
+                <Button type='submit' text='Login' className='login-button' />
             </form>
 
             <div>
                 Don't have an account yet?{' '}
-                <NavLink to="/signup">Sign up here.</NavLink>
+                <NavLink to='/signup'>Sign up here.</NavLink>
             </div>
         </div>
     );
