@@ -28,6 +28,8 @@ function App() {
         setLoginMessage('');
     };
 
+    //Toast Message
+
     const localStorageLogin = (data /* , headers */) => {
         localStorage.setItem('User', JSON.stringify(data));
         /* localStorage.setItem('Headers', JSON.stringify(headers)); */
@@ -80,14 +82,14 @@ function App() {
     }, []);
 
     return (
-        <div className="App">
+        <div className='App'>
             <Router>
                 {!isLoggedIn ? (
-                    <div className="login-main-container">
+                    <div className='login-main-container'>
                         <Loginhero />
                         <Switch>
                             <Route
-                                path="/"
+                                path='/'
                                 exact
                                 component={() => (
                                     <Login
@@ -103,7 +105,7 @@ function App() {
                                 )}
                             />
                             <Route
-                                path="/signup"
+                                path='/signup'
                                 exact
                                 component={() => <Register />}
                             />
