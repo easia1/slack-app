@@ -20,9 +20,13 @@ const Register = () => {
             password_confirmation: registerConfirmPasswordRef.current.value,
         };
 
-        userSessionAPI(data).then((res) => {
-            setMessage('Registration Successful!');
-        });
+        userSessionAPI(data)
+            .then((res) => {
+                setMessage('Registration Successful!');
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     };
 
     return (

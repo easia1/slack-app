@@ -1,0 +1,11 @@
+.sidebar {
+    background-color: var(--lightest-grey);
+    padding: 20px;
+    width: 100vw;
+}
+
+@media screen and (min-width: 900px) {
+    .sidebar {
+        width: 25vw;
+    }
+}

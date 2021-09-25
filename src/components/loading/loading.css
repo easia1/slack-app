@@ -8,7 +8,7 @@
     justify-content: center;
     align-items: center;
     background-color: white;
-    animation: 0.2s ease loader;
+    animation: 0.5s ease loader;
     user-select: none;
     z-index: 1000;
 }

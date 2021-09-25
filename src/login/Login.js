@@ -51,18 +51,18 @@ const Login = ({
             //API call for creating new user session
             userSessionAPI(data)
                 .then((res) => {
-                    setHeaders(res.headers);
-                    setUser(res.data.data);
-                    setLoginMessage('Logged in!');
-                    setIsLoggedIn(true);
-                    setIsLoading(false);
-                    if (rememberUser) {
-                        localStorageLogin(
-                            /* res.data.data, res.headers */ data
-                        );
-                    }
-
-                    setIsLoading(false);
+                    setTimeout(() => {
+                        setHeaders(res.headers);
+                        setUser(res.data.data);
+                        setLoginMessage('Logged in!');
+                        setIsLoggedIn(true);
+                        setIsLoading(false);
+                        if (rememberUser) {
+                            localStorageLogin(
+                                /* res.data.data, res.headers */ data
+                            );
+                        }
+                    }, 1500);
                 })
                 .catch((err) => {
                     if (err.response) {
@@ -91,7 +91,7 @@ const Login = ({
 
     return (
         <div className="login-page">
-            {isLoading ? <Loading /> : ''}
+            {/* {isLoading ? <Loading /> : ''} */}
             <Logo className="hero-logo" />
             <h2 className="login-title">Let's go!</h2>
             <p className="login-subtitle">
