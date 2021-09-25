@@ -10,29 +10,6 @@ const Navbar = ({ setSidebarMode, sidebarMode }) => {
             <div className="navlink-container">
                 <div
                     className={
-                        sidebarMode === 'channel'
-                            ? 'nav-link nav-link-active'
-                            : 'nav-link'
-                    }
-                    onClick={() => setSidebarMode('channel')}
-                >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-6 w-6"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                    >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={1}
-                            d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"
-                        />
-                    </svg>
-                </div>
-                <div
-                    className={
                         sidebarMode === 'dm'
                             ? 'nav-link nav-link-active'
                             : 'nav-link'
@@ -51,6 +28,29 @@ const Navbar = ({ setSidebarMode, sidebarMode }) => {
                             strokeLinejoin="round"
                             strokeWidth={1}
                             d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"
+                        />
+                    </svg>
+                </div>
+                <div
+                    className={
+                        sidebarMode === 'channel'
+                            ? 'nav-link nav-link-active'
+                            : 'nav-link'
+                    }
+                    onClick={() => setSidebarMode('channel')}
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-6 w-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={1}
+                            d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"
                         />
                     </svg>
                 </div>

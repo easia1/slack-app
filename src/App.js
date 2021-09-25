@@ -29,6 +29,7 @@ function App() {
         setHeaders(null);
         setIsLoggedIn(false);
         setLoginMessage('');
+        setSidebarMode('dm');
     };
 
     //Toast Message
