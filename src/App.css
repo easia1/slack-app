@@ -1,5 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Ubuntu:wght@700&display=swap');
 
+:root {
+    --darkest-color: #414291;
+    --darker-color: #4849a1;
+    --dark-color: #6364af;
+    --dark-grey: #b7bdce;
+    --gray: #dbdee7;
+    --light-grey: #f0f0f6;
+    --lighter-grey: #f4f4fa;
+    --lightest-grey: #f9f9fc;
+    --accent-color: #f95959;
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -8,4 +20,22 @@
 
 body {
     font-family: 'Inter', sans-serif;
+}
+
+.app-container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    opacity: 0;
+    animation: appOpen 0.2s ease forwards;
+}
+
+@keyframes appOpen {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }

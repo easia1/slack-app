@@ -1,0 +1,44 @@
+nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--darker-color);
+    height: 100vh;
+    padding: 10px;
+}
+
+.nav-link {
+    width: 4em;
+    height: 4em;
+
+    border-radius: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0 10px 0;
+    transition: 0.1s ease;
+}
+
+.nav-link svg {
+    width: 2.5em;
+    stroke: white;
+}
+
+.nav-link:hover {
+    background-color: var(--dark-color);
+}
+
+.nav-link:active {
+    background-color: var(--dark-color);
+    transform: scale(0.9);
+    transition: 0.1s ease;
+}
+.nav-link-active {
+    background-color: var(--dark-color);
+    border-radius: 10px;
+    transition: 0.1s ease;
+}
+
+.nav-link-active:active::before {
+    opacity: 0;
+}
