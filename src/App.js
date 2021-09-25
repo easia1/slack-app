@@ -31,6 +31,8 @@ function App() {
         setLoginMessage('');
     };
 
+    //Toast Message
+
     const localStorageLogin = (data /* , headers */) => {
         localStorage.setItem('User', JSON.stringify(data));
         /* localStorage.setItem('Headers', JSON.stringify(headers)); */
@@ -127,6 +129,10 @@ function App() {
                     )}
 
                     {/* {currentUser ? <div>Email: {currentUser.email}</div> : ''}
+
+                {/* {loginMessage ? <div>{loginMessage}</div> : ''}
+            {currentUser ? <div>Email: {currentUser.email}</div> : ''}
+
             {currentUser ? <div>User ID: {currentUser.id}</div> : ''}
             {currentHeaders ? (
                 <div>Access token: {currentHeaders['access-token']}</div>

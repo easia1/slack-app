@@ -4,6 +4,7 @@ import axios from 'axios';
 import { userSessionAPI } from '../api/API';
 import { Router, Route, Switch, NavLink } from 'react-router-dom';
 import './login.css';
+import Toast from '../components/toast/Toast';
 
 const Register = () => {
     const registerEmailRef = useRef(null);
@@ -11,6 +12,7 @@ const Register = () => {
     const registerConfirmPasswordRef = useRef(null);
 
     const [message, setMessage] = useState();
+    const [showToast, setShowToast] = useState(false);
 
     const onRegister = () => {
         const data = {
@@ -20,23 +22,20 @@ const Register = () => {
             password_confirmation: registerConfirmPasswordRef.current.value,
         };
 
-        userSessionAPI(data)
-            .then((res) => {
-                setMessage('Registration Successful!');
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        userSessionAPI(data).then((res) => {
+            setMessage('Registration Success');
+            setShowToast(true);
+        });
     };
 
     return (
-        <div className="login-page">
-            <h2 className="login-title">Let's get started!</h2>
-            <p className="login-subtitle">
+        <div className='login-page'>
+            <h2 className='login-title'>Let's get started!</h2>
+            <p className='login-subtitle'>
                 Sign up for an account to connect with other people
             </p>
             <form
-                className="login-container"
+                className='login-container'
                 onSubmit={(e) => {
                     e.preventDefault();
                     onRegister();
@@ -44,46 +43,50 @@ const Register = () => {
             >
                 <br />
 
-                <label className="input-container">
+                <label className='input-container'>
                     <span>Email</span>
                     <input
-                        type="email"
-                        name="register-email"
-                        id="register-email"
+                        type='email'
+                        name='register-email'
+                        id='register-email'
                         ref={registerEmailRef}
                     />
                 </label>
 
-                <label className="input-container">
+                <label className='input-container'>
                     <span>Password</span>
                     <input
-                        type="password"
-                        name="register-name"
-                        id="register-name"
+                        type='password'
+                        name='register-name'
+                        id='register-password'
                         ref={registerPasswordRef}
                     />
                 </label>
 
-                <label className="input-container">
+                <label className='input-container'>
                     <span>Confirm Password</span>
                     <input
-                        type="password"
-                        name="register-name"
-                        id="register-name"
+                        type='password'
+                        name='register-name'
+                        id='register-passconfirm'
                         ref={registerConfirmPasswordRef}
                     />
                 </label>
 
                 <Button
-                    text="Register"
-                    type="submit"
-                    className="login-button"
+                    text='Register'
+                    type='submit'
+                    className='login-button'
                 />
             </form>
             <div>
-                Already have an account? <NavLink to="/">Log in.</NavLink>
+                Already have an account? <NavLink to='/'>Log in.</NavLink>
             </div>
-            {message}
+            {showToast ? (
+                <Toast className='toast-message' text={message} />
+            ) : (
+                <></>
+            )}
         </div>
     );
 };
