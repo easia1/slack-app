@@ -14,3 +14,18 @@ export const userSessionAPI = (data) => {
         },
     });
 };
+
+export const getListsAPI = (data) => {
+    return axios({
+        method: 'GET',
+        url: data.url,
+        headers: {
+            'access-token': data['access-token'],
+            client: data.client,
+            expiry: data.expiry,
+            uid: data.uid,
+        },
+    })
+        .then((res) => res)
+        .catch((err) => err);
+};

@@ -11,13 +11,14 @@ import Loading from './components/loading/Loading';
 
 function App() {
     //Current user information
-    const [currentUser, setUser] = useState('');
+    const [currentUser, setUser] = useState(null);
+
+    // const [isLoading, setIsLoading] = useState(false);
 
     //Access tokens
-    const [currentHeaders, setHeaders] = useState('');
+    const [currentHeaders, setHeaders] = useState(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [loginMessage, setLoginMessage] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
 
     const [sidebarMode, setSidebarMode] = useState('dm');
 
@@ -51,17 +52,15 @@ function App() {
             /* setHeaders(localStorageLoginHeader); */
             /* setUser(localStorageLoginUser); */
             setLoginMessage('Logging you in...');
-            setIsLoading(true);
+            // setIsLoading(true);
 
             userSessionAPI(localStorageLoginUser)
                 .then((res) => {
-                    setTimeout(() => {
-                        setHeaders(res.headers);
-                        setUser(res.data.data);
-                        setLoginMessage('Logged in!');
-                        setIsLoggedIn(true);
-                        setIsLoading(false);
-                    }, 1500);
+                    setHeaders(res.headers);
+                    setUser(res.data.data);
+                    setLoginMessage('Logged in!');
+                    setIsLoggedIn(true);
+                    // setIsLoading(true);
                 })
                 .catch((err) => {
                     if (err.response) {
@@ -72,64 +71,60 @@ function App() {
                         setHeaders('');
                         setUser('');
                         setLoginMessage(err.response.data.errors[0]);
-                        setIsLoading(false);
                     } else if (err.request) {
                         // The request was made but no response was received
                         console.log(err.request);
-                        setIsLoading(false);
                     } else {
                         // Something happened in setting up the request that triggered an Error
                         console.log('Error', err.message);
-                        setIsLoading(false);
                     }
                 });
         }
     }, []);
-    if (isLoading) {
-        return <Loading />;
-    } else {
-        return (
-            <div className="App">
-                <Router>
-                    {!isLoggedIn ? (
-                        <div className="login-main-container">
-                            <Loginhero />
-                            <Switch>
-                                <Route
-                                    path="/"
-                                    exact
-                                    component={() => (
-                                        <Login
-                                            setIsLoggedIn={setIsLoggedIn}
-                                            setUser={setUser}
-                                            setHeaders={setHeaders}
-                                            setLoginMessage={setLoginMessage}
-                                            loginMessage={loginMessage}
-                                            localStorageLogin={
-                                                localStorageLogin
-                                            }
-                                            isLoading={isLoading}
-                                            setIsLoading={setIsLoading}
-                                        />
-                                    )}
-                                />
-                                <Route
-                                    path="/signup"
-                                    exact
-                                    component={() => <Register />}
-                                />
-                            </Switch>
-                            {/* {loginMessage ? <div>{loginMessage}</div> : ''} */}
-                        </div>
-                    ) : (
-                        <Main
-                            logoutFunction={logoutFunction}
-                            sidebarMode={sidebarMode}
-                            setSidebarMode={setSidebarMode}
-                        />
-                    )}
 
-                    {/* {currentUser ? <div>Email: {currentUser.email}</div> : ''}
+    return (
+        <div className="App">
+            <Router>
+                {!isLoggedIn ? (
+                    <div className="login-main-container">
+                        <Loginhero />
+                        <Switch>
+                            <Route
+                                path="/"
+                                exact
+                                component={() => (
+                                    <Login
+                                        setIsLoggedIn={setIsLoggedIn}
+                                        setUser={setUser}
+                                        setHeaders={setHeaders}
+                                        setLoginMessage={setLoginMessage}
+                                        loginMessage={loginMessage}
+                                        localStorageLogin={localStorageLogin}
+                                    />
+                                )}
+                            />
+                            <Route
+                                path="/signup"
+                                exact
+                                component={() => <Register />}
+                            />
+                        </Switch>
+                        {/* {loginMessage ? <div>{loginMessage}</div> : ''} */}
+                    </div>
+                ) : (
+                    <Main
+                        logoutFunction={logoutFunction}
+                        sidebarMode={sidebarMode}
+                        setSidebarMode={setSidebarMode}
+                        currentHeaders={currentHeaders}
+                        currentUser={currentUser}
+                        isLoggedIn={isLoggedIn}
+                        // setIsLoading={setIsLoading}
+                        // isLoading={isLoading}
+                    />
+                )}
+
+                {/* {currentUser ? <div>Email: {currentUser.email}</div> : ''}
 
                 {/* {loginMessage ? <div>{loginMessage}</div> : ''}
             {currentUser ? <div>Email: {currentUser.email}</div> : ''}
@@ -145,10 +140,9 @@ function App() {
             ) : (
                 ''
             )} */}
-                </Router>
-            </div>
-        );
-    }
+            </Router>
+        </div>
+    );
 }
 
 export default App;

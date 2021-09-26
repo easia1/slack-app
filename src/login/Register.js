@@ -29,13 +29,13 @@ const Register = () => {
     };
 
     return (
-        <div className='login-page'>
-            <h2 className='login-title'>Let's get started!</h2>
-            <p className='login-subtitle'>
+        <div className="login-page">
+            <h2 className="login-title">Let's get started!</h2>
+            <p className="login-subtitle">
                 Sign up for an account to connect with other people
             </p>
             <form
-                className='login-container'
+                className="login-container"
                 onSubmit={(e) => {
                     e.preventDefault();
                     onRegister();
@@ -43,47 +43,43 @@ const Register = () => {
             >
                 <br />
 
-                <label className='input-container'>
+                <label className="input-container">
                     <span>Email</span>
                     <input
-                        type='email'
-                        name='register-email'
-                        id='register-email'
+                        type="email"
+                        name="register-email"
+                        id="register-email"
                         ref={registerEmailRef}
                     />
                 </label>
 
-                <label className='input-container'>
+                <label className="input-container">
                     <span>Password</span>
                     <input
-                        type='password'
-                        name='register-name'
-                        id='register-password'
+                        type="password"
+                        name="register-name"
+                        id="register-password"
                         ref={registerPasswordRef}
                     />
                 </label>
 
-                <label className='input-container'>
+                <label className="input-container">
                     <span>Confirm Password</span>
                     <input
-                        type='password'
-                        name='register-name'
-                        id='register-passconfirm'
+                        type="password"
+                        name="register-name"
+                        id="register-passconfirm"
                         ref={registerConfirmPasswordRef}
                     />
                 </label>
 
-                <Button
-                    text='Register'
-                    type='submit'
-                    className='login-button'
-                />
+                <Button text="Register" type="submit" className="button" />
             </form>
             <div>
-                Already have an account? <NavLink to='/'>Log in.</NavLink>
+                Already have an account? <NavLink to="/">Log in.</NavLink>
             </div>
             {showToast ? (
-                <Toast className='toast-message' text={message} />
+                <Toast className="toast-message" text={message} />
             ) : (
                 <></>
             )}
