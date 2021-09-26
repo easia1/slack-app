@@ -13,8 +13,11 @@ const Register = () => {
 
     const [message, setMessage] = useState();
     const [showToast, setShowToast] = useState(false);
+    const [showPassError, setShowPassError] = useState(false);
 
     const onRegister = () => {
+        handleError();
+
         const data = {
             url: 'auth',
             email: registerEmailRef.current.value,
@@ -26,6 +29,29 @@ const Register = () => {
             setMessage('Registration Success');
             setShowToast(true);
         });
+    };
+
+    const handleError = () => {
+        if (
+            registerPasswordRef.current.value !==
+            registerConfirmPasswordRef.current.value
+        ) {
+            setMessage('Password did not match');
+            setShowPassError(true);
+            registerPasswordRef.current.focus();
+        }
+        if (registerPasswordRef.current.value.length < 6) {
+            setMessage('Password is too short');
+            setShowPassError(true);
+        }
+        if (
+            !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
+                registerEmailRef.current.value
+            )
+        ) {
+            setMessage('Please enter valid email');
+            setShowPassError(true);
+        }
     };
 
     return (
@@ -58,6 +84,7 @@ const Register = () => {
                     <input
                         type='password'
                         name='register-name'
+                        min='6'
                         id='register-password'
                         ref={registerPasswordRef}
                     />
@@ -68,6 +95,7 @@ const Register = () => {
                     <input
                         type='password'
                         name='register-name'
+                        min='6'
                         id='register-passconfirm'
                         ref={registerConfirmPasswordRef}
                     />
@@ -82,7 +110,7 @@ const Register = () => {
             <div>
                 Already have an account? <NavLink to='/'>Log in.</NavLink>
             </div>
-            {showToast ? (
+            {showToast || showPassError ? (
                 <Toast className='toast-message' text={message} />
             ) : (
                 <></>
