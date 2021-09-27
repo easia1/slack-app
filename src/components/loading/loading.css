@@ -7,7 +7,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: white;
     animation: 0.5s ease loader;
     user-select: none;
     z-index: 1000;
