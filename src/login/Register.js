@@ -39,10 +39,16 @@ const Register = () => {
             setMessage('Password did not match');
             setShowPassError(true);
             registerPasswordRef.current.focus();
+            setTimeout(() => {
+                setShowPassError(false);
+            }, 3000);
         }
         if (registerPasswordRef.current.value.length < 6) {
             setMessage('Password is too short');
             setShowPassError(true);
+            setTimeout(() => {
+                setShowPassError(false);
+            }, 3000);
         }
         if (
             !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
@@ -52,6 +58,9 @@ const Register = () => {
             setMessage('Please enter valid email');
             setShowPassError(true);
             registerEmailRef.current.focus();
+            setTimeout(() => {
+                setShowPassError(false);
+            }, 3000);
         }
     };
 
