@@ -18,7 +18,11 @@ const ChannelList = ({ currentHeaders, channelList }) => {
             <div className="channel-container">
                 {channelList.data.data.map((channel, index) => (
                     <div className="channel-item" key={index}>
-                        <Pic id={channel.id} name={channel.name} />
+                        <Pic
+                            id={channel.id}
+                            name={channel.name}
+                            isChannel={true}
+                        />
                         <span>{channel.name}</span>
                     </div>
                 ))}

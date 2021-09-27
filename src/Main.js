@@ -5,6 +5,8 @@ import ChannelList from './components/channel/ChannelList';
 import Navbar from './components/navbar/Navbar';
 import Sidebar from './components/sidebar/Sidebar';
 import Loading from './components/loading/Loading';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import NewMessage from './newmessage/NewMessage';
 
 const Main = ({
     logoutFunction,
@@ -44,7 +46,7 @@ const Main = ({
             client: currentHeaders.client,
             expiry: currentHeaders.expiry,
             uid: currentHeaders.uid,
-            url: 'users/recent',
+            url: 'users',
         };
 
         console.log('channelsReq', channelListRequest);
@@ -154,21 +156,28 @@ const Main = ({
     else {
         return (
             <div className="app-container">
-                <Navbar
-                    setSidebarMode={setSidebarMode}
-                    sidebarMode={sidebarMode}
-                    currentUser={currentUser}
-                />
-                <Sidebar
-                    sidebarMode={sidebarMode}
-                    logoutFunction={logoutFunction}
-                    currentHeaders={currentHeaders}
-                    currentUser={currentUser}
-                    channelList={channelList}
-                    allUsers={allUsers}
-                    contactList={contactList}
-                />
-                {/* <ChannelList currentHeaders={currentHeaders} /> */}
+                <Router>
+                    <Navbar
+                        setSidebarMode={setSidebarMode}
+                        sidebarMode={sidebarMode}
+                        currentUser={currentUser}
+                    />
+                    <Sidebar
+                        sidebarMode={sidebarMode}
+                        logoutFunction={logoutFunction}
+                        currentHeaders={currentHeaders}
+                        currentUser={currentUser}
+                        channelList={channelList}
+                        allUsers={allUsers}
+                        contactList={contactList}
+                    />
+                    <Switch>
+                        <Route
+                            path="/newMessage"
+                            component={() => <NewMessage />}
+                        ></Route>
+                    </Switch>
+                </Router>
             </div>
         );
     }

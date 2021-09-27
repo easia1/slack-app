@@ -123,7 +123,6 @@ function App() {
                         // isLoading={isLoading}
                     />
                 )}
-
                 {/* {currentUser ? <div>Email: {currentUser.email}</div> : ''}
 
                 {/* {loginMessage ? <div>{loginMessage}</div> : ''}

@@ -1,3 +1,8 @@
+.pic-container {
+    display: flex;
+    align-items: flex-end;
+}
+
 .profile-pic {
     width: 2.5em;
     height: 2.5em;
@@ -13,5 +18,22 @@
     font-size: large;
     color: rgba(255, 255, 255, 0.952);
     border-radius: 50%;
-    overflow: hidden;
+}
+
+.channel-pic-icon {
+    width: 1.2em;
+    height: 1.2em;
+    position: relative;
+    left: -1em;
+    background-color: var(--dark-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    margin-right: -1em;
+}
+
+.channel-pic-icon svg {
+    stroke: white;
+    width: 60%;
 }

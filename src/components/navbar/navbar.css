@@ -5,6 +5,7 @@ nav {
     background-color: var(--darker-color);
     height: 100vh;
     padding: 10px;
+    position: relative;
 }
 
 .nav-link {
@@ -18,6 +19,7 @@ nav {
     align-items: center;
     margin: 10px 0 10px 0;
     transition: 0.1s ease;
+    position: relative;
 }
 
 nav .nav-link:last-child {
@@ -53,4 +55,15 @@ nav .nav-link:last-child {
 
 .nav-link-active:active::before {
     opacity: 0;
+}
+
+.link-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.link-container span {
+    position: absolute;
+    left: 100%;
 }
