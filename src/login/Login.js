@@ -48,14 +48,14 @@ const Login = ({
             };
 
             //Message for logging in while waiting for API response
-            setLoginMessage('Logging you in...');
+            setMessage('Logging you in...');
 
             //API call for creating new user session
             userSessionAPI(data)
                 .then((res) => {
                     setHeaders(res.headers);
                     setUser(res.data.data);
-                    setLoginMessage('Logged in!');
+                    setMessage('Logged in!');
                     setIsLoggedIn(true);
 
                     if (rememberUser) {
@@ -72,7 +72,7 @@ const Login = ({
                         console.log(err.response.headers);
                         setHeaders('');
                         setUser('');
-                        setLoginMessage(err.response.data.errors[0]);
+                        setMessage(err.response.data.errors[0]);
                     } else if (err.request) {
                         // The request was made but no response was received
                         console.log(err.request);
@@ -89,7 +89,7 @@ const Login = ({
 
     return (
         <div className="login-page">
-            {showToast ? (
+            {showToast || message ? (
                 <Toast className="toast-message" text={message} />
             ) : (
                 <></>
