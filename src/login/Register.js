@@ -13,8 +13,11 @@ const Register = () => {
 
     const [message, setMessage] = useState();
     const [showToast, setShowToast] = useState(false);
+    const [showPassError, setShowPassError] = useState(false);
 
     const onRegister = () => {
+        handleError();
+
         const data = {
             url: 'auth',
             email: registerEmailRef.current.value,
@@ -26,6 +29,29 @@ const Register = () => {
             setMessage('Registration Success');
             setShowToast(true);
         });
+    };
+
+    const handleError = () => {
+        if (
+            registerPasswordRef.current.value !==
+            registerConfirmPasswordRef.current.value
+        ) {
+            setMessage('Password did not match');
+            setShowPassError(true);
+            registerPasswordRef.current.focus();
+        }
+        if (registerPasswordRef.current.value.length < 6) {
+            setMessage('Password is too short');
+            setShowPassError(true);
+        }
+        if (
+            !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
+                registerEmailRef.current.value
+            )
+        ) {
+            setMessage('Please enter valid email');
+            setShowPassError(true);
+        }
     };
 
     return (
@@ -56,9 +82,10 @@ const Register = () => {
                 <label className="input-container">
                     <span>Password</span>
                     <input
-                        type="password"
-                        name="register-name"
-                        id="register-password"
+                        type='password'
+                        name='register-name'
+                        min='6'
+                        id='register-password'
                         ref={registerPasswordRef}
                     />
                 </label>
@@ -66,9 +93,12 @@ const Register = () => {
                 <label className="input-container">
                     <span>Confirm Password</span>
                     <input
-                        type="password"
-                        name="register-name"
-                        id="register-passconfirm"
+
+                        type='password'
+                        name='register-name'
+                        min='6'
+                        id='register-passconfirm'
+
                         ref={registerConfirmPasswordRef}
                     />
                 </label>
@@ -78,8 +108,8 @@ const Register = () => {
             <div>
                 Already have an account? <NavLink to="/">Log in.</NavLink>
             </div>
-            {showToast ? (
-                <Toast className="toast-message" text={message} />
+            {showToast || showPassError ? (
+                <Toast className='toast-message' text={message} />
             ) : (
                 <></>
             )}
