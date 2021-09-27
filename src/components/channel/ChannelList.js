@@ -23,7 +23,7 @@ const ChannelList = ({ currentHeaders, channelList }) => {
                             name={channel.name}
                             isChannel={true}
                         />
-                        <span>{channel.name}</span>
+                        <span>#{channel.name}</span>
                     </div>
                 ))}
             </div>

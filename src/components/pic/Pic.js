@@ -19,11 +19,11 @@ const Pic = ({ id, name, isChannel }) => {
     ];
 
     let colorNumber;
-
+    console.log(colors.length);
     const getColor = () => {
         if (id === 0) {
             return (colorNumber = 0);
-        } else if (id > colors.length) {
+        } else if (id >= colors.length) {
             return (colorNumber = Math.floor(id % colors.length));
         } else if (id < colors.length) {
             return (colorNumber = Math.floor(colors.length % id));
