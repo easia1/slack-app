@@ -1,11 +1,11 @@
-.login-button {
+.button {
     border: none;
     background: none;
     background-color: #f95959;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 15px;
+    margin-bottom: 15px;
     display: flex;
-    border-radius: 1vmin;
+    border-radius: 10px;
     justify-content: center;
     align-items: center;
     font-size: 1.2em;
@@ -19,11 +19,11 @@
     box-shadow: 0 0.5vmin 1vmin 0vmin rgba(255, 128, 128, 0.1);
 }
 
-.login-button:hover {
+.button:hover {
     background-color: #ff6464;
 }
 
-.login-button:active {
+.button:active {
     background-color: #d84f4f;
     transform: scale(0.97);
 }

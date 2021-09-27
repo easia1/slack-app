@@ -14,8 +14,6 @@ const Login = ({
     setUser,
     setLoginMessage,
     localStorageLogin,
-    isLoading,
-    setIsLoading,
 }) => {
     //Refs for email and password input fields
     let loginEmailRef = useRef(null);
@@ -51,25 +49,20 @@ const Login = ({
 
             //Message for logging in while waiting for API response
             setLoginMessage('Logging you in...');
-            setIsLoading(true);
 
             //API call for creating new user session
             userSessionAPI(data)
                 .then((res) => {
+                    setHeaders(res.headers);
+                    setUser(res.data.data);
+                    setLoginMessage('Logged in!');
+                    setIsLoggedIn(true);
 
-                    setTimeout(() => {
-                        setHeaders(res.headers);
-                        setUser(res.data.data);
-                        setLoginMessage('Logged in!');
-                        setIsLoggedIn(true);
-                        setIsLoading(false);
-                        if (rememberUser) {
-                            localStorageLogin(
-                                /* res.data.data, res.headers */ data
-                            );
-                        }
-                    }, 1500);
-
+                    if (rememberUser) {
+                        localStorageLogin(
+                            /* res.data.data, res.headers */ data
+                        );
+                    }
                 })
                 .catch((err) => {
                     if (err.response) {
@@ -80,15 +73,12 @@ const Login = ({
                         setHeaders('');
                         setUser('');
                         setLoginMessage(err.response.data.errors[0]);
-                        setIsLoading(false);
                     } else if (err.request) {
                         // The request was made but no response was received
                         console.log(err.request);
-                        setIsLoading(false);
                     } else {
                         // Something happened in setting up the request that triggered an Error
                         console.log('Error', err.message);
-                        setIsLoading(false);
                     }
                 });
         } else {
@@ -98,22 +88,20 @@ const Login = ({
     };
 
     return (
-
-        <div className='login-page'>
+        <div className="login-page">
             {showToast ? (
-                <Toast className='toast-message' text={message} />
+                <Toast className="toast-message" text={message} />
             ) : (
                 <></>
             )}
             {/* {isLoading ? <Loading /> : ''} */}
-            <Logo className='hero-logo' />
-            <h2 className='login-title'>Let's go!</h2>
-            <p className='login-subtitle'>
-
+            <Logo className="hero-logo" />
+            <h2 className="login-title">Let's go!</h2>
+            <p className="login-subtitle">
                 Log in to your account and start connecting
             </p>
             <form
-                className='login-container'
+                className="login-container"
                 onSubmit={(e) => {
                     e.preventDefault();
                     console.log(loginEmailRef.current.value);
@@ -121,43 +109,45 @@ const Login = ({
                     loginFunction({});
                 }}
             >
-                <label className='input-container'>
+                <label className="input-container">
                     <span>Email</span>
                     <input
-                        type='email'
-                        name='login-email'
-                        id='login-email'
+                        type="email"
+                        name="login-email"
+                        id="login-email"
                         ref={loginEmailRef}
                     />
                 </label>
 
-                <label className='input-container'>
+                <label className="input-container">
                     <span>Password</span>
                     <input
-                        type='password'
-                        name='login-password'
-                        id='login-password'
+                        type="password"
+                        name="login-password"
+                        id="login-password"
                         ref={loginPasswordRef}
                     />
                 </label>
 
-                <label>
+                <label className="checkbox-container">
                     <input
-                        type='checkbox'
-                        name='remember-user'
-                        id='remember-user'
+                        type="checkbox"
+                        name="remember-user"
+                        id="remember-user"
                         onClick={(e) => {
                             isRememberUser(e);
                         }}
                     />
                     <span>Keep me logged in</span>
                 </label>
-                <Button type='submit' text='Login' className='login-button' />
+                <Button type="submit" text="Login" className="button" />
             </form>
 
             <div>
                 Don't have an account yet?{' '}
-                <NavLink to='/signup'>Sign up here.</NavLink>
+                <NavLink className="hyperlink" to="/signup">
+                    Sign up here.
+                </NavLink>
             </div>
         </div>
     );
