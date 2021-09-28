@@ -58,6 +58,7 @@ const Login = ({
                     setUser(res.data.data);
                     setMessage('Logged in!');
                     setIsLoggedIn(true);
+                    console.log(res);
 
                     if (rememberUser) {
                         localStorageLogin(
@@ -68,9 +69,9 @@ const Login = ({
                 .catch((err) => {
                     if (err.response) {
                         // Request made and server responded
-                        console.log(err.response.data);
-                        console.log(err.response.status);
-                        console.log(err.response.headers);
+                        // console.log(err.response.data);
+                        // console.log(err.response.status);
+                        // console.log(err.response.headers);
                         setHeaders('');
                         setUser('');
                         setMessage(err.response.data.errors[0]);
@@ -79,10 +80,10 @@ const Login = ({
                         }, 3000);
                     } else if (err.request) {
                         // The request was made but no response was received
-                        console.log(err.request);
+                        // console.log(err.request);
                     } else {
                         // Something happened in setting up the request that triggered an Error
-                        console.log('Error', err.message);
+                        // console.log('Error', err.message);
                     }
                 });
         } else {
@@ -92,14 +93,12 @@ const Login = ({
     };
 
     return (
-
-        <div className="login-page">
+        <div className='login-page'>
             {showToast || message || loginMessage ? (
                 <Toast
-                    className="toast-message"
+                    className='toast-message'
                     text={message || loginMessage}
                 />
-
             ) : (
                 <></>
             )}
@@ -154,9 +153,7 @@ const Login = ({
 
             <div>
                 Don't have an account yet?{' '}
-
                 <NavLink className='hyperlink' to='/signup'>
-
                     Sign up here.
                 </NavLink>
             </div>
