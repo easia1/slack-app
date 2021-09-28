@@ -3,8 +3,9 @@ import { getChannelsAPI, getListsAPI } from '../../api/API';
 import Pic from '../pic/Pic';
 import './channellist.css';
 import { default as StartChannel } from '../startchannel.svg';
+import { NavLink } from 'react-router-dom';
 
-const ChannelList = ({ currentHeaders, channelList }) => {
+const ChannelList = ({ currentHeaders, channelList, handleSetLoadData }) => {
     if (channelList.data.errors) {
         return (
             <div className="contact-container-empty">
@@ -17,14 +18,22 @@ const ChannelList = ({ currentHeaders, channelList }) => {
         return (
             <div className="channel-container">
                 {channelList.data.data.map((channel, index) => (
-                    <div className="channel-item" key={index}>
+                    <NavLink
+                        to={`/channel/${channel.id}`}
+                        className="channel-item"
+                        key={index}
+                        activeClassName="selected-message"
+                        onClick={() => {
+                            handleSetLoadData();
+                        }}
+                    >
                         <Pic
                             id={channel.id}
                             name={channel.name}
                             isChannel={true}
                         />
                         <span>#{channel.name}</span>
-                    </div>
+                    </NavLink>
                 ))}
             </div>
         );

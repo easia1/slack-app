@@ -29,3 +29,22 @@ export const getListsAPI = (data) => {
         .then((res) => res)
         .catch((err) => err);
 };
+
+export const getMessagesAPI = (data) => {
+    return axios({
+        method: 'GET',
+        url: `messages?receiver_id=${data.user_id}&receiver_class=${data.receiver_class}`,
+        params: {
+            receiver_id: data.user_id,
+            receiver_class: data.receiver_class,
+        },
+        headers: {
+            'access-token': data['access-token'],
+            client: data.client,
+            expiry: data.expiry,
+            uid: data.uid,
+        },
+    })
+        .then((res) => res)
+        .catch((err) => err);
+};

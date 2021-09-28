@@ -7,8 +7,6 @@ const Pic = ({ id, name, isChannel }) => {
         return initialLetter.toUpperCase();
     };
 
-    console.log('pic', id, name);
-
     let colors = [
         '#d43d2a',
         '#ed8937',
@@ -19,7 +17,7 @@ const Pic = ({ id, name, isChannel }) => {
     ];
 
     let colorNumber;
-    console.log(colors.length);
+
     const getColor = () => {
         if (id === 0) {
             return (colorNumber = 0);
