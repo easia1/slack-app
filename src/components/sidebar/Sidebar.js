@@ -5,6 +5,7 @@ import { useEffect } from 'react/cjs/react.development';
 import Pic from '../pic/Pic';
 import ChannelList from '../channel/ChannelList';
 import ContactList from '../contact/ContactList';
+import { NavLink } from 'react-router-dom';
 
 const Sidebar = ({
     sidebarMode,
@@ -14,6 +15,7 @@ const Sidebar = ({
     allUsers,
     contactList,
     channelList,
+    handleSetLoadData,
 }) => {
     console.log('sidebar', currentHeaders);
     console.log('sidebar', allUsers);
@@ -23,17 +25,26 @@ const Sidebar = ({
         return (
             <div className="sidebar">
                 <h1 className="sidebar-title">Direct messages</h1>
-                <Button className="button" text="New message" />
-                <ContactList contactList={contactList} />
+                <NavLink to="/new-message" className="button">
+                    New message
+                </NavLink>
+                <ContactList
+                    contactList={contactList}
+                    handleSetLoadData={handleSetLoadData}
+                />
             </div>
         );
     } else if (sidebarMode === 'channel') {
         return (
             <div className="sidebar">
                 <h1 className="sidebar-title">Channels</h1>
+
                 <Button className="button" text="Add channel" />
 
-                <ChannelList channelList={channelList} />
+                <ChannelList
+                    channelList={channelList}
+                    handleSetLoadData={handleSetLoadData}
+                />
             </div>
         );
     } else if (sidebarMode === 'search') {

@@ -13,6 +13,7 @@ const Login = ({
     setHeaders,
     setUser,
     setLoginMessage,
+    loginMessage,
     localStorageLogin,
 }) => {
     //Refs for email and password input fields
@@ -89,8 +90,11 @@ const Login = ({
 
     return (
         <div className="login-page">
-            {showToast || message ? (
-                <Toast className="toast-message" text={message} />
+            {showToast || message || loginMessage ? (
+                <Toast
+                    className="toast-message"
+                    text={message || loginMessage}
+                />
             ) : (
                 <></>
             )}
@@ -145,7 +149,7 @@ const Login = ({
 
             <div>
                 Don't have an account yet?{' '}
-                <NavLink className="hyperlink" to="/signup">
+                <NavLink className="hyperlink" to="signup">
                     Sign up here.
                 </NavLink>
             </div>

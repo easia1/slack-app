@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { getListsAPI } from './api/API';
 import Button from './components/button/Button';
 import ChannelList from './components/channel/ChannelList';
@@ -7,6 +7,7 @@ import Sidebar from './components/sidebar/Sidebar';
 import Loading from './components/loading/Loading';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import NewMessage from './newmessage/NewMessage';
+import Messages from './messages/Messages';
 
 const Main = ({
     logoutFunction,
@@ -23,6 +24,12 @@ const Main = ({
     const [contactList, setContactList] = useState('');
 
     const [makeRender, setMakeRender] = useState(false);
+
+    const [loadData, setLoadData] = useState(false);
+
+    const handleSetLoadData = () => {
+        setLoadData(!loadData);
+    };
 
     const runAPI = () => {
         let channelListRequest = {
@@ -46,7 +53,7 @@ const Main = ({
             client: currentHeaders.client,
             expiry: currentHeaders.expiry,
             uid: currentHeaders.uid,
-            url: 'users',
+            url: 'users/recent',
         };
 
         console.log('channelsReq', channelListRequest);
@@ -82,7 +89,7 @@ const Main = ({
             .catch((err) => console.log(err));
     };
 
-    useState(() => {
+    useEffect(() => {
         runAPI();
     }, []);
 
@@ -170,12 +177,20 @@ const Main = ({
                         channelList={channelList}
                         allUsers={allUsers}
                         contactList={contactList}
+                        handleSetLoadData={handleSetLoadData}
                     />
                     <Switch>
-                        <Route
-                            path="/newMessage"
-                            component={() => <NewMessage />}
-                        ></Route>
+                        <Route path="/:type/:id">
+                            <Messages
+                                currentHeaders={currentHeaders}
+                                currentUser={currentUser}
+                                channelList={channelList}
+                                loadData={loadData}
+                            />
+                        </Route>
+                        <Route exact path="/new-message">
+                            <NewMessage currentHeaders={currentHeaders} />
+                        </Route>
                     </Switch>
                 </Router>
             </div>

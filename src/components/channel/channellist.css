@@ -25,6 +25,8 @@
     padding: 10px;
     border-radius: 10px;
     transition: 0.1s ease;
+    text-decoration: none;
+    color: black;
 }
 
 .channel-item span {
@@ -38,4 +40,8 @@
 
 .channel-item:active {
     transform: scale(0.95);
+}
+
+.selected-message {
+    background-color: var(--darker-grey);
 }

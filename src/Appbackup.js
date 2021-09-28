@@ -25,6 +25,7 @@ function App() {
     //Logout function
     const logoutFunction = () => {
         localStorage.setItem('User', null);
+        /* localStorage.setItem('Headers', null); */
         setUser(null);
         setHeaders(null);
         setIsLoggedIn(false);
@@ -36,14 +37,22 @@ function App() {
 
     const localStorageLogin = (data /* , headers */) => {
         localStorage.setItem('User', JSON.stringify(data));
+        /* localStorage.setItem('Headers', JSON.stringify(headers)); */
     };
 
     // Logged In
     useEffect(() => {
         const localStorageLoginUser = JSON.parse(localStorage.getItem('User'));
+        /* const localStorageLoginHeader = JSON.parse(
+            localStorage.getItem('Headers')
+        ); */
 
         if (localStorageLoginUser) {
+            /* setIsLoggedIn(true); */
+            /* setHeaders(localStorageLoginHeader); */
+            /* setUser(localStorageLoginUser); */
             setLoginMessage('Logging you in...');
+            // setIsLoading(true);
 
             userSessionAPI(localStorageLoginUser)
                 .then((res) => {
@@ -51,6 +60,7 @@ function App() {
                     setUser(res.data.data);
                     setLoginMessage('Logged in!');
                     setIsLoggedIn(true);
+                    // setIsLoading(true);
                 })
                 .catch((err) => {
                     if (err.response) {
@@ -99,6 +109,7 @@ function App() {
                                 component={() => <Register />}
                             />
                         </Switch>
+                        {/* {loginMessage ? <div>{loginMessage}</div> : ''} */}
                     </div>
                 ) : (
                     <Main
@@ -112,6 +123,22 @@ function App() {
                         // isLoading={isLoading}
                     />
                 )}
+                {/* {currentUser ? <div>Email: {currentUser.email}</div> : ''}
+
+                {/* {loginMessage ? <div>{loginMessage}</div> : ''}
+            {currentUser ? <div>Email: {currentUser.email}</div> : ''}
+
+            {currentUser ? <div>User ID: {currentUser.id}</div> : ''}
+            {currentHeaders ? (
+                <div>Access token: {currentHeaders['access-token']}</div>
+            ) : (
+                ''
+            )}
+            {currentHeaders ? (
+                <div>Expiry: {currentHeaders['expiry']}</div>
+            ) : (
+                ''
+            )} */}
             </Router>
         </div>
     );
