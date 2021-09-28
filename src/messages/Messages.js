@@ -67,7 +67,7 @@ const Messages = ({ currentHeaders, currentUser, channelList, loadData }) => {
                     {messages.data.data.map((message, index) => {
                         return message.sender.id !== currentUser.id ? (
                             <ChatBubble
-                                key={index}
+                                keyNum={index}
                                 id={message.sender.id}
                                 name={message.sender.email}
                                 message={message.body}
@@ -77,7 +77,7 @@ const Messages = ({ currentHeaders, currentUser, channelList, loadData }) => {
                             />
                         ) : (
                             <ChatBubble
-                                key={index}
+                                keyNum={index}
                                 id={message.sender.id}
                                 name={message.sender.email}
                                 message={message.body}
