@@ -52,6 +52,7 @@ const Sidebar = ({
                     <NewChannel
                         showModal={showModal}
                         setShowModal={setShowModal}
+                        currentHeaders={currentHeaders}
                     />
                 ) : null}
 

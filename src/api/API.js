@@ -48,3 +48,22 @@ export const getMessagesAPI = (data) => {
         .then((res) => res)
         .catch((err) => err);
 };
+
+export const createChannelAPI = (data) => {
+    return axios({
+        method: 'POST',
+        url: 'channels',
+        data: {
+            name: data.name,
+            user_ids: data.user_ids,
+        },
+        headers: {
+            'access-token': data['access-token'],
+            client: data.client,
+            expiry: data.expiry,
+            uid: data.uid,
+        },
+    })
+        .then((res) => res)
+        .catch((err) => err);
+};
