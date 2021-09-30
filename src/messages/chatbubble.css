@@ -1,3 +1,11 @@
+.messages-section {
+    overflow: scroll;
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
 .messages-container {
     overflow: scroll;
     width: 100%;
@@ -56,9 +64,37 @@
     margin-bottom: 5px;
 }
 
-/* .chat-header {
+.chat-header {
+    position: sticky;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 10%;
-    background-color: black;
+
+    background-color: var(--lightest-grey);
+    border-bottom: 1px solid var(--dark-grey);
     display: flex;
-} */
+    padding: 30px;
+    align-items: center;
+}
+
+.chat-name {
+    color: var(--darkest-color);
+    font-size: 1.2em;
+}
+
+.message-container-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    user-select: none;
+    overflow: hidden;
+}
+
+.message-container-empty img {
+    width: 25%;
+}

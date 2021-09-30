@@ -1,36 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Route, Redirect } from 'react-router-dom';
+import { UserContext } from './context/UserContext';
 
-const PrivateRoute = ({
-    isLoggedIn,
-    component: Component,
-    setIsLoggedIn,
-    setUser,
-    setHeaders,
-    setLoginMessage,
-    loginMessage,
-    localStorageLogin,
-    ...rest
-}) => {
+const PrivateRoute = ({ component: Component, ...rest }) => {
+    const { isLoggedIn } = useContext(UserContext);
+
     return (
         // Show the component only when the user is logged in
         // Otherwise, redirect the user to /signin page
         <Route
             {...rest}
             render={(props) =>
-                isLoggedIn ? (
-                    <Component
-                        {...props}
-                        setIsLoggedIn={setIsLoggedIn}
-                        setUser={setUser}
-                        setHeaders={setHeaders}
-                        setLoginMessage={setLoginMessage}
-                        loginMessage={loginMessage}
-                        localStorageLogin={localStorageLogin}
-                    />
-                ) : (
-                    <Redirect to="/" />
-                )
+                isLoggedIn ? <Component {...props} /> : <Redirect to="/login" />
             }
         />
     );

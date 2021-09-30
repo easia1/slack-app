@@ -3,6 +3,7 @@ import Button from '../components/button/Button';
 import { createChannelAPI } from '../api/API';
 import axios from 'axios';
 import Toast from '../components/toast/Toast';
+import './newchannel.css';
 
 const NewChannel = ({ setShowModal, showModal, currentHeaders }) => {
     const channelNameRef = useRef();
@@ -49,25 +50,29 @@ const NewChannel = ({ setShowModal, showModal, currentHeaders }) => {
     };
 
     return (
-        <div id='channel-modal'>
-            <form>
-                <span onClick={() => setShowModal(false)}>X</span>
-                <label>Channel Name:</label>
-                <input
-                    type='text'
-                    placeholder='Channel Name'
-                    max='15'
-                    ref={channelNameRef}
-                ></input>
-                <input
-                    type='text'
-                    placeholder='User ids'
-                    ref={userInputRef}
-                ></input>
+        <div className="channel-modal-container">
+            <form className="channel-modal">
+                <div className="modal-title">
+                    <span
+                        className="button"
+                        onClick={() => setShowModal(false)}
+                    >
+                        X
+                    </span>
+                    <h1 className="sidebar-title">Create a channel</h1>
+                </div>
+                <label className="input-container">
+                    <span>Channel Name</span>
+                    <input type="text" max="15" ref={channelNameRef}></input>
+                </label>
+                <label className="input-container">
+                    <span>Input user IDs</span>
+                    <input type="text" ref={userInputRef}></input>
+                </label>
                 <Button
-                    className='button'
-                    type='submit'
-                    text='Create Channel'
+                    className="button"
+                    type="submit"
+                    text="Create Channel"
                     onClick={(e) => {
                         e.preventDefault();
                         onCreateChannel();
@@ -75,7 +80,7 @@ const NewChannel = ({ setShowModal, showModal, currentHeaders }) => {
                 />
             </form>
             {showToast || showError ? (
-                <Toast className='toast-message' text={message} />
+                <Toast className="toast-message" text={message} />
             ) : (
                 <></>
             )}

@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Pic from '../pic/Pic';
 import './contactlist.css';
 import { default as BeginChat } from '../beginchat.svg';
 import { NavLink } from 'react-router-dom';
+import { UserContext } from '../../context/UserContext';
 
-const ContactList = ({ contactList, handleSetLoadData }) => {
+const ContactList = () => {
+    const { contactList, handleSetLoadData, removeEmail } =
+        useContext(UserContext);
+
     if (contactList.data.data.length === 0) {
         return (
             <div className="contact-container-empty">
