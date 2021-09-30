@@ -53,5 +53,6 @@ NavLink button {
 @media screen and (min-width: 900px) {
     .sidebar {
         width: 23vw;
+        border-right: 1px solid var(--dark-grey);
     }
 }

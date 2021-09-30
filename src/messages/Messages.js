@@ -8,6 +8,7 @@ import { UserContext } from '../context/UserContext';
 import ChatBubble from './ChatBubble';
 import ChatHeader from './ChatHeader';
 import Nocontent from '../components/nocontent.svg';
+import MessageInput from './MessageInput';
 
 const Messages = () => {
     const { currentHeaders, currentUser, channelList, allUsers, loadData } =
@@ -79,31 +80,34 @@ const Messages = () => {
                     <ChatHeader type={type} id={id} messages={messages} />
 
                     {messages.data.data.length > 0 ? (
-                        <div className="messages-container">
-                            {messages.data.data.map((message, index) => {
-                                return message.sender.id !== currentUser.id ? (
-                                    <ChatBubble
-                                        keyNum={index}
-                                        id={message.sender.id}
-                                        name={message.sender.email}
-                                        message={message.body}
-                                        time={message.created_at}
-                                        className="incoming-messages"
-                                        type="sender"
-                                    />
-                                ) : (
-                                    <ChatBubble
-                                        keyNum={index}
-                                        id={message.sender.id}
-                                        name={message.sender.email}
-                                        message={message.body}
-                                        time={message.created_at}
-                                        className="outgoing-messages"
-                                        type="user"
-                                    />
-                                );
-                            })}
-                        </div>
+                        <>
+                            <div className="messages-container">
+                                {messages.data.data.map((message, index) => {
+                                    return message.sender.id !==
+                                        currentUser.id ? (
+                                        <ChatBubble
+                                            keyNum={index}
+                                            id={message.sender.id}
+                                            name={message.sender.email}
+                                            message={message.body}
+                                            time={message.created_at}
+                                            className="incoming-messages"
+                                            type="sender"
+                                        />
+                                    ) : (
+                                        <ChatBubble
+                                            keyNum={index}
+                                            id={message.sender.id}
+                                            name={message.sender.email}
+                                            message={message.body}
+                                            time={message.created_at}
+                                            className="outgoing-messages"
+                                            type="user"
+                                        />
+                                    );
+                                })}
+                            </div>
+                        </>
                     ) : (
                         <div className="message-container-empty">
                             <img src={Nocontent} />
@@ -113,6 +117,7 @@ const Messages = () => {
                             <p>Send a message!</p>
                         </div>
                     )}
+                    <MessageInput />
                 </>
             ) : (
                 <h1 className="navbar-logo">Please wait...</h1>
