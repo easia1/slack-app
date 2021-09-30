@@ -1,12 +1,11 @@
 import React, { useRef, useState } from 'react';
-import '../components/sidebar/Sidebar';
 import Button from '../components/button/Button';
-import { userSessionAPI } from '../api/API';
+import { createChannelAPI } from '../api/API';
 import axios from 'axios';
 import Toast from '../components/toast/Toast';
 import './newchannel.css';
 
-const NewChannel = ({ setShowModal, showModal }) => {
+const NewChannel = ({ setShowModal, showModal, currentHeaders }) => {
     const channelNameRef = useRef();
     const userInputRef = useRef();
 
@@ -15,10 +14,11 @@ const NewChannel = ({ setShowModal, showModal }) => {
 
     const [showError, setShowError] = useState(false);
 
-    const handleError = () => {
+    const onCreateChannel = () => {
         if (channelNameRef.current.value.length > 15) {
             setMessage('Channel Name too long');
             setShowError(true);
+            setShowToast(false);
             setTimeout(() => {
                 setShowError(false);
             }, 3000);
@@ -30,28 +30,23 @@ const NewChannel = ({ setShowModal, showModal }) => {
                 setShowError(false);
             }, 3000);
             channelNameRef.current.focus();
-        }
-    };
-
-    const onCreateChannel = (e) => {
-        handleError();
-        e.preventDefault();
-        axios({
-            method: 'POST',
-            url: 'channels',
-            headers: {
-                'access-token': '_HhI8svuYO3K1MemvkEuig',
-                expiry: '1634048380',
-                client: 'vqSOEvIwCa3gPOTEsISn1w',
-                uid: 'arwie@avion.com',
-            },
-            data: {
+        } else {
+            const data = {
                 name: channelNameRef.current.value,
                 user: userInputRef.current.value,
-            },
-        })
-            .then((res) => console.log(res))
-            .catch((err) => console.log(err));
+                'access-token': currentHeaders['access-token'],
+                client: currentHeaders.client,
+                expiry: currentHeaders.expiry,
+                uid: currentHeaders.uid,
+            };
+            createChannelAPI(data).then((res) => {
+                setMessage('Channel Created!');
+                setShowToast(true);
+                setTimeout(() => {
+                    setShowToast(false);
+                }, 3000);
+            });
+        }
     };
 
     return (
@@ -78,7 +73,10 @@ const NewChannel = ({ setShowModal, showModal }) => {
                     className="button"
                     type="submit"
                     text="Create Channel"
-                    onClick={onCreateChannel}
+                    onClick={(e) => {
+                        e.preventDefault();
+                        onCreateChannel();
+                    }}
                 />
             </form>
             {showToast || showError ? (
