@@ -22,6 +22,7 @@ const Main = () => {
         contactList,
         showModal,
         setShowModal,
+        loadData,
     } = useContext(UserContext);
 
     const runAPI = () => {
@@ -80,7 +81,7 @@ const Main = () => {
 
     useEffect(() => {
         runAPI();
-    }, []);
+    }, [loadData]);
 
     // useState(() => {
     //     let channelListRequest = {

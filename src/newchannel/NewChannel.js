@@ -1,11 +1,14 @@
-import React, { useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import Button from '../components/button/Button';
 import { createChannelAPI } from '../api/API';
 import axios from 'axios';
 import Toast from '../components/toast/Toast';
 import './newchannel.css';
+import { UserContext } from '../context/UserContext';
 
-const NewChannel = ({ setShowModal, showModal, currentHeaders }) => {
+const NewChannel = () => {
+    const { currentHeaders, setShowModal } = useContext(UserContext);
+
     const channelNameRef = useRef();
     const userInputRef = useRef();
 
@@ -44,6 +47,7 @@ const NewChannel = ({ setShowModal, showModal, currentHeaders }) => {
                 setShowToast(true);
                 setTimeout(() => {
                     setShowToast(false);
+                    setShowModal(false);
                 }, 3000);
             });
         }
