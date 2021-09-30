@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { getChannelsAPI, getListsAPI } from '../../api/API';
+import React, { useContext, useEffect, useState } from 'react';
 import Pic from '../pic/Pic';
 import './channellist.css';
 import { default as StartChannel } from '../startchannel.svg';
 import { NavLink } from 'react-router-dom';
+import { UserContext } from '../../context/UserContext';
 
-const ChannelList = ({ currentHeaders, channelList, handleSetLoadData }) => {
+const ChannelList = () => {
+    const { channelList, handleSetLoadData } = useContext(UserContext);
+
     if (channelList.data.errors) {
         return (
             <div className="contact-container-empty">
@@ -32,7 +34,7 @@ const ChannelList = ({ currentHeaders, channelList, handleSetLoadData }) => {
                             name={channel.name}
                             isChannel={true}
                         />
-                        <span>#{channel.name}</span>
+                        <span>{channel.name}</span>
                     </NavLink>
                 ))}
             </div>

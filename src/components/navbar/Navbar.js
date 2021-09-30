@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
+import { UserContext } from '../../context/UserContext';
 import Logo from '../logo/Logo';
 import Pic from '../pic/Pic';
 import './navbar.css';
 
-const Navbar = ({ setSidebarMode, sidebarMode, currentUser }) => {
+const Navbar = () => {
+    const { setSidebarMode, sidebarMode, currentUser } =
+        useContext(UserContext);
+
     return (
         <nav>
             <Logo className="navbar-logo" />

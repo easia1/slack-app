@@ -1,36 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Route, Redirect } from 'react-router-dom';
+import { UserContext } from './context/UserContext';
 
-const PublicRoute = ({
-    isLoggedIn,
-    component: Component,
-    restricted,
-    setIsLoggedIn,
-    setUser,
-    setHeaders,
-    setLoginMessage,
-    loginMessage,
-    localStorageLogin,
-    ...rest
-}) => {
+const PublicRoute = ({ component: Component, restricted, ...rest }) => {
+    const { isLoggedIn } = useContext(UserContext);
+
     return (
         // restricted = false meaning public route
         // restricted = true meaning restricted route
+
         <Route
             {...rest}
             render={(props) =>
                 isLoggedIn && restricted ? (
-                    <Redirect to="/app" />
+                    <Redirect to="/" exact />
                 ) : (
-                    <Component
-                        {...props}
-                        isLoggedIn={isLoggedIn}
-                        setIsLoggedIn={setIsLoggedIn}
-                        setUser={setUser}
-                        setHeaders={setHeaders}
-                        setLoginMessage={setLoginMessage}
-                        loginMessage={loginMessage}
-                    />
+                    <Component {...props} />
                 )
             }
         />

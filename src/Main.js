@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { getListsAPI } from './api/API';
 import Button from './components/button/Button';
 import ChannelList from './components/channel/ChannelList';
@@ -8,28 +8,21 @@ import Loading from './components/loading/Loading';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import NewMessage from './newmessage/NewMessage';
 import Messages from './messages/Messages';
+import { UserContext } from './context/UserContext';
+import NewChannel from './newchannel/NewChannel';
 
-const Main = ({
-    logoutFunction,
-    sidebarMode,
-    setSidebarMode,
-    currentHeaders,
-    currentUser,
-    isLoggedIn,
-    // setIsLoading,
-    // isLoading,
-}) => {
-    const [channelList, setChannelList] = useState('');
-    const [allUsers, setAllUsers] = useState('');
-    const [contactList, setContactList] = useState('');
-
-    const [makeRender, setMakeRender] = useState(false);
-
-    const [loadData, setLoadData] = useState(false);
-
-    const handleSetLoadData = () => {
-        setLoadData(!loadData);
-    };
+const Main = () => {
+    const {
+        currentHeaders,
+        setChannelList,
+        setAllUsers,
+        setContactList,
+        allUsers,
+        channelList,
+        contactList,
+        showModal,
+        setShowModal,
+    } = useContext(UserContext);
 
     const runAPI = () => {
         let channelListRequest = {
@@ -72,8 +65,6 @@ const Main = ({
             .then((res) => {
                 console.log('users r', res);
                 console.log('users', allUsers);
-                console.log('channels r2', res);
-                console.log('channels2', channelList);
                 setAllUsers(res);
             })
             .catch((err) => console.log(err));
@@ -82,8 +73,6 @@ const Main = ({
             .then((res) => {
                 console.log('contact r', res);
                 console.log('contact', contactList);
-                console.log('channels r3', res);
-                console.log('channels 3', channelList);
                 setContactList(res);
             })
             .catch((err) => console.log(err));
@@ -151,9 +140,18 @@ const Main = ({
     //         .catch((err) => console.log(err));
     // }, [currentHeaders, channelList, allUsers, contactList]);
 
+    // //Logout function
+    // const logoutFunction = () => {
+    //     localStorage.setItem('User', null);
+    //     setUser(null);
+    //     setHeaders(null);
+    //     setIsLoggedIn(false);
+    //     setLoginMessage('');
+    //     setSidebarMode('dm');
+    // };
+
     if (!channelList.data || !allUsers || !contactList) {
         // setIsLoading(false);
-
         return <Loading />;
     }
 
@@ -163,33 +161,21 @@ const Main = ({
     else {
         return (
             <div className="app-container">
+                {showModal ? (
+                    <NewChannel
+                        showModal={showModal}
+                        setShowModal={setShowModal}
+                    />
+                ) : null}
                 <Router>
-                    <Navbar
-                        setSidebarMode={setSidebarMode}
-                        sidebarMode={sidebarMode}
-                        currentUser={currentUser}
-                    />
-                    <Sidebar
-                        sidebarMode={sidebarMode}
-                        logoutFunction={logoutFunction}
-                        currentHeaders={currentHeaders}
-                        currentUser={currentUser}
-                        channelList={channelList}
-                        allUsers={allUsers}
-                        contactList={contactList}
-                        handleSetLoadData={handleSetLoadData}
-                    />
+                    <Navbar />
+                    <Sidebar />
                     <Switch>
                         <Route path="/:type/:id">
-                            <Messages
-                                currentHeaders={currentHeaders}
-                                currentUser={currentUser}
-                                channelList={channelList}
-                                loadData={loadData}
-                            />
+                            <Messages />
                         </Route>
                         <Route exact path="/new-message">
-                            <NewMessage currentHeaders={currentHeaders} />
+                            <NewMessage />
                         </Route>
                     </Switch>
                 </Router>
