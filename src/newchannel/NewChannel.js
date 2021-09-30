@@ -13,10 +13,11 @@ const NewChannel = ({ setShowModal, showModal, currentHeaders }) => {
 
     const [showError, setShowError] = useState(false);
 
-    const handleError = () => {
+    const onCreateChannel = () => {
         if (channelNameRef.current.value.length > 15) {
             setMessage('Channel Name too long');
             setShowError(true);
+            setShowToast(false);
             setTimeout(() => {
                 setShowError(false);
             }, 3000);
@@ -28,35 +29,30 @@ const NewChannel = ({ setShowModal, showModal, currentHeaders }) => {
                 setShowError(false);
             }, 3000);
             channelNameRef.current.focus();
+        } else {
+            const data = {
+                name: channelNameRef.current.value,
+                user: userInputRef.current.value,
+                'access-token': currentHeaders['access-token'],
+                client: currentHeaders.client,
+                expiry: currentHeaders.expiry,
+                uid: currentHeaders.uid,
+            };
+            createChannelAPI(data).then((res) => {
+                setMessage('Channel Created!');
+                setShowToast(true);
+                setTimeout(() => {
+                    setShowToast(false);
+                }, 3000);
+            });
         }
-    };
-
-    const onCreateChannel = (e) => {
-        handleError();
-        e.preventDefault();
-        const data = {
-            name: channelNameRef.current.value,
-            user: userInputRef.current.value,
-            'access-token': currentHeaders['access-token'],
-            client: currentHeaders.client,
-            expiry: currentHeaders.expiry,
-            uid: currentHeaders.uid,
-        };
-
-        createChannelAPI(data).then((res) => {
-            setMessage('Channel Created!');
-            setShowToast(true);
-            setTimeout(() => {
-                setShowToast(false);
-            }, 3000);
-        });
     };
 
     return (
         <div id='channel-modal'>
             <form>
                 <span onClick={() => setShowModal(false)}>X</span>
-                <label>Create Channel:</label>
+                <label>Channel Name:</label>
                 <input
                     type='text'
                     placeholder='Channel Name'
@@ -72,7 +68,10 @@ const NewChannel = ({ setShowModal, showModal, currentHeaders }) => {
                     className='button'
                     type='submit'
                     text='Create Channel'
-                    onClick={onCreateChannel}
+                    onClick={(e) => {
+                        e.preventDefault();
+                        onCreateChannel();
+                    }}
                 />
             </form>
             {showToast || showError ? (
