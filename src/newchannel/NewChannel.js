@@ -14,8 +14,9 @@ const NewChannel = () => {
 
     const [message, setMessage] = useState();
     const [showToast, setShowToast] = useState(false);
-
     const [showError, setShowError] = useState(false);
+
+    const [userIds, setUserIds] = useState([]);
 
     const onCreateChannel = () => {
         if (channelNameRef.current.value.length > 15) {
@@ -36,7 +37,7 @@ const NewChannel = () => {
         } else {
             const data = {
                 name: channelNameRef.current.value,
-                user: userInputRef.current.value,
+                user_ids: userInputRef.current.value.split(','),
                 'access-token': currentHeaders['access-token'],
                 client: currentHeaders.client,
                 expiry: currentHeaders.expiry,
@@ -54,29 +55,29 @@ const NewChannel = () => {
     };
 
     return (
-        <div className="channel-modal-container">
-            <form className="channel-modal">
-                <div className="modal-title">
+        <div className='channel-modal-container'>
+            <form className='channel-modal'>
+                <div className='modal-title'>
                     <span
-                        className="button"
+                        className='button'
                         onClick={() => setShowModal(false)}
                     >
                         X
                     </span>
-                    <h1 className="sidebar-title">Create a channel</h1>
+                    <h1 className='sidebar-title'>Create a channel</h1>
                 </div>
-                <label className="input-container">
+                <label className='input-container'>
                     <span>Channel Name</span>
-                    <input type="text" max="15" ref={channelNameRef}></input>
+                    <input type='text' max='15' ref={channelNameRef}></input>
                 </label>
-                <label className="input-container">
+                <label className='input-container'>
                     <span>Input user IDs</span>
-                    <input type="text" ref={userInputRef}></input>
+                    <input type='text' ref={userInputRef}></input>
                 </label>
                 <Button
-                    className="button"
-                    type="submit"
-                    text="Create Channel"
+                    className='button'
+                    type='submit'
+                    text='Create Channel'
                     onClick={(e) => {
                         e.preventDefault();
                         onCreateChannel();
@@ -84,7 +85,7 @@ const NewChannel = () => {
                 />
             </form>
             {showToast || showError ? (
-                <Toast className="toast-message" text={message} />
+                <Toast className='toast-message' text={message} />
             ) : (
                 <></>
             )}
