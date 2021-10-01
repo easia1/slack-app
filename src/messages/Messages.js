@@ -18,7 +18,7 @@ const Messages = () => {
 
     const [messages, setMessages] = useState();
 
-    const [chatInfo, setChatInfo] = useState();
+    // const [chatInfo, setChatInfo] = useState();
 
     const getMessages = () => {
         let messageRequest = {
@@ -74,54 +74,58 @@ const Messages = () => {
     }, [loadData]);
 
     return (
-        <div className="messages-section">
-            {messages ? (
-                <>
-                    <ChatHeader type={type} id={id} messages={messages} />
+        <div className="main-content">
+            <div className="messages-section">
+                {messages ? (
+                    <>
+                        <ChatHeader type={type} id={id} messages={messages} />
 
-                    {messages.data.data.length > 0 ? (
-                        <>
-                            <div className="messages-container">
-                                {messages.data.data.map((message, index) => {
-                                    return message.sender.id !==
-                                        currentUser.id ? (
-                                        <ChatBubble
-                                            keyNum={index}
-                                            id={message.sender.id}
-                                            name={message.sender.email}
-                                            message={message.body}
-                                            time={message.created_at}
-                                            className="incoming-messages"
-                                            type="sender"
-                                        />
-                                    ) : (
-                                        <ChatBubble
-                                            keyNum={index}
-                                            id={message.sender.id}
-                                            name={message.sender.email}
-                                            message={message.body}
-                                            time={message.created_at}
-                                            className="outgoing-messages"
-                                            type="user"
-                                        />
-                                    );
-                                })}
+                        {messages.data.data.length > 0 ? (
+                            <div className="message-flex">
+                                <div className="messages-container">
+                                    {messages.data.data.map(
+                                        (message, index) => {
+                                            return message.sender.id !==
+                                                currentUser.id ? (
+                                                <ChatBubble
+                                                    keyNum={index}
+                                                    id={message.sender.id}
+                                                    name={message.sender.email}
+                                                    message={message.body}
+                                                    time={message.created_at}
+                                                    className="incoming-messages"
+                                                    type="sender"
+                                                />
+                                            ) : (
+                                                <ChatBubble
+                                                    keyNum={index}
+                                                    id={message.sender.id}
+                                                    name={message.sender.email}
+                                                    message={message.body}
+                                                    time={message.created_at}
+                                                    className="outgoing-messages"
+                                                    type="user"
+                                                />
+                                            );
+                                        }
+                                    )}
+                                </div>
                             </div>
-                        </>
-                    ) : (
-                        <div className="message-container-empty">
-                            <img src={Nocontent} />
-                            <span className="empty-title">
-                                Be the first one to say hi!
-                            </span>
-                            <p>Send a message!</p>
-                        </div>
-                    )}
-                    <MessageInput />
-                </>
-            ) : (
-                <h1 className="navbar-logo">Please wait...</h1>
-            )}
+                        ) : (
+                            <div className="message-container-empty">
+                                <img src={Nocontent} />
+                                <span className="empty-title">
+                                    Be the first one to say hi!
+                                </span>
+                                <p>Send a message!</p>
+                            </div>
+                        )}
+                        <MessageInput type={type} id={id} />
+                    </>
+                ) : (
+                    ''
+                )}
+            </div>
         </div>
     );
 };

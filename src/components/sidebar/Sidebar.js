@@ -14,8 +14,20 @@ const Sidebar = () => {
     // console.log('sidebar', contactList);
     // console.log('sidebar', channelList);
 
-    const { sidebarMode, logoutFunction, currentUser, setShowModal } =
-        useContext(UserContext);
+    const {
+        sidebarMode,
+        logoutFunction,
+        currentUser,
+        setShowModal,
+        channelList,
+        allUsers,
+    } = useContext(UserContext);
+
+    // const [allMessages, setAllMessages] = useState([]);
+
+    // const loadAllMessages = () => {
+    //     allUsers.data.data.map((user) => {});
+    // };
 
     // const [showModal, setShowModal] = useState(false);
 

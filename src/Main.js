@@ -10,10 +10,12 @@ import NewMessage from './newmessage/NewMessage';
 import Messages from './messages/Messages';
 import { UserContext } from './context/UserContext';
 import NewChannel from './newchannel/NewChannel';
+import Selectmessage from './components/selectmessage.svg';
 
 const Main = () => {
     const {
         currentHeaders,
+        currentUser,
         setChannelList,
         setAllUsers,
         setContactList,
@@ -23,6 +25,7 @@ const Main = () => {
         showModal,
         setShowModal,
         loadData,
+        removeEmail,
     } = useContext(UserContext);
 
     const runAPI = () => {
@@ -49,10 +52,6 @@ const Main = () => {
             uid: currentHeaders.uid,
             url: 'users/recent',
         };
-
-        console.log('channelsReq', channelListRequest);
-        console.log('allusr', allUsersListRequest);
-        console.log('contr', contactListRequest);
 
         getListsAPI(channelListRequest)
             .then((res) => {
@@ -172,6 +171,21 @@ const Main = () => {
                     <Navbar />
                     <Sidebar />
                     <Switch>
+                        <Route path="/" exact>
+                            <div className="main-content">
+                                <div className="message-container-empty">
+                                    <img src={Selectmessage} />
+                                    <span className="empty-title">
+                                        Welcome back,{' '}
+                                        {removeEmail(currentUser.email)}!
+                                    </span>
+                                    <p>
+                                        Send a message or choose a contact to
+                                        get started.
+                                    </p>
+                                </div>
+                            </div>
+                        </Route>
                         <Route path="/:type/:id">
                             <Messages />
                         </Route>
