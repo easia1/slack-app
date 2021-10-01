@@ -35,12 +35,24 @@ const ChatHeader = ({ type, id, messages }) => {
         <>
             {chatInfo ? (
                 <div className="chat-header">
-                    {/* <Pic
-                        id={chatInfo.id}
-                        name={chatInfo.name}
-                        isChannel={chatInfo.isChannel}
-                    /> */}
-                    <h1 className="chat-name">{chatInfo.name}</h1>
+                    {!chatInfo.isChannel ? (
+                        <Pic
+                            id={chatInfo.id}
+                            name={chatInfo.name}
+                            isChannel={chatInfo.isChannel}
+                        />
+                    ) : (
+                        ''
+                    )}
+                    <h1
+                        className={
+                            !chatInfo.isChannel
+                                ? 'chat-name chat-name-user'
+                                : 'chat-name '
+                        }
+                    >
+                        {chatInfo.name}
+                    </h1>
                 </div>
             ) : (
                 ''

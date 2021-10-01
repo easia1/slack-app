@@ -67,3 +67,21 @@ export const createChannelAPI = (data) => {
         .then((res) => res)
         .catch((err) => err);
 };
+
+export const sendMessageAPI = (data) => {
+    return axios({
+        method: 'POST',
+        url: data.url,
+        data: {
+            receiver_id: data.receiver_id,
+            receiver_class: data.receiver_class,
+            body: data.message,
+        },
+        headers: {
+            'access-token': data['access-token'],
+            client: data.client,
+            expiry: data.expiry,
+            uid: data.uid,
+        },
+    });
+};

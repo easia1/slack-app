@@ -1,6 +1,6 @@
 import React from 'react';
 import Pic from '../components/pic/Pic';
-import './chatbubble.css';
+import './messages.css';
 
 const ChatBubble = ({ keyNum, className, id, name, message, time, type }) => {
     return (
