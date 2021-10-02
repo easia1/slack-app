@@ -1,12 +1,14 @@
 .messages-section {
     display: initial;
 }
-
+.messages-section::-webkit-scrollbar {
+    display: none;
+}
 .message-flex {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    overflow: scroll;
+    overflow: hidden;
 }
 
 .messages-container {
@@ -14,7 +16,9 @@
     width: 100%;
     padding: 30px;
 }
-
+.messages-container::-webkit-scrollbar {
+    display: none;
+}
 .pic-message-container {
     display: flex;
     width: 100%;
