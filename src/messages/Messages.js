@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import { useParams } from 'react-router';
 import { useEffect, useState } from 'react/cjs/react.development';
 import { getMessagesAPI } from '../api/API';
@@ -9,6 +9,7 @@ import ChatBubble from './ChatBubble';
 import ChatHeader from './ChatHeader';
 import Nocontent from '../components/nocontent.svg';
 import MessageInput from './MessageInput';
+import ScrollDown from '../messages/ScrollDown';
 
 const Messages = () => {
     const { currentHeaders, currentUser, channelList, allUsers, loadData } =
@@ -19,6 +20,10 @@ const Messages = () => {
     const [messages, setMessages] = useState();
 
     // const [chatInfo, setChatInfo] = useState();
+    const sendMessageRef = useRef();
+    const endMessageRef = useRef(null);
+
+    function scrollToBottom() {}
 
     const getMessages = () => {
         let messageRequest = {
@@ -74,15 +79,15 @@ const Messages = () => {
     }, [loadData]);
 
     return (
-        <div className="main-content">
-            <div className="messages-section">
+        <div className='main-content'>
+            <div className='messages-section'>
                 {messages ? (
                     <>
                         <ChatHeader type={type} id={id} messages={messages} />
 
                         {messages.data.data.length > 0 ? (
-                            <div className="message-flex">
-                                <div className="messages-container">
+                            <div className='message-flex'>
+                                <div className='messages-container'>
                                     {messages.data.data.map(
                                         (message, index) => {
                                             return message.sender.id !==
@@ -93,8 +98,8 @@ const Messages = () => {
                                                     name={message.sender.email}
                                                     message={message.body}
                                                     time={message.created_at}
-                                                    className="incoming-messages"
-                                                    type="sender"
+                                                    className='incoming-messages'
+                                                    type='sender'
                                                 />
                                             ) : (
                                                 <ChatBubble
@@ -103,18 +108,19 @@ const Messages = () => {
                                                     name={message.sender.email}
                                                     message={message.body}
                                                     time={message.created_at}
-                                                    className="outgoing-messages"
-                                                    type="user"
+                                                    className='outgoing-messages'
+                                                    type='user'
                                                 />
                                             );
                                         }
                                     )}
+                                    <ScrollDown />
                                 </div>
                             </div>
                         ) : (
-                            <div className="message-container-empty">
+                            <div className='message-container-empty'>
                                 <img src={Nocontent} />
-                                <span className="empty-title">
+                                <span className='empty-title'>
                                     Be the first one to say hi!
                                 </span>
                                 <p>Send a message!</p>
