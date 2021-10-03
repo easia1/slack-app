@@ -31,6 +31,9 @@ export const UserProvider = ({ children }) => {
     const [allUsers, setAllUsers] = useState('');
     const [contactList, setContactList] = useState('');
 
+    //For recent messages
+    const [allChannelMessages, setAllChannelMessages] = useState([]);
+
     //Will be used for useEffect for reloading data
     const [loadData, setLoadData] = useState(false);
 
@@ -77,6 +80,8 @@ export const UserProvider = ({ children }) => {
                 setAllUsers,
                 contactList,
                 setContactList,
+                allChannelMessages,
+                setAllChannelMessages,
                 loadData,
                 setLoadData,
                 handleSetLoadData,

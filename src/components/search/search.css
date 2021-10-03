@@ -1,0 +1,8 @@
+.search-container {
+    height: 50%;
+}
+
+.search-results {
+    overflow: scroll;
+    height: 50%;
+}

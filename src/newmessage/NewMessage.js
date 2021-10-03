@@ -9,6 +9,7 @@ import ChatBubble from '../messages/ChatBubble';
 import ChatHeader from '../messages/ChatHeader';
 import Newmessage from '../components/newmessage.svg';
 import MessageInput from '../messages/MessageInput';
+import Search from '../components/search/Search';
 
 const NewMessage = () => {
     const { currentHeaders, currentUser, channelList, allUsers, loadData } =
@@ -43,6 +44,8 @@ const NewMessage = () => {
                 <div className="chat-header">
                     <h1 className="chat-name">New message</h1>
                 </div>
+
+                <Search type="user" />
                 {/* 
             <div className="message-flex">
                 <div className="messages-container"></div>
