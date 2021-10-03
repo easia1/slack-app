@@ -7,6 +7,8 @@ import ChannelList from '../channel/ChannelList';
 import ContactList from '../contact/ContactList';
 import { NavLink } from 'react-router-dom';
 import NewChannel from '../../newchannel/NewChannel';
+import { getMessagesAPI } from '../../api/API';
+import Search from '../search/Search';
 
 const Sidebar = () => {
     // console.log('sidebar', currentHeaders);
@@ -21,13 +23,8 @@ const Sidebar = () => {
         setShowModal,
         channelList,
         allUsers,
+        currentHeaders,
     } = useContext(UserContext);
-
-    // const [allMessages, setAllMessages] = useState([]);
-
-    // const loadAllMessages = () => {
-    //     allUsers.data.data.map((user) => {});
-    // };
 
     // const [showModal, setShowModal] = useState(false);
 
@@ -59,6 +56,10 @@ const Sidebar = () => {
         return (
             <div className="sidebar">
                 <h1 className="sidebar-title">Search</h1>
+                <Search
+                    placeholder={'Search for a user or channel'}
+                    type="user"
+                />
             </div>
         );
     } else if (sidebarMode === 'user') {

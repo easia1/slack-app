@@ -50,7 +50,7 @@ const Main = () => {
             client: currentHeaders.client,
             expiry: currentHeaders.expiry,
             uid: currentHeaders.uid,
-            url: 'users/recent',
+            url: 'users',
         };
 
         getListsAPI(channelListRequest)
