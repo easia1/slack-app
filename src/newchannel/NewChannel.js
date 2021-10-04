@@ -5,6 +5,7 @@ import axios from 'axios';
 import Toast from '../components/toast/Toast';
 import './newchannel.css';
 import { UserContext } from '../context/UserContext';
+import SearchUser from '../newchannel/SearchUser';
 
 const NewChannel = () => {
     const { currentHeaders, setShowModal } = useContext(UserContext);
@@ -12,8 +13,11 @@ const NewChannel = () => {
     const channelNameRef = useRef();
     const userInputRef = useRef();
 
+    //Toast
     const [message, setMessage] = useState();
     const [showToast, setShowToast] = useState(false);
+
+    //Error Message
     const [showError, setShowError] = useState(false);
 
     const [userIds, setUserIds] = useState([]);
@@ -27,7 +31,7 @@ const NewChannel = () => {
                 setShowError(false);
             }, 3000);
             channelNameRef.current.focus();
-        } else if (channelNameRef.current.value.length < 5) {
+        } else if (channelNameRef.current.value.length < 3) {
             setMessage('Channel Name too short');
             setShowError(true);
             setTimeout(() => {
@@ -37,20 +41,35 @@ const NewChannel = () => {
         } else {
             const data = {
                 name: channelNameRef.current.value,
-                user_ids: userInputRef.current.value.split(','),
+                // user_ids: userInputRef.current.value.split(','),
                 'access-token': currentHeaders['access-token'],
                 client: currentHeaders.client,
                 expiry: currentHeaders.expiry,
                 uid: currentHeaders.uid,
             };
-            createChannelAPI(data).then((res) => {
-                setMessage('Channel Created!');
-                setShowToast(true);
-                setTimeout(() => {
-                    setShowToast(false);
-                    setShowModal(false);
-                }, 3000);
-            });
+            createChannelAPI(data)
+                .then((res) => {
+                    setMessage('Channel Created');
+                    setShowToast(true);
+                    setTimeout(() => {
+                        setShowToast(false);
+                        setShowModal(false);
+                    }, 1500);
+                    console.log(res);
+
+                    if (res.data.errors[0] === 'Name has already been taken') {
+                        setMessage('Name has already been taken');
+                        setShowToast(true);
+                        if (setShowToast === true) {
+                            setTimeout(() => {
+                                setShowToast(false);
+                            }, 3000);
+                        }
+                    }
+                })
+                .catch((err) => {
+                    console.log('error', err);
+                });
         }
     };
 
@@ -68,12 +87,18 @@ const NewChannel = () => {
                 </div>
                 <label className='input-container'>
                     <span>Channel Name</span>
-                    <input type='text' max='15' ref={channelNameRef}></input>
+                    <input
+                        type='text'
+                        min='3'
+                        max='15'
+                        ref={channelNameRef}
+                    ></input>
                 </label>
-                <label className='input-container'>
+                {/* <label className='input-container'>
                     <span>Input user IDs</span>
-                    <input type='text' ref={userInputRef}></input>
-                </label>
+                    {<input type='text' ref={userInputRef}></input>}
+                </label> */}
+                {<SearchUser />}
                 <Button
                     className='button'
                     type='submit'

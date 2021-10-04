@@ -25,10 +25,17 @@ const Register = () => {
             password_confirmation: registerConfirmPasswordRef.current.value,
         };
 
-        userSessionAPI(data).then((res) => {
-            setMessage('Registration Success');
-            setShowToast(true);
-        });
+        userSessionAPI(data)
+            .then((res) => {
+                setMessage('Registration Success');
+                setShowToast(true);
+                console.log('res', res);
+            })
+            .catch((err) => {
+                setMessage('Something went wrong. Please try again');
+                setShowToast(true);
+                console.log('err', err);
+            });
     };
 
     const handleError = () => {
