@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { UserContext } from '../context/UserContext';
 import Pic from '../components/pic/Pic';
 import '../newchannel/searchuser.css';
+import Toast from '../components/toast/Toast';
 
 const SearchUser = ({ type, placeholder }) => {
     const {
@@ -15,6 +16,8 @@ const SearchUser = ({ type, placeholder }) => {
     } = useContext(UserContext);
 
     const [searchList, setSearchList] = useState([]);
+    const [message, setMessage] = useState('');
+    const [showToast, setShowToast] = useState(false);
 
     const handleSearchList = (e) => {
         const searchInput = e.target.value;
@@ -29,9 +32,19 @@ const SearchUser = ({ type, placeholder }) => {
         }
     };
     const addUser = (user) => {
-        setAddUsers([...addUsers, user]);
-        setUserIds([...userIds, user.id]);
+        if (addUsers.includes(user)) {
+            setShowToast(true);
+            setMessage('Please add another user');
+            setTimeout(() => {
+                setShowToast(false);
+            }, 1000);
+        } else {
+            setAddUsers([...addUsers, user]);
+            setUserIds([...userIds, user.id]);
+        }
+
         console.log(addUsers);
+        console.log(userIds);
     };
     const deleteUser = (e) => {
         let temp_arr = [...addUsers];
@@ -52,6 +65,11 @@ const SearchUser = ({ type, placeholder }) => {
     return (
         <div>
             <div>
+                {showToast ? (
+                    <Toast className='toast-message' text={message} />
+                ) : (
+                    <></>
+                )}
                 <input
                     type='text'
                     placeholder={placeholder}
