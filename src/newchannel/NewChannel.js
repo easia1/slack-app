@@ -8,10 +8,17 @@ import { UserContext } from '../context/UserContext';
 import SearchUser from '../newchannel/SearchUser';
 
 const NewChannel = () => {
-    const { currentHeaders, setShowModal } = useContext(UserContext);
+    const {
+        currentHeaders,
+        setShowModal,
+        userIds,
+        addUsers,
+        setAddUsers,
+        setUserIds,
+    } = useContext(UserContext);
 
     const channelNameRef = useRef();
-    const userInputRef = useRef();
+    // const userInputRef = useRef();
 
     //Toast
     const [message, setMessage] = useState();
@@ -19,8 +26,6 @@ const NewChannel = () => {
 
     //Error Message
     const [showError, setShowError] = useState(false);
-
-    const [userIds, setUserIds] = useState([]);
 
     const onCreateChannel = () => {
         if (channelNameRef.current.value.length > 15) {
@@ -41,7 +46,7 @@ const NewChannel = () => {
         } else {
             const data = {
                 name: channelNameRef.current.value,
-                // user_ids: userInputRef.current.value.split(','),
+                user_ids: userIds,
                 'access-token': currentHeaders['access-token'],
                 client: currentHeaders.client,
                 expiry: currentHeaders.expiry,
@@ -55,6 +60,8 @@ const NewChannel = () => {
                         setShowToast(false);
                         setShowModal(false);
                     }, 1500);
+                    userIds.splice(0, userIds.length);
+                    addUsers.splice(0, addUsers.length);
                     console.log(res);
 
                     if (res.data.errors[0] === 'Name has already been taken') {
@@ -72,15 +79,16 @@ const NewChannel = () => {
                 });
         }
     };
-
+    const newFunction = () => {
+        setAddUsers([]);
+        setUserIds([]);
+        setShowModal(false);
+    };
     return (
         <div className='channel-modal-container'>
             <form className='channel-modal'>
                 <div className='modal-title'>
-                    <span
-                        className='button'
-                        onClick={() => setShowModal(false)}
-                    >
+                    <span className='button' onClick={newFunction}>
                         X
                     </span>
                     <h1 className='sidebar-title'>Create a channel</h1>

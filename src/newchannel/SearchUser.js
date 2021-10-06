@@ -1,12 +1,19 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { UserContext } from '../context/UserContext';
 import Pic from '../components/pic/Pic';
 import '../newchannel/searchuser.css';
 
-const SearchUser = ({ type }) => {
-    const { currentHeaders, allUsers, currentUser } = useContext(UserContext);
+const SearchUser = ({ type, placeholder }) => {
+    const {
+        currentHeaders,
+        allUsers,
+        currentUser,
+        addUsers,
+        setAddUsers,
+        userIds,
+        setUserIds,
+    } = useContext(UserContext);
 
-    const [userIds, setUserIds] = useState([]);
     const [searchList, setSearchList] = useState([]);
 
     const handleSearchList = (e) => {
@@ -21,19 +28,22 @@ const SearchUser = ({ type }) => {
             setSearchList(searchFilter);
         }
     };
-    const addUser = (user) => {
-        setUserIds([...userIds, user]);
-        console.log(userIds);
+    const addUser = (user, index) => {
+        setAddUsers([...addUsers, user]);
+        setUserIds([...userIds, user.id]);
+        console.log(addUsers);
     };
-    const deleteUser = (user) => {
-        userIds.pop(user);
+    const deleteUser = (index, e) => {
+        addUsers.splice(index, 1);
+        setAddUsers([...addUsers]);
     };
+
     return (
         <div>
             <div>
                 <input
                     type='text'
-                    /* placeholder={placeholder} */
+                    placeholder={placeholder}
                     onChange={handleSearchList}
                 />
             </div>
@@ -44,7 +54,7 @@ const SearchUser = ({ type }) => {
                             className='chip'
                             key={index}
                             onClick={() => {
-                                addUser(user);
+                                addUser(user, index);
                             }}
                         >
                             <Pic id={user.id} name={user.email} />
@@ -57,12 +67,15 @@ const SearchUser = ({ type }) => {
             <br />
             <br />
             <span>User List:</span>
-            {userIds.map((val) => {
+            {addUsers.map((val, index) => {
                 return (
-                    <div className='chip'>
+                    <div className='chip' key={index}>
                         <Pic id={val.id} name={val.email} />
-                        {val.email}
-                        <span className='closebtn' onClick={deleteUser}>
+                        <span>{val.email}</span>
+                        <span
+                            className='closebtn'
+                            onClick={(e) => deleteUser(e, index)}
+                        >
                             &times;
                         </span>
                     </div>
