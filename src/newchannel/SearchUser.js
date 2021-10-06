@@ -36,6 +36,9 @@ const SearchUser = ({ type, placeholder }) => {
     const deleteUser = (index, e) => {
         addUsers.splice(index, 1);
         setAddUsers([...addUsers]);
+        userIds.splice(index, 1);
+        setUserIds([...userIds]);
+        console.log(userIds);
     };
 
     return (
