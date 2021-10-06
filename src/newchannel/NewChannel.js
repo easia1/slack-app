@@ -28,32 +28,39 @@ const NewChannel = () => {
     const [showError, setShowError] = useState(false);
 
     const onCreateChannel = () => {
-        if (channelNameRef.current.value.length > 15) {
-            setMessage('Channel Name too long');
-            setShowError(true);
-            setShowToast(false);
-            setTimeout(() => {
-                setShowError(false);
-            }, 3000);
-            channelNameRef.current.focus();
-        } else if (channelNameRef.current.value.length < 3) {
-            setMessage('Channel Name too short');
-            setShowError(true);
-            setTimeout(() => {
-                setShowError(false);
-            }, 3000);
-            channelNameRef.current.focus();
-        } else {
-            const data = {
-                name: channelNameRef.current.value,
-                user_ids: userIds,
-                'access-token': currentHeaders['access-token'],
-                client: currentHeaders.client,
-                expiry: currentHeaders.expiry,
-                uid: currentHeaders.uid,
-            };
-            createChannelAPI(data)
-                .then((res) => {
+        // if (channelNameRef.current.value.length > 15) {
+        //     setMessage('Channel Name too long');
+        //     setShowError(true);
+        //     setShowToast(false);
+        //     setTimeout(() => {
+        //         setShowError(false);
+        //     }, 3000);
+        //     channelNameRef.current.focus();
+        // } else if (channelNameRef.current.value.length < 3) {
+        //     setMessage('Channel Name too short');
+        //     setShowError(true);
+        //     setTimeout(() => {
+        //         setShowError(false);
+        //     }, 3000);
+        //     channelNameRef.current.focus();
+        // } else {
+        const data = {
+            name: channelNameRef.current.value,
+            user_ids: userIds,
+            'access-token': currentHeaders['access-token'],
+            client: currentHeaders.client,
+            expiry: currentHeaders.expiry,
+            uid: currentHeaders.uid,
+        };
+        createChannelAPI(data)
+            .then((res) => {
+                if (res.data.errors) {
+                    setMessage(res.data.errors[0]);
+                    setShowToast(true);
+                    setTimeout(() => {
+                        setShowToast(false);
+                    }, 3000);
+                } else {
                     setMessage('Channel Created');
                     setShowToast(true);
                     setTimeout(() => {
@@ -63,21 +70,11 @@ const NewChannel = () => {
                     userIds.splice(0, userIds.length);
                     addUsers.splice(0, addUsers.length);
                     console.log(res);
-
-                    if (res.data.errors[0] === 'Name has already been taken') {
-                        setMessage('Name has already been taken');
-                        setShowToast(true);
-                        if (setShowToast === true) {
-                            setTimeout(() => {
-                                setShowToast(false);
-                            }, 3000);
-                        }
-                    }
-                })
-                .catch((err) => {
-                    console.log('error', err);
-                });
-        }
+                }
+            })
+            .catch((err) => {
+                console.log('error', err);
+            });
     };
     const newFunction = () => {
         setAddUsers([]);

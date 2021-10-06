@@ -28,17 +28,25 @@ const SearchUser = ({ type, placeholder }) => {
             setSearchList(searchFilter);
         }
     };
-    const addUser = (user, index) => {
+    const addUser = (user) => {
         setAddUsers([...addUsers, user]);
         setUserIds([...userIds, user.id]);
         console.log(addUsers);
     };
-    const deleteUser = (index, e) => {
-        addUsers.splice(index, 1);
-        setAddUsers([...addUsers]);
-        userIds.splice(index, 1);
-        setUserIds([...userIds]);
-        console.log(userIds);
+    const deleteUser = (e) => {
+        let temp_arr = [...addUsers];
+        temp_arr.splice(e.target.dataset.index, 1);
+
+        let temp_arr2 = [...userIds];
+        temp_arr2.splice(e.target.dataset.index, 1);
+        updateIndex(temp_arr, temp_arr2);
+        console.log(temp_arr);
+        console.log(temp_arr2);
+    };
+
+    const updateIndex = (newList, newIdsList) => {
+        setAddUsers(newList);
+        setUserIds(newIdsList);
     };
 
     return (
@@ -77,7 +85,8 @@ const SearchUser = ({ type, placeholder }) => {
                         <span>{val.email}</span>
                         <span
                             className='closebtn'
-                            onClick={(e) => deleteUser(e, index)}
+                            data-index={index}
+                            onClick={(e) => deleteUser(e)}
                         >
                             &times;
                         </span>
