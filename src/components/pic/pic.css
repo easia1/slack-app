@@ -20,6 +20,23 @@
     border-radius: 50%;
 }
 
+.chip-pic {
+    width: 1.5em;
+    height: 1.5em;
+    max-width: 1.5em;
+    max-height: 1.5em;
+    min-width: 1.5em;
+    min-height: 1.5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-weight: bolder;
+    font-size: large;
+    color: rgba(255, 255, 255, 0.952);
+    border-radius: 50%;
+}
+
 .channel-pic-icon {
     width: 1.2em;
     height: 1.2em;

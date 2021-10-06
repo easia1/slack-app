@@ -16,6 +16,8 @@ const Login = () => {
         setIsLoggedIn,
         loginMessage,
         localStorageLogin,
+        setLoginMessage,
+        tokenSessionStorage,
     } = useContext(UserContext);
 
     //Refs for email and password input fields
@@ -66,6 +68,7 @@ const Login = () => {
                         localStorageLogin(
                             /* res.data.data, res.headers */ data
                         );
+                        tokenSessionStorage(res.data.data, res.headers);
                     }
                 })
                 .catch((err) => {
@@ -76,16 +79,20 @@ const Login = () => {
                         // console.log(err.response.headers);
                         setHeaders('');
                         setUser('');
-                        setMessage(err.response.data.errors[0]);
+                        setMessage(err?.response.data.errors[0]);
                         setTimeout(() => {
                             setMessage(false);
                         }, 3000);
                     } else if (err.request) {
                         // The request was made but no response was received
-                        // console.log(err.request);
+                        console.log(err.request);
+                        setMessage('Server error, please try again.');
+                        setTimeout(() => {
+                            setMessage(false);
+                        }, 3000);
                     } else {
                         // Something happened in setting up the request that triggered an Error
-                        // console.log('Error', err.message);
+                        console.log('Error', err.message);
                     }
                 });
         } else {
@@ -93,6 +100,59 @@ const Login = () => {
             setShowToast(true);
         }
     };
+
+    // Logged In
+    useEffect(() => {
+        const localStorageLoginUser = JSON.parse(localStorage.getItem('User'));
+        const sessionStorageUser = JSON.parse(sessionStorage.getItem('User'));
+        const sessionStorageHeaders = JSON.parse(
+            sessionStorage.getItem('Headers')
+        );
+
+        if (sessionStorageUser) {
+            setIsLoggedIn(true);
+            setHeaders(sessionStorageHeaders);
+            setUser(sessionStorageUser);
+        } else if (localStorageLoginUser) {
+            setLoginMessage('Logging you in...');
+
+            userSessionAPI(localStorageLoginUser)
+                .then((res) => {
+                    setHeaders(res.headers);
+                    setUser(res.data.data);
+                    setLoginMessage('Logged in!');
+                    setIsLoggedIn(true);
+                    tokenSessionStorage(res.data.data, res.headers);
+                })
+                .catch((err) => {
+                    if (err.response) {
+                        // Request made and server responded
+                        console.log(err.response.data);
+                        console.log(err.response.status);
+                        console.log(err.response.headers);
+                        setHeaders('');
+                        setUser('');
+                        setLoginMessage(err.response.data.errors[0]);
+                        setTimeout(() => {
+                            setLoginMessage('');
+                        }, 3000);
+                        setTimeout(() => {
+                            setLoginMessage('');
+                        }, 3000);
+                    } else if (err.request) {
+                        // The request was made but no response was received
+                        console.log(err.request);
+                        setLoginMessage('Server error, please try again.');
+                        setTimeout(() => {
+                            setLoginMessage('');
+                        }, 3000);
+                    } else {
+                        // Something happened in setting up the request that triggered an Error
+                        console.log('Error', err.message);
+                    }
+                });
+        }
+    }, []);
 
     return (
         <div className="login-page">

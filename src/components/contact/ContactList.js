@@ -6,8 +6,13 @@ import { NavLink } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
 
 const ContactList = () => {
-    const { contactList, handleSetLoadData, removeEmail } =
-        useContext(UserContext);
+    const {
+        contactList,
+        handleSetLoadData,
+        removeEmail,
+        setShowContent,
+        setMessages,
+    } = useContext(UserContext);
 
     if (contactList.data.data.length === 0) {
         return (
@@ -28,6 +33,8 @@ const ContactList = () => {
                         activeClassName="selected-message"
                         onClick={() => {
                             handleSetLoadData();
+                            setShowContent(true);
+                            /* setMessages(); */
                         }}
                     >
                         <Pic id={user.id} name={user.email} />

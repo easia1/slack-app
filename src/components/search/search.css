@@ -1,8 +1,115 @@
 .search-container {
-    height: 50%;
+    height: 100%;
+}
+
+.search-input-container input {
+    border: none;
+    outline: none;
+    width: 100%;
+    height: 2em;
+    font-size: 1em;
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid var(--dark-grey);
+    transition: 0.2s ease;
+}
+
+.search-input-container input:hover {
+    border: 2px solid var(--dark-color);
+}
+
+.search-input-container input:focus {
+    border: 2px solid var(--dark-color);
+}
+
+.search-input-container input:focus {
+    border: 2px solid var(--dark-color);
 }
 
 .search-results {
     overflow: scroll;
-    height: 50%;
+    height: 85%;
+    z-index: 100;
+}
+
+.search-results span {
+    margin-left: 10px;
+}
+
+.newmsg-search-container {
+    width: 100%;
+    overflow: hidden;
+    height: 70px;
+    background-color: var(--lightest-grey);
+    border-bottom: 1px solid var(--dark-grey);
+    display: flex;
+    padding: 30px;
+    align-items: center;
+    justify-content: flex-start;
+}
+.newmsg-search-container span:first-child {
+    font-weight: 500;
+}
+
+.newmsg-search-input-container {
+    width: 100%;
+}
+
+.newmsg-search-input-container input {
+    border: none;
+    outline: none;
+    width: 100%;
+    min-width: 100%;
+    font-size: 1.1em;
+    background: none;
+    padding: 20px;
+    transition: 0.2s ease;
+}
+
+.newmsg-search-results {
+    max-height: 50%;
+    overflow: scroll;
+    padding: 15px;
+    background-color: var(--lighter-grey);
+    border-bottom: 1px solid var(--dark-grey);
+    animation: searchOpen 0.3s ease;
+}
+
+@keyframes searchOpen {
+    0% {
+        max-height: 0;
+    }
+    100% {
+        max-height: 50%;
+    }
+}
+
+.newmsg-search-item,
+.search-item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 10px;
+    transition: 0.1s ease;
+    text-decoration: none;
+    color: black;
+    width: 100%;
+    overflow: hidden;
+}
+
+.newmsg-search-item:hover,
+.search-item:hover {
+    background-color: var(--grey);
+}
+
+.newmsg-search-item:active,
+.search-item:active {
+    transform: scale(0.95);
+}
+
+.newmsg-search-item span,
+.search-item span {
+    margin-left: 10px;
+    word-break: break-all;
 }

@@ -2,25 +2,31 @@
 
 /* ------------------------------- Loader logo ------------------------------ */
 
+.loading-logo {
+    height: 100%;
+    display: contents;
+}
+
 .loading-logo span {
     font-size: 30vmin;
     color: white;
     transform: scale(1);
     animation: move 1.5s ease-in-out infinite;
     font-family: 'Ubuntu', sans-serif;
+    display: inline-block;
 }
 
 @keyframes move {
     0% {
-        transform: translate(-30%, 0);
+        transform: translateY(-5%);
         color: white;
     }
     50% {
         text-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
-        color: #f95959;
+        color: white;
     }
     100% {
-        transform: translate(30%, 0);
+        transform: translateY(5%);
         color: white;
     }
 }

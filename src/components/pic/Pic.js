@@ -1,7 +1,7 @@
 import React from 'react';
 import './pic.css';
 
-const Pic = ({ id, name, isChannel }) => {
+const Pic = ({ id, name, isChannel, isChip }) => {
     const getInitial = () => {
         let initialLetter = name.charAt(0);
         return initialLetter.toUpperCase();
@@ -33,7 +33,7 @@ const Pic = ({ id, name, isChannel }) => {
     return (
         <div className="pic-container">
             <div
-                className="profile-pic"
+                className={isChip ? 'chip-pic' : 'profile-pic'}
                 style={{
                     backgroundColor: colors[colorNumber],
                 }}

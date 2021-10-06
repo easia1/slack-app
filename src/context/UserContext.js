@@ -23,6 +23,12 @@ export const UserProvider = ({ children }) => {
         localStorage.setItem('User', JSON.stringify(data));
     };
 
+    //Save user to local storage
+    const tokenSessionStorage = (data, headers) => {
+        sessionStorage.setItem('User', JSON.stringify(data));
+        sessionStorage.setItem('Headers', JSON.stringify(headers));
+    };
+
     //Sidebar state
     const [sidebarMode, setSidebarMode] = useState('dm');
 
@@ -30,6 +36,9 @@ export const UserProvider = ({ children }) => {
     const [channelList, setChannelList] = useState('');
     const [allUsers, setAllUsers] = useState('');
     const [contactList, setContactList] = useState('');
+
+    //Messages
+    const [messages, setMessages] = useState();
 
     //For recent messages
     const [allChannelMessages, setAllChannelMessages] = useState([]);
@@ -45,11 +54,14 @@ export const UserProvider = ({ children }) => {
     //Logout function
     const logoutFunction = () => {
         localStorage.setItem('User', null);
+        sessionStorage.setItem('User', null);
+        sessionStorage.setItem('Headers', null);
         setUser(null);
         setHeaders(null);
         setIsLoggedIn(false);
         setLoginMessage('');
         setSidebarMode('dm');
+        setShowContent(false);
         return <Redirect to="/login" />;
     };
 
@@ -59,6 +71,13 @@ export const UserProvider = ({ children }) => {
     //Remove @___.___ from email
     const removeEmail = (email) => {
         return email.split('@')[0];
+    };
+
+    const [showContent, setShowContent] = useState(false);
+    const [showChatInfo, setShowChatInfo] = useState(false);
+
+    const handleSetShowChatInfo = () => {
+        setShowChatInfo((showChatInfo) => !showChatInfo);
     };
 
     return (
@@ -87,9 +106,17 @@ export const UserProvider = ({ children }) => {
                 handleSetLoadData,
                 logoutFunction,
                 localStorageLogin,
+                tokenSessionStorage,
                 showModal,
                 setShowModal,
                 removeEmail,
+                showContent,
+                setShowContent,
+                showChatInfo,
+                setShowChatInfo,
+                messages,
+                setMessages,
+                handleSetShowChatInfo,
             }}
         >
             {children}

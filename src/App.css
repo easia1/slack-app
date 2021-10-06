@@ -44,4 +44,59 @@ body {
 .main-content {
     width: 100%;
     height: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transform: translateX(5%);
+    animation: maincontent 0.1s ease forwards;
+}
+
+@keyframes maincontent {
+    0% {
+        opacity: 0;
+        transform: translateX(5%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.main-content-closed {
+    display: none;
+}
+
+.navigation-bars-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.navigation-bars-container-closed {
+    display: none;
+}
+
+@media screen and (min-width: 900px) {
+    .main-content-closed {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .navigation-bars-container-closed {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        overflow: hidden;
+    }
+    .navigation-bars-container {
+        width: 30vw;
+        height: 100%;
+        display: flex;
+        overflow: hidden;
+    }
 }

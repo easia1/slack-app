@@ -1,9 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
+import Button from '../components/button/Button';
 import Pic from '../components/pic/Pic';
 import { UserContext } from '../context/UserContext';
+import ChannelInfoToggle from './ChannelInfoToggle';
 
-const ChatHeader = ({ type, id, messages }) => {
-    const { channelList, allUsers, loadData } = useContext(UserContext);
+const ChatHeader = ({ type, id, messages, channelMembers }) => {
+    const { channelList, allUsers, loadData, setShowContent } =
+        useContext(UserContext);
 
     const [chatInfo, setChatInfo] = useState();
 
@@ -35,6 +38,25 @@ const ChatHeader = ({ type, id, messages }) => {
         <>
             {chatInfo ? (
                 <div className="chat-header">
+                    <button
+                        className={'back-button'}
+                        onClick={() => setShowContent(false)}
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-6 w-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M15 19l-7-7 7-7"
+                            />
+                        </svg>
+                    </button>
                     <div className="header-name">
                         {!chatInfo.isChannel ? (
                             <Pic
@@ -54,12 +76,15 @@ const ChatHeader = ({ type, id, messages }) => {
                         >
                             {chatInfo.name}
                         </h1>
-                        {chatInfo.isChannel ? (
-                            <div className="current-members"></div>
-                        ) : (
-                            ''
-                        )}
                     </div>
+                    {chatInfo.isChannel ? (
+                        <ChannelInfoToggle
+                            id={chatInfo.id}
+                            channelMembers={channelMembers}
+                        />
+                    ) : (
+                        ''
+                    )}
                 </div>
             ) : (
                 ''

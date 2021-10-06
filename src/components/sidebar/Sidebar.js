@@ -24,6 +24,7 @@ const Sidebar = () => {
         channelList,
         allUsers,
         currentHeaders,
+        setShowContent,
     } = useContext(UserContext);
 
     // const [showModal, setShowModal] = useState(false);
@@ -32,7 +33,11 @@ const Sidebar = () => {
         return (
             <div className="sidebar">
                 <h1 className="sidebar-title">Direct messages</h1>
-                <NavLink to="/new-message" className="button">
+                <NavLink
+                    to="/new-message"
+                    className="button"
+                    onClick={() => setShowContent(true)}
+                >
                     New message
                 </NavLink>
                 <ContactList />
@@ -56,10 +61,7 @@ const Sidebar = () => {
         return (
             <div className="sidebar">
                 <h1 className="sidebar-title">Search</h1>
-                <Search
-                    placeholder={'Search for a user or channel'}
-                    type="user"
-                />
+                <Search placeholder={'Search for a user'} type="user" />
             </div>
         );
     } else if (sidebarMode === 'user') {
