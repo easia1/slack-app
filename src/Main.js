@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { getListsAPI } from './api/API';
 import Button from './components/button/Button';
 import ChannelList from './components/channel/ChannelList';
+import { useParams } from 'react-router';
 import Navbar from './components/navbar/Navbar';
 import Sidebar from './components/sidebar/Sidebar';
 import Loading from './components/loading/Loading';
@@ -11,6 +12,8 @@ import Messages from './messages/Messages';
 import { UserContext } from './context/UserContext';
 import NewChannel from './newchannel/NewChannel';
 import Selectmessage from './components/selectmessage.svg';
+import MessageSidebar from './messages/MessageSidebar';
+import ChatHeader from './messages/ChatHeader';
 
 const Main = () => {
     const {
@@ -26,6 +29,8 @@ const Main = () => {
         setShowModal,
         loadData,
         removeEmail,
+        showContent,
+        showChatInfo,
     } = useContext(UserContext);
 
     const runAPI = () => {
@@ -50,7 +55,7 @@ const Main = () => {
             client: currentHeaders.client,
             expiry: currentHeaders.expiry,
             uid: currentHeaders.uid,
-            url: 'users',
+            url: 'users/recent',
         };
 
         getListsAPI(channelListRequest)
@@ -81,6 +86,8 @@ const Main = () => {
     useEffect(() => {
         runAPI();
     }, [loadData]);
+
+    const { type, id } = useParams();
 
     // useState(() => {
     //     let channelListRequest = {
@@ -168,11 +175,27 @@ const Main = () => {
                     />
                 ) : null}
                 <Router>
-                    <Navbar />
-                    <Sidebar />
+                    <div
+                        className={
+                            showContent
+                                ? 'navigation-bars-container navigation-bars-container-closed'
+                                : 'navigation-bars-container '
+                        }
+                    >
+                        <Navbar />
+                        <Sidebar />
+                    </div>
                     <Switch>
                         <Route path="/" exact>
-                            <div className="main-content">
+                            <div
+                                className={
+                                    !showContent
+                                        ? 'main-content main-content-closed'
+                                        : showChatInfo
+                                        ? 'main-content main-content-closed'
+                                        : 'main-content'
+                                }
+                            >
                                 <div className="message-container-empty">
                                     <img src={Selectmessage} />
                                     <span className="empty-title">
@@ -193,6 +216,20 @@ const Main = () => {
                             <NewMessage />
                         </Route>
                     </Switch>
+                    <div
+                        className={
+                            showChatInfo
+                                ? 'message-sidebar'
+                                : 'message-sidebar message-sidebar-closed'
+                        }
+                    >
+                        <ChatHeader type={type} id={id} />
+                        <MessageSidebar />
+                        <h1>channel sidebar</h1>
+                        <p>
+                            {type} {id}
+                        </p>
+                    </div>
                 </Router>
             </div>
         );

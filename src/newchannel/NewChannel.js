@@ -82,16 +82,20 @@ const NewChannel = () => {
         setShowModal(false);
     };
     return (
-        <div className='channel-modal-container'>
-            <form className='channel-modal'>
-                <div className='modal-title'>
-                    <span className='button' onClick={newFunction}>
-                        X
+        <div className="channel-modal-container">
+            <form className="channel-modal">
+                <div className="modal-title">
+                    <span
+                        className="close-button"
+                        onClick={() => newFunction()}
+                    >
+                        ✕
                     </span>
-                    <h1 className='sidebar-title'>Create a channel</h1>
+                    <h1 className="sidebar-title">Create a channel</h1>
                 </div>
-                <label className='input-container'>
+                <label className="input-container">
                     <span>Channel Name</span>
+
                     <input
                         type='text'
                         min='3'
@@ -104,10 +108,11 @@ const NewChannel = () => {
                     {<input type='text' ref={userInputRef}></input>}
                 </label> */}
                 {<SearchUser />}
+
                 <Button
-                    className='button'
-                    type='submit'
-                    text='Create Channel'
+                    className="button"
+                    type="submit"
+                    text="Create Channel"
                     onClick={(e) => {
                         e.preventDefault();
                         onCreateChannel();
@@ -115,7 +120,7 @@ const NewChannel = () => {
                 />
             </form>
             {showToast || showError ? (
-                <Toast className='toast-message' text={message} />
+                <Toast className="toast-message" text={message} />
             ) : (
                 <></>
             )}

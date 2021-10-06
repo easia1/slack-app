@@ -7,7 +7,7 @@ import Pic from '../pic/Pic';
 import './search.css';
 
 const Search = ({ placeholder, type }) => {
-    const { channelList, allUsers, handleSetLoadData } =
+    const { channelList, allUsers, handleSetLoadData, setShowContent } =
         useContext(UserContext);
 
     const [searchList, setSearchList] = useState([]);
@@ -43,7 +43,7 @@ const Search = ({ placeholder, type }) => {
 
     return (
         <div className="search-container">
-            <div className="input-container">
+            <div className="search-input-container">
                 <input
                     type="text"
                     placeholder={placeholder}
@@ -56,11 +56,12 @@ const Search = ({ placeholder, type }) => {
                         <>
                             {searchList.map((channel, index) => (
                                 <NavLink
-                                    className="channel-item"
+                                    className="search-item"
                                     to={`/channel/${channel.id}`}
                                     key={index}
                                     onClick={() => {
                                         handleSetLoadData();
+                                        setShowContent(true);
                                     }}
                                 >
                                     <Pic
@@ -68,7 +69,7 @@ const Search = ({ placeholder, type }) => {
                                         name={channel.name}
                                         isChannel={true}
                                     />
-                                    {channel.name}
+                                    <span> {channel.name}</span>
                                 </NavLink>
                             ))}
                         </>
@@ -76,11 +77,12 @@ const Search = ({ placeholder, type }) => {
                         <>
                             {searchList.slice(0, 15).map((user, index) => (
                                 <NavLink
-                                    className="channel-item"
+                                    className="search-item"
                                     to={`/user/${user.id}`}
                                     key={index}
                                     onClick={() => {
                                         handleSetLoadData();
+                                        setShowContent(true);
                                     }}
                                 >
                                     <Pic
@@ -88,7 +90,7 @@ const Search = ({ placeholder, type }) => {
                                         name={user.email}
                                         isChannel={false}
                                     />
-                                    {user.email}
+                                    <span> {user.email} </span>
                                 </NavLink>
                             ))}
                         </>

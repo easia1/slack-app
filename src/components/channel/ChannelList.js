@@ -15,13 +15,15 @@ const ChannelList = () => {
         removeEmail,
         allChannelMessages,
         setAllChannelMessages,
+        setShowContent,
+        setMessages,
     } = useContext(UserContext);
 
     // const [allChannelMessages, setAllChannelMessages] = useState([]);
 
     const getRecentMsg = () => {
         if (channelList) {
-            for (let i = 0; i < channelList.data.data.length; i++) {
+            for (let i = 0; i < channelList.data?.data.length; i++) {
                 let channelRecentMsgRequest = {
                     'access-token': currentHeaders['access-token'],
                     client: currentHeaders.client,
@@ -30,9 +32,9 @@ const ChannelList = () => {
                     user_id: parseInt(channelList.data.data[i].id),
                     receiver_class: 'Channel',
                 };
-                console.log('attempted contact');
+
                 getMessagesAPI(channelRecentMsgRequest).then((res) => {
-                    if (res.data.data.length > 0) {
+                    if (res.data?.data.length > 0) {
                         console.log('res', res);
                         console.log(res.data.data.at(-1).body);
                         setAllChannelMessages((allChannelMessages) => [
@@ -105,6 +107,8 @@ const ChannelList = () => {
                         activeClassName="selected-message"
                         onClick={() => {
                             handleSetLoadData();
+                            setShowContent(true);
+                            /* setMessages(); */
                         }}
                     >
                         <Pic

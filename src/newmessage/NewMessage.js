@@ -10,56 +10,108 @@ import ChatHeader from '../messages/ChatHeader';
 import Newmessage from '../components/newmessage.svg';
 import MessageInput from '../messages/MessageInput';
 import Search from '../components/search/Search';
+import NewMsgSearch from '../components/search/NewMsgSearch';
+import './newmessages.css';
 
 const NewMessage = () => {
-    const { currentHeaders, currentUser, channelList, allUsers, loadData } =
-        useContext(UserContext);
+    const {
+        currentHeaders,
+        currentUser,
+        channelList,
+        allUsers,
+        loadData,
+        showContent,
+        setShowContent,
+    } = useContext(UserContext);
 
-    const { type, id } = useParams();
+    /* const { type, id } = useParams(); */
 
-    const [messages, setMessages] = useState();
+    const [newMessageUser, setNewMessageUser] = useState();
 
     // const [chatInfo, setChatInfo] = useState();
 
-    const getMessages = () => {
-        let messageRequest = {
-            'access-token': currentHeaders['access-token'],
-            client: currentHeaders.client,
-            expiry: currentHeaders.expiry,
-            uid: currentHeaders.uid,
-            user_id: parseInt(id),
-            receiver_class: type.charAt(0).toUpperCase() + type.slice(1),
-        };
+    // const getMessages = () => {
+    //     let messageRequest = {
+    //         'access-token': currentHeaders['access-token'],
+    //         client: currentHeaders.client,
+    //         expiry: currentHeaders.expiry,
+    //         uid: currentHeaders.uid,
+    //         user_id: parseInt(id),
+    //         receiver_class: type.charAt(0).toUpperCase() + type.slice(1),
+    //     };
 
-        console.log(messageRequest);
-        getMessagesAPI(messageRequest).then((res) => {
-            console.log(res);
-            setMessages(res);
-        });
-    };
+    //     console.log(messageRequest);
+    //     getMessagesAPI(messageRequest).then((res) => {
+    //         console.log(res);
+    //         setMessages(res);
+    //     });
+    // };
 
     return (
-        <div className="main-content">
-            <div className="messages-section">
-                <div className="chat-header">
-                    <h1 className="chat-name">New message</h1>
+        <div
+            className={
+                showContent
+                    ? 'main-content'
+                    : 'main-content main-content-closed'
+            }
+        >
+            <div className="new-messages-section">
+                <div className="new-messages-header">
+                    <div className="chat-header">
+                        <button
+                            className={'back-button'}
+                            onClick={() => setShowContent(false)}
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-6 w-6"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M15 19l-7-7 7-7"
+                                />
+                            </svg>
+                        </button>
+                        <h1 className="chat-name">New message</h1>
+                    </div>
+                    {!newMessageUser ? (
+                        <NewMsgSearch setNewMessageUser={setNewMessageUser} />
+                    ) : (
+                        <div className="newmsg-search-container">
+                            <span>To: </span>
+                            <div className="chip-container">
+                                <Pic
+                                    id={newMessageUser.id}
+                                    name={newMessageUser.email}
+                                    isChip={true}
+                                />
+                                <span>{newMessageUser.email}</span>
+                                <div
+                                    className="delete-chip-button"
+                                    onClick={() => setNewMessageUser()}
+                                >
+                                    ✕
+                                </div>
+                            </div>
+                        </div>
+                    )}
                 </div>
-
-                <Search type="user" />
                 {/* 
             <div className="message-flex">
                 <div className="messages-container"></div>
             </div> */}
 
-                <div className="message-container-empty">
-                    <img src={Newmessage} />
-                    <span className="empty-title">
-                        Be the first one to say hi!
-                    </span>
-                    <p>Send a message!</p>
-                </div>
-
-                <MessageInput type={type} id={id} />
+                <MessageInput
+                    type="User"
+                    id={newMessageUser ? newMessageUser.id : null}
+                    newMsg={true}
+                    setNewMessageUser={setNewMessageUser}
+                />
             </div>
         </div>
     );

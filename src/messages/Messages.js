@@ -1,7 +1,7 @@
 import React, { useContext, useRef } from 'react';
 import { useParams } from 'react-router';
 import { useEffect, useState } from 'react/cjs/react.development';
-import { getMessagesAPI } from '../api/API';
+import { getMessagesAPI, getListsAPI } from '../api/API';
 import Loading from '../components/loading/Loading';
 import Pic from '../components/pic/Pic';
 import { UserContext } from '../context/UserContext';
@@ -10,20 +10,29 @@ import ChatHeader from './ChatHeader';
 import Nocontent from '../components/nocontent.svg';
 import MessageInput from './MessageInput';
 import ScrollDown from '../messages/ScrollDown';
+import MessageSidebar from './MessageSidebar';
 
 const Messages = () => {
-    const { currentHeaders, currentUser, channelList, allUsers, loadData } =
-        useContext(UserContext);
+    const {
+        currentHeaders,
+        currentUser,
+        channelList,
+        allUsers,
+        loadData,
+        showContent,
+        messages,
+        setMessages,
+        showChatInfo,
+    } = useContext(UserContext);
 
     const { type, id } = useParams();
 
-    const [messages, setMessages] = useState();
+    // const [messages, setMessages] = useState();
+    const [channelMembers, setChannelMembers] = useState();
 
     // const [chatInfo, setChatInfo] = useState();
     const sendMessageRef = useRef();
     const endMessageRef = useRef(null);
-
-    function scrollToBottom() {}
 
     const getMessages = () => {
         let messageRequest = {
@@ -35,11 +44,26 @@ const Messages = () => {
             receiver_class: type.charAt(0).toUpperCase() + type.slice(1),
         };
 
-        console.log(messageRequest);
+        console.log('message request', messageRequest);
         getMessagesAPI(messageRequest).then((res) => {
-            console.log(res);
+            console.log('message request response', res);
             setMessages(res);
         });
+
+        if (type === 'channel') {
+            let channelInfoRequest = {
+                url: `channels/${id}`,
+                'access-token': currentHeaders['access-token'],
+                client: currentHeaders.client,
+                expiry: currentHeaders.expiry,
+                uid: currentHeaders.uid,
+            };
+
+            getListsAPI(channelInfoRequest).then((res) => {
+                console.log('channel info response', res);
+                setChannelMembers(res.data?.data?.channel_members);
+            });
+        }
     };
 
     // const getChatInfo = () => {
@@ -76,64 +100,111 @@ const Messages = () => {
     useEffect(() => {
         getMessages();
         // getChatInfo();
-    }, [loadData]);
+    }, [loadData /* , messages, currentHeaders */]);
 
-    return (
-        <div className='main-content'>
-            <div className='messages-section'>
-                {messages ? (
-                    <>
-                        <ChatHeader type={type} id={id} messages={messages} />
-
-                        {messages.data.data.length > 0 ? (
-                            <div className='message-flex'>
-                                <div className='messages-container'>
-                                    {messages.data.data.map(
-                                        (message, index) => {
-                                            return message.sender.id !==
-                                                currentUser.id ? (
-                                                <ChatBubble
-                                                    keyNum={index}
-                                                    id={message.sender.id}
-                                                    name={message.sender.email}
-                                                    message={message.body}
-                                                    time={message.created_at}
-                                                    className='incoming-messages'
-                                                    type='sender'
-                                                />
-                                            ) : (
-                                                <ChatBubble
-                                                    keyNum={index}
-                                                    id={message.sender.id}
-                                                    name={message.sender.email}
-                                                    message={message.body}
-                                                    time={message.created_at}
-                                                    className='outgoing-messages'
-                                                    type='user'
-                                                />
-                                            );
-                                        }
-                                    )}
-                                    <ScrollDown />
-                                </div>
+    if (!messages) {
+        return <Loading />;
+    } else {
+        return (
+            <div
+                className={
+                    showContent
+                        ? 'main-content'
+                        : 'main-content main-content-closed'
+                }
+            >
+                <div className="messages-section">
+                    {messages ? (
+                        <>
+                            <ChatHeader
+                                type={type}
+                                id={id}
+                                messages={messages}
+                                channelMembers={channelMembers}
+                            />
+                            <div className="messages-content">
+                                {messages.data?.data.length > 0 ? (
+                                    <div className="message-flex">
+                                        <div className="messages-container">
+                                            {messages.data.data.map(
+                                                (message, index) => {
+                                                    return message.sender.id !==
+                                                        currentUser.id ? (
+                                                        <ChatBubble
+                                                            keyNum={index}
+                                                            id={
+                                                                message.sender
+                                                                    .id
+                                                            }
+                                                            name={
+                                                                message.sender
+                                                                    .email
+                                                            }
+                                                            message={
+                                                                message.body
+                                                            }
+                                                            time={
+                                                                message.created_at
+                                                            }
+                                                            className="incoming-messages"
+                                                            type="sender"
+                                                        />
+                                                    ) : (
+                                                        <ChatBubble
+                                                            keyNum={index}
+                                                            id={
+                                                                message.sender
+                                                                    .id
+                                                            }
+                                                            name={
+                                                                message.sender
+                                                                    .email
+                                                            }
+                                                            message={
+                                                                message.body
+                                                            }
+                                                            time={
+                                                                message.created_at
+                                                            }
+                                                            className="outgoing-messages"
+                                                            type="user"
+                                                        />
+                                                    );
+                                                }
+                                            )}
+                                            <ScrollDown />
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div className="message-container-empty">
+                                        <img src={Nocontent} />
+                                        <span className="empty-title">
+                                            Be the first one to say hi!
+                                        </span>
+                                        <p>Send a message!</p>
+                                    </div>
+                                )}
                             </div>
-                        ) : (
-                            <div className='message-container-empty'>
-                                <img src={Nocontent} />
-                                <span className='empty-title'>
-                                    Be the first one to say hi!
-                                </span>
-                                <p>Send a message!</p>
-                            </div>
-                        )}
-                        <MessageInput type={type} id={id} />
-                    </>
-                ) : (
-                    ''
-                )}
+                            <MessageInput type={type} id={id} />
+                        </>
+                    ) : (
+                        ''
+                    )}
+                </div>
+                {/* <div
+                    className={
+                        showChatInfo
+                            ? 'message-sidebar'
+                            : 'message-sidebar message-sidebar-closed'
+                    }
+                >
+                    <ChatHeader type={type} id={id} messages={messages} />
+                    <MessageSidebar />
+                    <h1>channel sidebar</h1>
+                </div> */}
             </div>
-        </div>
-    );
+        );
+    }
 };
 
 export default Messages;

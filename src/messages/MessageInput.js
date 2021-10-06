@@ -1,15 +1,21 @@
 import React, { useContext, useRef, useState } from 'react';
+import { Redirect, useHistory } from 'react-router-dom';
 import { sendMessageAPI } from '../api/API';
 import Button from '../components/button/Button';
 import { UserContext } from '../context/UserContext';
 
-const MessageInput = ({ type, id }) => {
+const MessageInput = ({ type, id, newMsg, setNewMessageUser }) => {
     const { currentHeaders, handleSetLoadData } = useContext(UserContext);
 
     let messageInputRef = useRef(null);
+    let history = useHistory();
 
     const sendMessage = () => {
-        if (messageInputRef.current.value !== null) {
+        if (
+            (messageInputRef.current.value !== null ||
+                messageInputRef.current.value !== '') &&
+            id !== null
+        ) {
             let sendMessageRequest = {
                 url: 'messages',
                 'access-token': currentHeaders['access-token'],
@@ -28,6 +34,16 @@ const MessageInput = ({ type, id }) => {
                     messageInputRef.current.value = '';
                 })
                 .catch((err) => console.log(err));
+
+            if (
+                (messageInputRef.current.value !== null ||
+                    messageInputRef.current.value !== '') &&
+                newMsg &&
+                id !== null
+            ) {
+                history.push(`/user/${id}`);
+                setNewMessageUser();
+            }
         }
     };
 
