@@ -36,6 +36,8 @@ export const UserProvider = ({ children }) => {
     const [channelList, setChannelList] = useState('');
     const [allUsers, setAllUsers] = useState('');
     const [contactList, setContactList] = useState('');
+    const [addUsers, setAddUsers] = useState([]);
+    const [userIds, setUserIds] = useState([]);
 
     //Messages
     const [messages, setMessages] = useState();
@@ -117,6 +119,10 @@ export const UserProvider = ({ children }) => {
                 messages,
                 setMessages,
                 handleSetShowChatInfo,
+                userIds,
+                setUserIds,
+                addUsers,
+                setAddUsers,
             }}
         >
             {children}

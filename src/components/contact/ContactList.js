@@ -16,21 +16,21 @@ const ContactList = () => {
 
     if (contactList.data.data.length === 0) {
         return (
-            <div className="contact-container-empty">
+            <div className='contact-container-empty'>
                 <img src={BeginChat} />
-                <span className="empty-title">Whew, there's nothing here.</span>
+                <span className='empty-title'>Whew, there's nothing here.</span>
                 <p>Start a new conversation!</p>
             </div>
         );
     } else {
         return (
-            <div className="contact-container">
+            <div className='contact-container'>
                 {contactList.data.data.map((user, index) => (
                     <NavLink
                         to={`/user/${user.id}`}
-                        className="contact-item"
+                        className='contact-item'
                         key={index}
-                        activeClassName="selected-message"
+                        activeClassName='selected-message'
                         onClick={() => {
                             handleSetLoadData();
                             setShowContent(true);
