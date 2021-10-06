@@ -1,5 +1,6 @@
 .messages-section {
-    display: initial;
+    display: flex;
+    flex-direction: column;
 }
 .messages-section::-webkit-scrollbar {
     display: none;

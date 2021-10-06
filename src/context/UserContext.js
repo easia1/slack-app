@@ -30,6 +30,8 @@ export const UserProvider = ({ children }) => {
     const [channelList, setChannelList] = useState('');
     const [allUsers, setAllUsers] = useState('');
     const [contactList, setContactList] = useState('');
+    const [addUsers, setAddUsers] = useState([]);
+    const [userIds, setUserIds] = useState([]);
 
     //For recent messages
     const [allChannelMessages, setAllChannelMessages] = useState([]);
@@ -50,7 +52,7 @@ export const UserProvider = ({ children }) => {
         setIsLoggedIn(false);
         setLoginMessage('');
         setSidebarMode('dm');
-        return <Redirect to="/login" />;
+        return <Redirect to='/login' />;
     };
 
     //Show new channel modal
@@ -90,6 +92,10 @@ export const UserProvider = ({ children }) => {
                 showModal,
                 setShowModal,
                 removeEmail,
+                userIds,
+                setUserIds,
+                addUsers,
+                setAddUsers,
             }}
         >
             {children}
