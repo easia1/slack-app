@@ -87,7 +87,7 @@ const MessageSidebar = () => {
                 >
                     ✕
                 </span>
-                <h1>{chatName.name}</h1>
+                {chatName && <h1>{chatName.name}</h1>}
                 {chatName && (
                     <Pic
                         id={chatName.id}
