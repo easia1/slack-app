@@ -1,46 +1,29 @@
 import React from 'react';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link,
-    useParams,
-    useRouteMatch,
-} from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import PrivateRoute from '../PrivateRoute';
+import PublicRoute from '../PublicRoute';
 import Login from './Login';
 import Loginhero from './Loginhero';
 import Register from './Register';
 
-const LoginPage = ({
-    setIsLoggedIn,
-    setUser,
-    setHeaders,
-    setLoginMessage,
-    loginMessage,
-    localStorageLogin,
-}) => {
-    let { path, url } = useRouteMatch();
+const LoginPage = () => {
     return (
         <div className="login-main-container">
             <Loginhero />
             <Switch>
-                <Route
-                    path={path}
+                <PublicRoute
+                    component={Login}
+                    restricted={true}
+                    path="/login"
                     exact
-                    component={() => (
-                        <Login
-                            setIsLoggedIn={setIsLoggedIn}
-                            setUser={setUser}
-                            setHeaders={setHeaders}
-                            setLoginMessage={setLoginMessage}
-                            loginMessage={loginMessage}
-                            localStorageLogin={localStorageLogin}
-                        />
-                    )}
                 />
-                <Route path={`${path}/signup`}>
-                    <Register />
-                </Route>
+                <PublicRoute
+                    component={Register}
+                    restricted={true}
+                    path="/signup"
+                    exact
+                />
+                <Route render={() => <Redirect to="/login" />} />
             </Switch>
         </div>
     );

@@ -1,25 +1,11 @@
 import './App.css';
 import './login/login.css';
-import Login from './login/Login';
-import Register from './login/Register';
-import { useState, useEffect, useContext } from 'react';
-import {
-    BrowserRouter as Router,
-    Route,
-    Switch,
-    Redirect,
-} from 'react-router-dom';
-import { userSessionAPI } from './api/API';
-import Loginhero from './login/Loginhero';
+import { Route, Switch } from 'react-router-dom';
 import Main from './Main';
-import { UserProvider, UserContext } from './context/UserContext';
 import PrivateRoute from './PrivateRoute';
-import PublicRoute from './PublicRoute';
+import LoginPage from './login/LoginPage';
 
 function App() {
-    const { setUser, setHeaders, setLoginMessage, setIsLoggedIn } =
-        useContext(UserContext);
-
     // // Logged In
     // useEffect(() => {
     //     const localStorageLoginUser = JSON.parse(localStorage.getItem('User'));
@@ -70,23 +56,7 @@ function App() {
             <Switch>
                 <PrivateRoute component={Main} path="/" exact />
 
-                <div className="login-main-container">
-                    <Loginhero />
-
-                    <PublicRoute
-                        component={Login}
-                        restricted={true}
-                        path="/login"
-                        exact
-                    />
-                    <PublicRoute
-                        component={Register}
-                        restricted={true}
-                        path="/signup"
-                        exact
-                    />
-                    <Route render={() => <Redirect to="/login" />} />
-                </div>
+                <Route component={LoginPage} />
             </Switch>
             {/* </Router> */}
         </div>

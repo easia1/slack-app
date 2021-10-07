@@ -1,13 +1,11 @@
 import './sidebar.css';
 import Button from '../button/Button';
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { UserContext } from '../../context/UserContext';
 import Pic from '../pic/Pic';
 import ChannelList from '../channel/ChannelList';
 import ContactList from '../contact/ContactList';
 import { NavLink } from 'react-router-dom';
-import NewChannel from '../../newchannel/NewChannel';
-import { getMessagesAPI } from '../../api/API';
 import Search from '../search/Search';
 
 const Sidebar = () => {
@@ -21,9 +19,6 @@ const Sidebar = () => {
         logoutFunction,
         currentUser,
         setShowModal,
-        channelList,
-        allUsers,
-        currentHeaders,
         setShowContent,
     } = useContext(UserContext);
 
