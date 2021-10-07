@@ -50,29 +50,27 @@ const MessageSidebar = () => {
     //     }
     // }, [loadData]);
 
-    const getMemberIcons = () => {
-        let getMemberRequest = {
-            'access-token': currentHeaders['access-token'],
-            client: currentHeaders.client,
-            expiry: currentHeaders.expiry,
-            uid: currentHeaders.uid,
-            url: `channels/${chatInfo.id}`,
-        };
-    };
-
     //Make a function that gets all chat info
-    // let channelInfoRequest = {
-    //     url: `channels/${id}`,
-    //     'access-token': currentHeaders['access-token'],
-    //     client: currentHeaders.client,
-    //     expiry: currentHeaders.expiry,
-    //     uid: currentHeaders.uid,
-    // };
+    useEffect(() => {
+        if (chatName && chatName.isChannel) {
+            let channelInfoRequest = {
+                url: `channels/${chatName.id}`,
+                'access-token': currentHeaders['access-token'],
+                client: currentHeaders.client,
+                expiry: currentHeaders.expiry,
+                uid: currentHeaders.uid,
+            };
 
-    // getListsAPI(channelInfoRequest).then((res) => {
-    //     console.log('channel info response', res);
-    //     setChannelMembers(res.data?.data?.channel_members);
-    // });
+            getListsAPI(channelInfoRequest).then((res) => {
+                console.log('channel info response', res);
+                setChannelMembers(res.data?.data?.channel_members);
+            });
+        }
+
+        return () => {
+            console.log('cleanup');
+        };
+    }, [loadData, chatName, showChatInfo]);
 
     return (
         <div
@@ -89,7 +87,7 @@ const MessageSidebar = () => {
                 >
                     ✕
                 </span>
-                <h1>Test component</h1>
+                <h1>{chatName.name}</h1>
                 {chatName && (
                     <Pic
                         id={chatName.id}
@@ -99,6 +97,19 @@ const MessageSidebar = () => {
                 )}
                 <Button text={'Invite user'} className="button" />
             </div>
+            {chatName && chatName.isChannel ? (
+                <div className="search-results">
+                    <span>Channel Members:</span>
+                    {channelMembers.map((member, index) => (
+                        <div className="newmsg-search-item" key={index}>
+                            <Pic id={member.id} name={'member'} isChip={true} />
+                            <span>{member.id}</span>
+                        </div>
+                    ))}
+                </div>
+            ) : (
+                ''
+            )}
         </div>
     );
 };

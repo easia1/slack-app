@@ -12,6 +12,7 @@ const ContactList = () => {
         removeEmail,
         setShowContent,
         setMessages,
+        setShowChatInfo,
     } = useContext(UserContext);
 
     if (contactList.data.data.length === 0) {
@@ -34,6 +35,7 @@ const ContactList = () => {
                         onClick={() => {
                             handleSetLoadData();
                             setShowContent(true);
+                            setShowChatInfo(false);
                             /* setMessages(); */
                         }}
                     >

@@ -16,6 +16,7 @@ const ChannelList = () => {
         allChannelMessages,
         setAllChannelMessages,
         setShowContent,
+        setShowChatInfo,
         setMessages,
     } = useContext(UserContext);
 
@@ -108,6 +109,7 @@ const ChannelList = () => {
                         onClick={() => {
                             handleSetLoadData();
                             setShowContent(true);
+                            setShowChatInfo(false);
                             /* setMessages(); */
                         }}
                     >

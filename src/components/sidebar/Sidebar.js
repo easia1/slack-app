@@ -20,6 +20,7 @@ const Sidebar = () => {
         currentUser,
         setShowModal,
         setShowContent,
+        setShowChatInfo,
     } = useContext(UserContext);
 
     // const [showModal, setShowModal] = useState(false);
@@ -31,7 +32,10 @@ const Sidebar = () => {
                 <NavLink
                     to="/new-message"
                     className="button"
-                    onClick={() => setShowContent(true)}
+                    onClick={() => {
+                        setShowContent(true);
+                        setShowChatInfo(false);
+                    }}
                 >
                     New message
                 </NavLink>
@@ -46,7 +50,10 @@ const Sidebar = () => {
                 <Button
                     className="button"
                     text="Add channel"
-                    onClick={() => setShowModal(true)}
+                    onClick={() => {
+                        setShowModal(true);
+                        setShowChatInfo(false);
+                    }}
                 />
 
                 <ChannelList />
