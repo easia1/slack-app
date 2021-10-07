@@ -77,24 +77,24 @@ const SearchUser = ({ type, placeholder }) => {
     return (
         <>
             {showToast ? (
-                <Toast className="toast-message" text={message} />
+                <Toast className='toast-message' text={message} />
             ) : (
                 <></>
             )}
-            <div className="input-container">
+            <div className='input-container'>
                 <span>Add users</span>
                 <input
-                    type="text"
+                    type='text'
                     placeholder={placeholder}
                     onChange={handleSearchList}
                     value={searchValue}
                 />
             </div>
-            {searchList.length != 0 && (
-                <div className="newchannel-search-results">
+            {searchList.length !== 0 && (
+                <div className='newchannel-search-results'>
                     {searchList.slice(0, 5).map((user, index) => (
                         <div
-                            className="newmsg-search-item"
+                            className='newmsg-search-item'
                             key={index}
                             onClick={() => {
                                 addUser(user, index);
