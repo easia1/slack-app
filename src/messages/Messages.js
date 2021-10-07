@@ -130,11 +130,11 @@ const Messages = () => {
 
     // getChatInfo();
 
-    useEffect(() => {
-        getMessages();
-        getChatName();
-        // getChatInfo();
-    }, [loadData /* , messages, currentHeaders */]);
+    // useEffect(() => {
+    //     getMessages();
+    //     getChatName();
+    //     // getChatInfo();
+    // }, [loadData /* , messages, currentHeaders */]);
 
     if (!messages) {
         return <Loading />;
