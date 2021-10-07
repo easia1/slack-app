@@ -4,6 +4,8 @@ import Pic from '../components/pic/Pic';
 import '../newchannel/searchuser.css';
 import { useRef } from 'react';
 
+import Toast from '../components/toast/Toast';
+
 const SearchUser = ({ type, placeholder }) => {
     const {
         currentHeaders,
@@ -16,7 +18,12 @@ const SearchUser = ({ type, placeholder }) => {
     } = useContext(UserContext);
 
     const [searchList, setSearchList] = useState([]);
+
     const [searchValue, setSearchValue] = useState('');
+
+    const [message, setMessage] = useState('');
+    const [showToast, setShowToast] = useState(false);
+
 
     const handleSearchList = (e) => {
         const searchInput = e.target.value;
@@ -32,9 +39,19 @@ const SearchUser = ({ type, placeholder }) => {
         }
     };
     const addUser = (user) => {
-        setAddUsers([...addUsers, user]);
-        setUserIds([...userIds, user.id]);
+        if (addUsers.includes(user)) {
+            setShowToast(true);
+            setMessage('Please add another user');
+            setTimeout(() => {
+                setShowToast(false);
+            }, 1000);
+        } else {
+            setAddUsers([...addUsers, user]);
+            setUserIds([...userIds, user.id]);
+        }
+
         console.log(addUsers);
+        console.log(userIds);
     };
 
     const clearSearchField = () => {
@@ -59,8 +76,14 @@ const SearchUser = ({ type, placeholder }) => {
     // };
 
     return (
+
         <>
-            <div className="input-container">
+      {showToast ? (
+                    <Toast className='toast-message' text={message} />
+                ) : (
+                    <></>
+                )}      
+      <div className="input-container">
                 <span>Add users</span>
                 <input
                     type="text"

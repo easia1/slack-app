@@ -34,6 +34,10 @@ const Messages = () => {
 
     // const [chatInfo, setChatInfo] = useState();
 
+    const sendMessageRef = useRef();
+    const endMessageRef = useRef(null);
+    const elementRef = useRef();
+
     const getMessages = () => {
         let messageRequest = {
             'access-token': currentHeaders['access-token'],
@@ -143,7 +147,7 @@ const Messages = () => {
                         : 'main-content main-content-closed'
                 }
             >
-                <div className="messages-section">
+                <div className='messages-section'>
                     {messages ? (
                         <>
                             <ChatHeader
@@ -152,10 +156,10 @@ const Messages = () => {
                                 messages={messages}
                                 channelMembers={channelMembers}
                             />
-                            <div className="messages-content">
+                            <div className='messages-content'>
                                 {messages.data?.data.length > 0 ? (
-                                    <div className="message-flex">
-                                        <div className="messages-container">
+                                    <div className='message-flex'>
+                                        <div className='messages-container'>
                                             {messages.data.data.map(
                                                 (message, index) => {
                                                     return message.sender.id !==
@@ -176,8 +180,8 @@ const Messages = () => {
                                                             time={
                                                                 message.created_at
                                                             }
-                                                            className="incoming-messages"
-                                                            type="sender"
+                                                            className='incoming-messages'
+                                                            type='sender'
                                                         />
                                                     ) : (
                                                         <ChatBubble
@@ -196,19 +200,20 @@ const Messages = () => {
                                                             time={
                                                                 message.created_at
                                                             }
-                                                            className="outgoing-messages"
-                                                            type="user"
+                                                            className='outgoing-messages'
+                                                            type='user'
                                                         />
                                                     );
                                                 }
                                             )}
+                                            {/* <div ref={elementRef}></div> */}
                                             <ScrollDown />
                                         </div>
                                     </div>
                                 ) : (
-                                    <div className="message-container-empty">
+                                    <div className='message-container-empty'>
                                         <img src={Nocontent} />
-                                        <span className="empty-title">
+                                        <span className='empty-title'>
                                             Be the first one to say hi!
                                         </span>
                                         <p>Send a message!</p>

@@ -85,3 +85,20 @@ export const sendMessageAPI = (data) => {
         },
     });
 };
+
+export const addUserChannelAPI = (data) => {
+    return axios({
+        method: 'POST',
+        url: 'channel/add_member',
+        data: {
+            id: data.channel_id,
+            member_id: data.user_id,
+        },
+        headers: {
+            'access-token': data['access-token'],
+            client: data.client,
+            expiry: data.expiry,
+            uid: data.uid,
+        },
+    });
+};
