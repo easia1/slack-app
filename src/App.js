@@ -66,7 +66,7 @@ function App() {
 
     return (
         <div className="App">
-            <Router basename={process.env.PUBLIC_URL}>
+            <Router>
                 <Switch>
                     <PrivateRoute component={Main} path="/" exact />
 
