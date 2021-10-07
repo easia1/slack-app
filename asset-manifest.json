@@ -1,28 +1,28 @@
 {
   "files": {
-    "main.css": "/slack-app/static/css/main.4d9bd890.chunk.css",
-    "main.js": "/slack-app/static/js/main.6fae0410.chunk.js",
-    "main.js.map": "/slack-app/static/js/main.6fae0410.chunk.js.map",
+    "main.css": "/slack-app/static/css/main.75c6f59d.chunk.css",
+    "main.js": "/slack-app/static/js/main.db8b7de3.chunk.js",
+    "main.js.map": "/slack-app/static/js/main.db8b7de3.chunk.js.map",
     "runtime-main.js": "/slack-app/static/js/runtime-main.dc20c6a3.js",
     "runtime-main.js.map": "/slack-app/static/js/runtime-main.dc20c6a3.js.map",
-    "static/js/2.5773e1e5.chunk.js": "/slack-app/static/js/2.5773e1e5.chunk.js",
-    "static/js/2.5773e1e5.chunk.js.map": "/slack-app/static/js/2.5773e1e5.chunk.js.map",
+    "static/js/2.478c32a6.chunk.js": "/slack-app/static/js/2.478c32a6.chunk.js",
+    "static/js/2.478c32a6.chunk.js.map": "/slack-app/static/js/2.478c32a6.chunk.js.map",
     "static/js/3.f9fc2e5d.chunk.js": "/slack-app/static/js/3.f9fc2e5d.chunk.js",
     "static/js/3.f9fc2e5d.chunk.js.map": "/slack-app/static/js/3.f9fc2e5d.chunk.js.map",
     "index.html": "/slack-app/index.html",
-    "static/css/main.4d9bd890.chunk.css.map": "/slack-app/static/css/main.4d9bd890.chunk.css.map",
-    "static/js/2.5773e1e5.chunk.js.LICENSE.txt": "/slack-app/static/js/2.5773e1e5.chunk.js.LICENSE.txt",
+    "static/css/main.75c6f59d.chunk.css.map": "/slack-app/static/css/main.75c6f59d.chunk.css.map",
+    "static/js/2.478c32a6.chunk.js.LICENSE.txt": "/slack-app/static/js/2.478c32a6.chunk.js.LICENSE.txt",
     "static/media/beginchat.fee9cb19.svg": "/slack-app/static/media/beginchat.fee9cb19.svg",
     "static/media/login.css": "/slack-app/static/media/hero.f8f24e00.svg",
     "static/media/newmessage.b249c0dd.svg": "/slack-app/static/media/newmessage.b249c0dd.svg",
     "static/media/nocontent.ebe2c5bc.svg": "/slack-app/static/media/nocontent.ebe2c5bc.svg",
-    "static/media/selectmessage.d806d655.svg": "/slack-app/static/media/selectmessage.d806d655.svg",
+    "static/media/selectmessage.6b51a787.svg": "/slack-app/static/media/selectmessage.6b51a787.svg",
     "static/media/startchannel.d76733b3.svg": "/slack-app/static/media/startchannel.d76733b3.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.dc20c6a3.js",
-    "static/js/2.5773e1e5.chunk.js",
-    "static/css/main.4d9bd890.chunk.css",
-    "static/js/main.6fae0410.chunk.js"
+    "static/js/2.478c32a6.chunk.js",
+    "static/css/main.75c6f59d.chunk.css",
+    "static/js/main.db8b7de3.chunk.js"
   ]
 }
