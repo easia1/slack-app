@@ -172,7 +172,7 @@ const Main = () => {
                         setShowModal={setShowModal}
                     />
                 ) : null}
-                <Router basename={`${process.env.PUBLIC_URL}/`}>
+                <Router basename="slack-app">
                     <div
                         className={
                             showContent
