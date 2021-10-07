@@ -172,51 +172,51 @@ const Main = () => {
                         setShowModal={setShowModal}
                     />
                 ) : null}
-                <Router>
-                    <div
-                        className={
-                            showContent
-                                ? 'navigation-bars-container navigation-bars-container-closed'
-                                : 'navigation-bars-container '
-                        }
-                    >
-                        <Navbar />
-                        <Sidebar />
-                    </div>
-                    <Switch>
-                        <Route path="/" exact>
-                            <div
-                                className={
-                                    !showContent
-                                        ? 'main-content main-content-closed'
-                                        : showChatInfo
-                                        ? 'main-content main-content-closed'
-                                        : 'main-content'
-                                }
-                            >
-                                <div className="message-container-empty">
-                                    <img src={Selectmessage} />
-                                    <span className="empty-title">
-                                        Welcome back,{' '}
-                                        {removeEmail(currentUser.email)}!
-                                    </span>
-                                    <p>
-                                        Send a message or choose a contact to
-                                        get started.
-                                    </p>
-                                </div>
+                {/* <Router> */}
+                <div
+                    className={
+                        showContent
+                            ? 'navigation-bars-container navigation-bars-container-closed'
+                            : 'navigation-bars-container '
+                    }
+                >
+                    <Navbar />
+                    <Sidebar />
+                </div>
+                <Switch>
+                    <Route path="/" exact>
+                        <div
+                            className={
+                                !showContent
+                                    ? 'main-content main-content-closed'
+                                    : showChatInfo
+                                    ? 'main-content main-content-closed'
+                                    : 'main-content'
+                            }
+                        >
+                            <div className="message-container-empty">
+                                <img src={Selectmessage} />
+                                <span className="empty-title">
+                                    Welcome back,{' '}
+                                    {removeEmail(currentUser.email)}!
+                                </span>
+                                <p>
+                                    Send a message or choose a contact to get
+                                    started.
+                                </p>
                             </div>
-                        </Route>
-                        <Route path="/:type/:id">
-                            <Messages />
-                        </Route>
-                        <Route exact path="/new-message">
-                            <NewMessage />
-                        </Route>
-                    </Switch>
+                        </div>
+                    </Route>
+                    <Route path="/:type/:id">
+                        <Messages />
+                    </Route>
+                    <Route exact path="/new-message">
+                        <NewMessage />
+                    </Route>
+                </Switch>
 
-                    <MessageSidebar />
-                </Router>
+                <MessageSidebar />
+                {/* </Router> */}
             </div>
         );
     }
