@@ -6,7 +6,7 @@ import { useParams } from 'react-router';
 import Navbar from './components/navbar/Navbar';
 import Sidebar from './components/sidebar/Sidebar';
 import Loading from './components/loading/Loading';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import NewMessage from './newmessage/NewMessage';
 import Messages from './messages/Messages';
 import { UserContext } from './context/UserContext';
@@ -172,7 +172,7 @@ const Main = () => {
                         setShowModal={setShowModal}
                     />
                 ) : null}
-                <Router basename="slack-app">
+                <Router basename={process.env.PUBLIC_URL}>
                     <div
                         className={
                             showContent

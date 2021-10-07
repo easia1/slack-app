@@ -4,7 +4,7 @@ import Login from './login/Login';
 import Register from './login/Register';
 import { useState, useEffect, useContext } from 'react';
 import {
-    BrowserRouter as Router,
+    HashRouter as Router,
     Route,
     Switch,
     Redirect,
@@ -66,7 +66,7 @@ function App() {
 
     return (
         <div className="App">
-            <Router basename="slack-app">
+            <Router basename={process.env.PUBLIC_URL}>
                 <Switch>
                     <PrivateRoute component={Main} path="/" exact />
 
