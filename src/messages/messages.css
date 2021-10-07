@@ -237,17 +237,21 @@
 }
 
 .message-sidebar {
-    width: 50%;
+    width: 100%;
     background-color: var(--lightest-grey);
     height: 100%;
     border-left: 1px solid var(--dark-grey);
     opacity: 0;
     transform: translateX(5%);
-    animation: maincontent 0.1s ease forwards;
+    position: absolute;
+    right: 0;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 400px -7px;
+    animation: maincontent 0.2s ease forwards;
 }
 
 .message-sidebar-closed {
-    animation: sidebarClose 0.1s ease forwards;
+    animation: sidebarClose 0.5s ease forwards;
+    display: none;
 }
 
 @keyframes sidebarClose {
@@ -295,5 +299,8 @@
     .message-bubble-sender,
     .message-bubble-user {
         max-width: 50%;
+    }
+    .message-sidebar {
+        width: 30%;
     }
 }

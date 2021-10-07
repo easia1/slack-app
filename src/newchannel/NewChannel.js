@@ -6,6 +6,7 @@ import Toast from '../components/toast/Toast';
 import './newchannel.css';
 import { UserContext } from '../context/UserContext';
 import SearchUser from '../newchannel/SearchUser';
+import Pic from '../components/pic/Pic';
 
 const NewChannel = () => {
     const {
@@ -81,33 +82,78 @@ const NewChannel = () => {
         setUserIds([]);
         setShowModal(false);
     };
+
+    const updateIndex = (newList, newIdsList) => {
+        setAddUsers(newList);
+        setUserIds(newIdsList);
+    };
+
+    const deleteUser = (e) => {
+        let temp_arr = [...addUsers];
+        temp_arr.splice(e.target.dataset.index, 1);
+
+        let temp_arr2 = [...userIds];
+        temp_arr2.splice(e.target.dataset.index, 1);
+        updateIndex(temp_arr, temp_arr2);
+        console.log(temp_arr);
+        console.log(temp_arr2);
+    };
+
     return (
         <div className="channel-modal-container">
             <form className="channel-modal">
-                <div className="modal-title">
-                    <span
-                        className="close-button"
-                        onClick={() => newFunction()}
-                    >
-                        ✕
-                    </span>
-                    <h1 className="sidebar-title">Create a channel</h1>
-                </div>
-                <label className="input-container">
-                    <span>Channel Name</span>
+                <div className="modal-upperhalf">
+                    <div className="modal-title">
+                        <span
+                            className="close-button"
+                            onClick={() => newFunction()}
+                        >
+                            ✕
+                        </span>
+                        <h1 className="sidebar-title">Create a channel</h1>
+                    </div>
+                    <div className="newchannel-inputs-container">
+                        <label className="input-container">
+                            <span>Channel Name</span>
 
-                    <input
-                        type='text'
-                        min='3'
-                        max='15'
-                        ref={channelNameRef}
-                    ></input>
-                </label>
-                {/* <label className='input-container'>
+                            <input
+                                type="text"
+                                min="3"
+                                max="15"
+                                ref={channelNameRef}
+                            ></input>
+                        </label>
+                        {/* <label className='input-container'>
                     <span>Input user IDs</span>
                     {<input type='text' ref={userInputRef}></input>}
                 </label> */}
-                {<SearchUser />}
+                        {<SearchUser />}
+                    </div>
+                </div>
+                <span className="newchannel-chips-container-label">
+                    Users to be added to the channel
+                </span>
+                <div className="newchannel-chips-container">
+                    {addUsers.map((val, index) => {
+                        return (
+                            <div className="select-chip-container" key={index}>
+                                <Pic
+                                    id={val.id}
+                                    name={val.email}
+                                    isChip={true}
+                                />
+                                <span>{val.email}</span>
+                                <div
+                                    className="delete-chip-button"
+                                    data-index={index}
+                                    onClick={(e) => deleteUser(e)}
+                                >
+                                    ✕
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
 
                 <Button
                     className="button"
