@@ -23,6 +23,8 @@ const Messages = () => {
         messages,
         setMessages,
         showChatInfo,
+        setChatInfo,
+        setChatName,
     } = useContext(UserContext);
 
     const { type, id } = useParams();
@@ -31,6 +33,7 @@ const Messages = () => {
     const [channelMembers, setChannelMembers] = useState();
 
     // const [chatInfo, setChatInfo] = useState();
+
     const sendMessageRef = useRef();
     const endMessageRef = useRef(null);
     const elementRef = useRef();
@@ -45,24 +48,53 @@ const Messages = () => {
             receiver_class: type.charAt(0).toUpperCase() + type.slice(1),
         };
 
+        /* setChatInfo({
+            id: id,
+            type: type,
+        }); */
+
         console.log('message request', messageRequest);
         getMessagesAPI(messageRequest).then((res) => {
             console.log('message request response', res);
             setMessages(res);
         });
 
-        if (type === 'channel') {
-            let channelInfoRequest = {
-                url: `channels/${id}`,
-                'access-token': currentHeaders['access-token'],
-                client: currentHeaders.client,
-                expiry: currentHeaders.expiry,
-                uid: currentHeaders.uid,
-            };
+        // if (type === 'channel') {
+        //     let channelInfoRequest = {
+        //         url: `channels/${id}`,
+        //         'access-token': currentHeaders['access-token'],
+        //         client: currentHeaders.client,
+        //         expiry: currentHeaders.expiry,
+        //         uid: currentHeaders.uid,
+        //     };
 
-            getListsAPI(channelInfoRequest).then((res) => {
-                console.log('channel info response', res);
-                setChannelMembers(res.data?.data?.channel_members);
+        //     getListsAPI(channelInfoRequest).then((res) => {
+        //         console.log('channel info response', res);
+        //         setChannelMembers(res.data?.data?.channel_members);
+        //     });
+        // }
+    };
+
+    const getChatName = () => {
+        if (type === 'channel') {
+            channelList.data.data.map((channel) => {
+                if (channel.id === parseInt(id)) {
+                    setChatName({
+                        id: channel.id,
+                        name: channel.name,
+                        isChannel: true,
+                    });
+                }
+            });
+        } else if (type === 'user') {
+            allUsers.data.data.map((user) => {
+                if (user.id === parseInt(id)) {
+                    setChatName({
+                        id: user.id,
+                        name: user.email,
+                        isChannel: false,
+                    });
+                }
             });
         }
     };
@@ -100,6 +132,7 @@ const Messages = () => {
 
     useEffect(() => {
         getMessages();
+        getChatName();
         // getChatInfo();
     }, [loadData /* , messages, currentHeaders */]);
 

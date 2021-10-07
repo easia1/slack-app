@@ -77,14 +77,11 @@ const ChatHeader = ({ type, id, messages, channelMembers }) => {
                             {chatInfo.name}
                         </h1>
                     </div>
-                    {chatInfo.isChannel ? (
-                        <ChannelInfoToggle
-                            id={chatInfo.id}
-                            channelMembers={channelMembers}
-                        />
-                    ) : (
-                        ''
-                    )}
+
+                    <ChannelInfoToggle
+                        id={chatInfo.id}
+                        channelMembers={channelMembers}
+                    />
                 </div>
             ) : (
                 ''

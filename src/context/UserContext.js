@@ -74,13 +74,16 @@ export const UserProvider = ({ children }) => {
     const removeEmail = (email) => {
         return email.split('@')[0];
     };
-
+    //For mobile devices, for showing main content
     const [showContent, setShowContent] = useState(false);
-    const [showChatInfo, setShowChatInfo] = useState(false);
 
+    //For message sidebars/options
+    const [showChatInfo, setShowChatInfo] = useState(false);
     const handleSetShowChatInfo = () => {
         setShowChatInfo((showChatInfo) => !showChatInfo);
     };
+    const [chatInfo, setChatInfo] = useState({});
+    const [chatName, setChatName] = useState();
 
     return (
         <UserContext.Provider
@@ -123,6 +126,10 @@ export const UserProvider = ({ children }) => {
                 setUserIds,
                 addUsers,
                 setAddUsers,
+                chatInfo,
+                setChatInfo,
+                chatName,
+                setChatName,
             }}
         >
             {children}

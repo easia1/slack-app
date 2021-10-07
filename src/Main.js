@@ -87,8 +87,6 @@ const Main = () => {
         runAPI();
     }, [loadData]);
 
-    const { type, id } = useParams();
-
     // useState(() => {
     //     let channelListRequest = {
     //         'access-token': currentHeaders['access-token'],
@@ -216,20 +214,8 @@ const Main = () => {
                             <NewMessage />
                         </Route>
                     </Switch>
-                    <div
-                        className={
-                            showChatInfo
-                                ? 'message-sidebar'
-                                : 'message-sidebar message-sidebar-closed'
-                        }
-                    >
-                        <ChatHeader type={type} id={id} />
-                        <MessageSidebar />
-                        <h1>channel sidebar</h1>
-                        <p>
-                            {type} {id}
-                        </p>
-                    </div>
+
+                    <MessageSidebar />
                 </Router>
             </div>
         );
