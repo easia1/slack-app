@@ -4,7 +4,7 @@ import Login from './login/Login';
 import Register from './login/Register';
 import { useState, useEffect, useContext } from 'react';
 import {
-    BrowserRouter as Router,
+    HashRouter as Router,
     Route,
     Switch,
     Redirect,
