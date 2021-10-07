@@ -54,10 +54,12 @@ const Messages = () => {
         }); */
 
         console.log('message request', messageRequest);
-        getMessagesAPI(messageRequest).then((res) => {
-            console.log('message request response', res);
-            setMessages(res);
-        });
+        getMessagesAPI(messageRequest)
+            .then((res) => {
+                console.log('message request response', res);
+                setMessages(res);
+            })
+            .catch((err) => console.log(err));
 
         // if (type === 'channel') {
         //     let channelInfoRequest = {

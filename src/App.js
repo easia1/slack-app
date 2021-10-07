@@ -56,7 +56,6 @@ function App() {
             <Switch>
                 <PrivateRoute
                     component={Main}
-                    exact
                     path={['/', '/:type/:id', '/new-message']}
                     exact
                 />
