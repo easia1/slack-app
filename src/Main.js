@@ -6,7 +6,7 @@ import { useParams } from 'react-router';
 import Navbar from './components/navbar/Navbar';
 import Sidebar from './components/sidebar/Sidebar';
 import Loading from './components/loading/Loading';
-import { Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import NewMessage from './newmessage/NewMessage';
 import Messages from './messages/Messages';
 import { UserContext } from './context/UserContext';

@@ -4,15 +4,12 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { UserProvider } from './context/UserContext';
-import { HashRouter } from 'react-router-dom';
 
 ReactDOM.render(
     <React.StrictMode>
-        <HashRouter basename="/slack-app/">
-            <UserProvider>
-                <App />
-            </UserProvider>
-        </HashRouter>
+        <UserProvider>
+            <App />
+        </UserProvider>
     </React.StrictMode>,
     document.getElementById('root')
 );

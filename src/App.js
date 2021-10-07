@@ -3,7 +3,12 @@ import './login/login.css';
 import Login from './login/Login';
 import Register from './login/Register';
 import { useState, useEffect, useContext } from 'react';
-import { Router, Route, Switch, Redirect } from 'react-router-dom';
+import {
+    BrowserRouter as Router,
+    Route,
+    Switch,
+    Redirect,
+} from 'react-router-dom';
 import { userSessionAPI } from './api/API';
 import Loginhero from './login/Loginhero';
 import Main from './Main';
@@ -61,7 +66,7 @@ function App() {
 
     return (
         <div className="App">
-            <Router>
+            <Router basename={`${process.env.PUBLIC_URL}/`}>
                 <Switch>
                     <PrivateRoute component={Main} path="/" exact />
 
