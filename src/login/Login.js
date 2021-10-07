@@ -215,7 +215,7 @@ const Login = () => {
 
             <div>
                 Don't have an account yet?{' '}
-                <NavLink className="hyperlink" to="/signup">
+                <NavLink className="hyperlink" to="/slack-app/signup">
                     Sign up here.
                 </NavLink>
             </div>

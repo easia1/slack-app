@@ -4,7 +4,7 @@ import Login from './login/Login';
 import Register from './login/Register';
 import { useState, useEffect, useContext } from 'react';
 import {
-    HashRouter as Router,
+    BrowserRouter as Router,
     Route,
     Switch,
     Redirect,
@@ -68,7 +68,7 @@ function App() {
         <div className="App">
             <Router>
                 <Switch>
-                    <PrivateRoute component={Main} path="/" exact />
+                    <PrivateRoute component={Main} path="/slack-app" exact />
 
                     <div className="login-main-container">
                         <Loginhero />
@@ -76,16 +76,18 @@ function App() {
                         <PublicRoute
                             component={Login}
                             restricted={true}
-                            path="/login"
+                            path="/slack-app/login"
                             exact
                         />
                         <PublicRoute
                             component={Register}
                             restricted={true}
-                            path="/signup"
+                            path="/slack-app/signup"
                             exact
                         />
-                        <Route render={() => <Redirect to="/login" />} />
+                        <Route
+                            render={() => <Redirect to="/slack-app/login" />}
+                        />
                     </div>
                 </Switch>
             </Router>

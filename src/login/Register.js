@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import Button from '../components/button/Button';
 import axios from 'axios';
 import { userSessionAPI } from '../api/API';
-import { Router, Route, Switch, NavLink } from 'react-router-dom';
+import { Route, Switch, NavLink } from 'react-router-dom';
 import './login.css';
 import Toast from '../components/toast/Toast';
 
@@ -72,13 +72,13 @@ const Register = () => {
     };
 
     return (
-        <div className='login-page'>
-            <h2 className='login-title'>Let's get started!</h2>
-            <p className='login-subtitle'>
+        <div className="login-page">
+            <h2 className="login-title">Let's get started!</h2>
+            <p className="login-subtitle">
                 Sign up for an account to connect with other people
             </p>
             <form
-                className='login-container'
+                className="login-container"
                 onSubmit={(e) => {
                     e.preventDefault();
                     onRegister();
@@ -86,45 +86,46 @@ const Register = () => {
             >
                 <br />
 
-                <label className='input-container'>
+                <label className="input-container">
                     <span>Email</span>
                     <input
-                        type='email'
-                        name='register-email'
-                        id='register-email'
+                        type="email"
+                        name="register-email"
+                        id="register-email"
                         ref={registerEmailRef}
                     />
                 </label>
 
-                <label className='input-container'>
+                <label className="input-container">
                     <span>Password</span>
                     <input
-                        type='password'
-                        name='register-name'
-                        min='6'
-                        id='register-password'
+                        type="password"
+                        name="register-name"
+                        min="6"
+                        id="register-password"
                         ref={registerPasswordRef}
                     />
                 </label>
 
-                <label className='input-container'>
+                <label className="input-container">
                     <span>Confirm Password</span>
                     <input
-                        type='password'
-                        name='register-name'
-                        min='6'
-                        id='register-passconfirm'
+                        type="password"
+                        name="register-name"
+                        min="6"
+                        id="register-passconfirm"
                         ref={registerConfirmPasswordRef}
                     />
                 </label>
 
-                <Button text='Register' type='submit' className='button' />
+                <Button text="Register" type="submit" className="button" />
             </form>
             <div>
-                Already have an account? <NavLink to='/'>Log in.</NavLink>
+                Already have an account?{' '}
+                <NavLink to="/slack-app/login">Log in.</NavLink>
             </div>
             {showToast || showPassError ? (
-                <Toast className='toast-message' text={message} />
+                <Toast className="toast-message" text={message} />
             ) : (
                 <></>
             )}

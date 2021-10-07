@@ -6,7 +6,7 @@ import { useParams } from 'react-router';
 import Navbar from './components/navbar/Navbar';
 import Sidebar from './components/sidebar/Sidebar';
 import Loading from './components/loading/Loading';
-import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import NewMessage from './newmessage/NewMessage';
 import Messages from './messages/Messages';
 import { UserContext } from './context/UserContext';
@@ -184,7 +184,7 @@ const Main = () => {
                         <Sidebar />
                     </div>
                     <Switch>
-                        <Route path="/" exact>
+                        <Route path="/slack-app" exact>
                             <div
                                 className={
                                     !showContent
@@ -207,10 +207,10 @@ const Main = () => {
                                 </div>
                             </div>
                         </Route>
-                        <Route path="/:type/:id">
+                        <Route path="/slack-app/:type/:id">
                             <Messages />
                         </Route>
-                        <Route exact path="/new-message">
+                        <Route exact path="/slack-app/new-message">
                             <NewMessage />
                         </Route>
                     </Switch>
