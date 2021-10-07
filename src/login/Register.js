@@ -15,30 +15,30 @@ const Register = () => {
     const [showToast, setShowToast] = useState(false);
     const [showPassError, setShowPassError] = useState(false);
 
+    // const onRegister = () => {
+    //     handleError();
+
+    //     // const data = {
+    //     //     url: 'auth',
+    //     //     email: registerEmailRef.current.value,
+    //     //     password: registerPasswordRef.current.value,
+    //     //     password_confirmation: registerConfirmPasswordRef.current.value,
+    //     // };
+
+    //     // userSessionAPI(data)
+    //     //     .then((res) => {
+    //     //         setMessage('Registration Success');
+    //     //         setShowToast(true);
+    //     //         console.log('res', res);
+    //     //     })
+    //     //     .catch((err) => {
+    //     //         setMessage('Something went wrong. Please try again');
+    //     //         setShowToast(true);
+    //     //         console.log('err', err);
+    //     //     });
+    // };
+
     const onRegister = () => {
-        handleError();
-
-        const data = {
-            url: 'auth',
-            email: registerEmailRef.current.value,
-            password: registerPasswordRef.current.value,
-            password_confirmation: registerConfirmPasswordRef.current.value,
-        };
-
-        userSessionAPI(data)
-            .then((res) => {
-                setMessage('Registration Success');
-                setShowToast(true);
-                console.log('res', res);
-            })
-            .catch((err) => {
-                setMessage('Something went wrong. Please try again');
-                setShowToast(true);
-                console.log('err', err);
-            });
-    };
-
-    const handleError = () => {
         if (
             registerPasswordRef.current.value !==
             registerConfirmPasswordRef.current.value
@@ -49,15 +49,13 @@ const Register = () => {
             setTimeout(() => {
                 setShowPassError(false);
             }, 3000);
-        }
-        if (registerPasswordRef.current.value.length < 6) {
+        } else if (registerPasswordRef.current.value.length < 6) {
             setMessage('Password is too short');
             setShowPassError(true);
             setTimeout(() => {
                 setShowPassError(false);
             }, 3000);
-        }
-        if (
+        } else if (
             !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
                 registerEmailRef.current.value
             )
@@ -68,6 +66,25 @@ const Register = () => {
             setTimeout(() => {
                 setShowPassError(false);
             }, 3000);
+        } else {
+            const data = {
+                url: 'auth',
+                email: registerEmailRef.current.value,
+                password: registerPasswordRef.current.value,
+                password_confirmation: registerConfirmPasswordRef.current.value,
+            };
+
+            userSessionAPI(data)
+                .then((res) => {
+                    setMessage('Registration Success');
+                    setShowToast(true);
+                    console.log('res', res);
+                })
+                .catch((err) => {
+                    setMessage('Something went wrong. Please try again');
+                    setShowToast(true);
+                    console.log('err', err);
+                });
         }
     };
 
@@ -121,7 +138,10 @@ const Register = () => {
                 <Button text="Register" type="submit" className="button" />
             </form>
             <div>
-                Already have an account? <NavLink to="/login">Log in.</NavLink>
+                Already have an account?{' '}
+                <NavLink className="hyperlink" to="/login">
+                    Log in.
+                </NavLink>
             </div>
             {showToast || showPassError ? (
                 <Toast className="toast-message" text={message} />

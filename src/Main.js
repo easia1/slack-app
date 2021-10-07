@@ -168,58 +168,51 @@ const Main = () => {
                         setShowModal={setShowModal}
                     />
                 ) : null}
-                <Router basename={process.env.PUBLIC_URL}>
-                    <div
-                        className={
-                            showContent
-                                ? 'navigation-bars-container navigation-bars-container-closed'
-                                : 'navigation-bars-container '
-                        }
-                    >
-                        <Navbar />
-                        <Sidebar />
-                    </div>
-                    <Switch>
-                        <Route path="/" exact>
-                            <div
-                                className={
-                                    !showContent
-                                        ? 'main-content main-content-closed'
-                                        : showChatInfo
-                                        ? 'main-content main-content-closed'
-                                        : 'main-content'
-                                }
-                            >
-                                <div className="message-container-empty">
-                                    <img
-                                        src={Selectmessage}
-                                        alt="Welcome back"
-                                    />
-                                    <span className="empty-title">
-                                        Welcome back,{' '}
-                                        {removeEmail(currentUser.email)}!
-                                    </span>
-                                    <p>
-                                        Send a message or choose a contact to
-                                        get started.
-                                    </p>
-                                </div>
+                {/* <Router basename={process.env.PUBLIC_URL}> */}
+                <div
+                    className={
+                        showContent
+                            ? 'navigation-bars-container navigation-bars-container-closed'
+                            : 'navigation-bars-container '
+                    }
+                >
+                    <Navbar />
+                    <Sidebar />
+                </div>
+                <Switch>
+                    <Route path="/" exact>
+                        <div
+                            className={
+                                !showContent
+                                    ? 'main-content main-content-closed'
+                                    : showChatInfo
+                                    ? 'main-content main-content-closed'
+                                    : 'main-content'
+                            }
+                        >
+                            <div className="message-container-empty">
+                                <img src={Selectmessage} alt="Welcome back" />
+                                <span className="empty-title">
+                                    Welcome back,{' '}
+                                    {removeEmail(currentUser.email)}!
+                                </span>
+                                <p>
+                                    Send a message or choose a contact to get
+                                    started.
+                                </p>
                             </div>
-                        </Route>
-                        <Route path="/:type/:id" component={Messages} />
-                        {/* <Messages />
+                        </div>
+                    </Route>
+                    <Route path="/:type/:id" component={Messages} />
+                    {/* <Messages />
                     </Route> */}
-                        <Route
-                            exact
-                            path="/new-message"
-                            component={NewMessage}
-                        />
-                        {/*   <NewMessage />
+                    <Route exact path="/new-message" component={NewMessage} />
+                    {/*   <NewMessage />
                     </Route> */}
-                    </Switch>
+                </Switch>
 
-                    <MessageSidebar />
-                </Router>
+                <MessageSidebar />
+                {/* </Router> */}
             </div>
         );
     }

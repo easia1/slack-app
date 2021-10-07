@@ -54,7 +54,12 @@ function App() {
         <div className="App">
             {/* <Router> */}
             <Switch>
-                <PrivateRoute component={Main} path="/" exact />
+                <PrivateRoute
+                    component={Main}
+                    exact
+                    path={['/', '/:type/:id', '/new-message']}
+                    exact
+                />
 
                 <Route component={LoginPage} />
             </Switch>
