@@ -91,7 +91,11 @@ const MessageSidebar = () => {
                 </span>
                 <h1>Test component</h1>
                 {chatName && (
-                    <Pic id={chatName.id} name={chatName?.name || 'none'} />
+                    <Pic
+                        id={chatName.id}
+                        name={chatName?.name || 'none'}
+                        isChannel={chatName.isChannel}
+                    />
                 )}
                 <Button text={'Invite user'} className="button" />
             </div>
