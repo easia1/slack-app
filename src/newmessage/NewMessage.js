@@ -26,7 +26,7 @@ const NewMessage = () => {
 
     /* const { type, id } = useParams(); */
 
-    const [newMessageUser, setNewMessageUser] = useState();
+    const [newMessageUser, setNewMessageUser] = useState(null);
 
     // const [chatInfo, setChatInfo] = useState();
 

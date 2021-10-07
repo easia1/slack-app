@@ -30,7 +30,7 @@ const Messages = () => {
     const { type, id } = useParams();
 
     // const [messages, setMessages] = useState();
-    const [channelMembers, setChannelMembers] = useState(null);
+    // const [channelMembers, setChannelMembers] = useState();
 
     // const [chatInfo, setChatInfo] = useState();
 
@@ -154,7 +154,7 @@ const Messages = () => {
                                 type={type}
                                 id={id}
                                 messages={messages}
-                                channelMembers={channelMembers}
+                                // channelMembers={channelMembers}
                             />
                             <div className="messages-content">
                                 {messages.data?.data.length > 0 ? (
