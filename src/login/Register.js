@@ -121,8 +121,7 @@ const Register = () => {
                 <Button text="Register" type="submit" className="button" />
             </form>
             <div>
-                Already have an account?{' '}
-                <NavLink to="/slack-app/login">Log in.</NavLink>
+                Already have an account? <NavLink to="/login">Log in.</NavLink>
             </div>
             {showToast || showPassError ? (
                 <Toast className="toast-message" text={message} />

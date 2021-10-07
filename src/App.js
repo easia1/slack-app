@@ -66,31 +66,29 @@ function App() {
 
     return (
         <div className="App">
-            <Router>
-                <Switch>
-                    <PrivateRoute component={Main} path="/slack-app" exact />
+            {/* <Router> */}
+            <Switch>
+                <PrivateRoute component={Main} path="/" exact />
 
-                    <div className="login-main-container">
-                        <Loginhero />
+                <div className="login-main-container">
+                    <Loginhero />
 
-                        <PublicRoute
-                            component={Login}
-                            restricted={true}
-                            path="/slack-app/login"
-                            exact
-                        />
-                        <PublicRoute
-                            component={Register}
-                            restricted={true}
-                            path="/slack-app/signup"
-                            exact
-                        />
-                        <Route
-                            render={() => <Redirect to="/slack-app/login" />}
-                        />
-                    </div>
-                </Switch>
-            </Router>
+                    <PublicRoute
+                        component={Login}
+                        restricted={true}
+                        path="/login"
+                        exact
+                    />
+                    <PublicRoute
+                        component={Register}
+                        restricted={true}
+                        path="/signup"
+                        exact
+                    />
+                    <Route render={() => <Redirect to="/login" />} />
+                </div>
+            </Switch>
+            {/* </Router> */}
         </div>
     );
 }

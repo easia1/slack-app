@@ -13,7 +13,7 @@ const PublicRoute = ({ component: Component, restricted, ...rest }) => {
             {...rest}
             render={(props) =>
                 isLoggedIn && restricted ? (
-                    <Redirect to="/slack-app" exact />
+                    <Redirect to="/" exact />
                 ) : (
                     <Component {...props} />
                 )
