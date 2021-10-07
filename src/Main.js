@@ -172,7 +172,7 @@ const Main = () => {
                         setShowModal={setShowModal}
                     />
                 ) : null}
-                <Router>
+                <Router basename={`${process.env.PUBLIC_URL}/`}>
                     <div
                         className={
                             showContent
