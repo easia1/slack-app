@@ -11,7 +11,11 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
         <Route
             {...rest}
             render={(props) =>
-                isLoggedIn ? <Component {...props} /> : <Redirect to="/login" />
+                isLoggedIn ? (
+                    <Component {...props} />
+                ) : (
+                    <Redirect to="/slack-app/login" />
+                )
             }
         />
     );
