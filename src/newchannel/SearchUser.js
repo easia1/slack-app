@@ -24,7 +24,6 @@ const SearchUser = ({ type, placeholder }) => {
     const [message, setMessage] = useState('');
     const [showToast, setShowToast] = useState(false);
 
-
     const handleSearchList = (e) => {
         const searchInput = e.target.value;
         setSearchValue(searchInput);
@@ -76,14 +75,13 @@ const SearchUser = ({ type, placeholder }) => {
     // };
 
     return (
-
         <>
-      {showToast ? (
-                    <Toast className='toast-message' text={message} />
-                ) : (
-                    <></>
-                )}      
-      <div className="input-container">
+            {showToast ? (
+                <Toast className="toast-message" text={message} />
+            ) : (
+                <></>
+            )}
+            <div className="input-container">
                 <span>Add users</span>
                 <input
                     type="text"
