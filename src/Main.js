@@ -3,7 +3,7 @@ import { getListsAPI } from './api/API';
 import Navbar from './components/navbar/Navbar';
 import Sidebar from './components/sidebar/Sidebar';
 import Loading from './components/loading/Loading';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import NewMessage from './newmessage/NewMessage';
 import Messages from './messages/Messages';
 import { UserContext } from './context/UserContext';
