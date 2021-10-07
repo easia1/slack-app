@@ -168,7 +168,7 @@ const Login = () => {
             <Logo className="hero-logo" />
             <h2 className="login-title">Let's go!</h2>
             <p className="login-subtitle">
-                Log in to your account and start connecting
+                Log in to your account and start connecting. Now.
             </p>
             <form
                 className="login-container"
