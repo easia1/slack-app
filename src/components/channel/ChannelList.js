@@ -24,40 +24,42 @@ const ChannelList = () => {
 
     const getRecentMsg = () => {
         if (channelList) {
-            for (let i = 0; i < channelList.data?.data.length; i++) {
-                let channelRecentMsgRequest = {
-                    'access-token': currentHeaders['access-token'],
-                    client: currentHeaders.client,
-                    expiry: currentHeaders.expiry,
-                    uid: currentHeaders.uid,
-                    user_id: parseInt(channelList.data.data[i].id),
-                    receiver_class: 'Channel',
-                };
+            if (!channelList.data.errors) {
+                for (let i = 0; i < channelList.data?.data.length; i++) {
+                    let channelRecentMsgRequest = {
+                        'access-token': currentHeaders['access-token'],
+                        client: currentHeaders.client,
+                        expiry: currentHeaders.expiry,
+                        uid: currentHeaders.uid,
+                        user_id: parseInt(channelList.data.data[i].id),
+                        receiver_class: 'Channel',
+                    };
 
-                getMessagesAPI(channelRecentMsgRequest).then((res) => {
-                    if (res.data?.data.length > 0) {
-                        console.log('res', res);
-                        console.log(res.data.data.at(-1).body);
-                        setAllChannelMessages((allChannelMessages) => [
-                            ...allChannelMessages,
-                            {
-                                id: parseInt(channelList.data.data[i].id),
-                                message: res.data.data.at(-1).body,
-                                sender: res.data.data.at(-1).sender.email,
-                            },
-                        ]);
-                    } else {
-                        console.log('res', res);
-                        setAllChannelMessages((allChannelMessages) => [
-                            ...allChannelMessages,
-                            {
-                                id: parseInt(channelList.data.data[i].id),
-                                message: 'No messages',
-                                sender: null,
-                            },
-                        ]);
-                    }
-                });
+                    getMessagesAPI(channelRecentMsgRequest).then((res) => {
+                        if (res.data?.data.length > 0) {
+                            console.log('res', res);
+                            console.log(res.data.data.at(-1).body);
+                            setAllChannelMessages((allChannelMessages) => [
+                                ...allChannelMessages,
+                                {
+                                    id: parseInt(channelList.data.data[i].id),
+                                    message: res.data.data.at(-1).body,
+                                    sender: res.data.data.at(-1).sender.email,
+                                },
+                            ]);
+                        } else {
+                            console.log('res', res);
+                            setAllChannelMessages((allChannelMessages) => [
+                                ...allChannelMessages,
+                                {
+                                    id: parseInt(channelList.data.data[i].id),
+                                    message: 'No messages',
+                                    sender: null,
+                                },
+                            ]);
+                        }
+                    });
+                }
             }
         }
     };
