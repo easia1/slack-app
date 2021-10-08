@@ -124,6 +124,7 @@ const MessageSidebar = () => {
                         isChannel={chatName.isChannel}
                     />
                 )}
+
                 <Button text={'Invite user'} className='button' />
                 <div>
                     <input type='text' onChange={handleSearchList} />
@@ -146,13 +147,24 @@ const MessageSidebar = () => {
                                     <span>{user.uid}</span>
                                 </div>
                             ))}
-                        </div>
-                    )}
+
+            </div>
+            
                     <Button
                         text={'+'}
                         className='button'
                         onClick={onAddingUser}
-                    ></Button>
+                    ></Button> 
+{chatName && channelMembers && chatName.isChannel ? (
+                <div className="search-results">
+                    <span>Channel Members:</span>
+                    {channelMembers.map((member, index) => (
+                        <div className="newmsg-search-item" key={index}>
+                            <Pic id={member.id} name={'member'} isChip={true} />
+                            <span>{member.user_id}</span>
+
+                        </div>
+                    )}
                     {showToast ? (
                         <Toast className='toast-message' text={message} />
                     ) : (

@@ -1,6 +1,5 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import { useEffect, useState } from 'react/cjs/react.development';
 import { getMessagesAPI } from '../api/API';
 import Loading from '../components/loading/Loading';
 import Pic from '../components/pic/Pic';
