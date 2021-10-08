@@ -25,8 +25,9 @@ const MessageSidebar = () => {
     } = useContext(UserContext);
 
     const [searchList, setSearchList] = useState([]);
-
     const [searchValue, setSearchValue] = useState('');
+
+    const [channelMembers, setChannelMembers] = useState();
 
     const [message, setMessage] = useState('');
     const [showToast, setShowToast] = useState(false);
@@ -77,15 +78,36 @@ const MessageSidebar = () => {
         }
     };
 
-    const getMemberIcons = () => {
-        let getMemberRequest = {
-            'access-token': currentHeaders['access-token'],
-            client: currentHeaders.client,
-            expiry: currentHeaders.expiry,
-            uid: currentHeaders.uid,
-            url: `channels/${chatInfo.id}`,
+    // const getMemberIcons = () => {
+    //     let getMemberRequest = {
+    //         'access-token': currentHeaders['access-token'],
+    //         client: currentHeaders.client,
+    //         expiry: currentHeaders.expiry,
+    //         uid: currentHeaders.uid,
+    //         url: `channels/${chatInfo.id}`,
+    //     };
+    // };
+
+    useEffect(() => {
+        if (chatName && chatName.isChannel) {
+            let channelInfoRequest = {
+                url: `channels/${chatName.id}`,
+                'access-token': currentHeaders['access-token'],
+                client: currentHeaders.client,
+                expiry: currentHeaders.expiry,
+                uid: currentHeaders.uid,
+            };
+
+            getListsAPI(channelInfoRequest).then((res) => {
+                console.log('channel info response', res);
+                setChannelMembers(res.data?.data?.channel_members);
+            });
+        }
+
+        return () => {
+            console.log('cleanup');
         };
-    };
+    }, [loadData, chatName, showChatInfo]);
 
     const handleSearchList = (e) => {
         const searchInput = e.target.value;
@@ -109,76 +131,79 @@ const MessageSidebar = () => {
                     : 'message-sidebar message-sidebar-closed'
             }
         >
-            <div className='modal-title'>
+            <div className="modal-title">
                 <span
-                    className='close-button'
+                    className="close-button"
                     onClick={() => handleSetShowChatInfo()}
                 >
                     ✕
                 </span>
-                <h1>Test component</h1>
+
                 {chatName && (
-                    <Pic
-                        id={chatName.id}
-                        name={chatName?.name || 'none'}
-                        isChannel={chatName.isChannel}
-                    />
+                    <>
+                        <Pic
+                            id={chatName.id}
+                            name={chatName?.name || 'none'}
+                            isChannel={chatName.isChannel}
+                        />
+                        <h1>{chatName.name}</h1>
+                    </>
                 )}
-
-                <Button text={'Invite user'} className='button' />
-                <div>
-                    <input type='text' onChange={handleSearchList} />
-                    {searchList.length !== 0 && (
-                        <div className='newchannel-search-results'>
-                            {searchList.slice(0, 5).map((user, index) => (
-                                <div
-                                    className='newmsg-search-item'
-                                    key={index}
-                                    onClick={() => {
-                                        addUser(user, index);
-                                        clearSearchField();
-                                    }}
-                                >
-                                    <Pic
-                                        id={user.id}
-                                        name={user.email}
-                                        isChip={true}
-                                    />
-                                    <span>{user.uid}</span>
-                                </div>
-                            ))}
-
             </div>
-            
-                    <Button
-                        text={'+'}
-                        className='button'
-                        onClick={onAddingUser}
-                    ></Button> 
-{chatName && channelMembers && chatName.isChannel ? (
+
+            <Button text={'Invite user'} className="button" />
+            <div>
+                <input type="text" onChange={handleSearchList} />
+                {searchList.length !== 0 && (
+                    <div className="newchannel-search-results">
+                        {searchList.slice(0, 5).map((user, index) => (
+                            <div
+                                className="newmsg-search-item"
+                                key={index}
+                                onClick={() => {
+                                    addUser(user, index);
+                                    clearSearchField();
+                                }}
+                            >
+                                <Pic
+                                    id={user.id}
+                                    name={user.email}
+                                    isChip={true}
+                                />
+                                <span>{user.uid}</span>
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </div>
+            <Button
+                text={'+'}
+                className="button"
+                onClick={onAddingUser}
+            ></Button>
+            {chatName && channelMembers && chatName.isChannel ? (
                 <div className="search-results">
                     <span>Channel Members:</span>
                     {channelMembers.map((member, index) => (
                         <div className="newmsg-search-item" key={index}>
                             <Pic id={member.id} name={'member'} isChip={true} />
                             <span>{member.user_id}</span>
-
                         </div>
-                    )}
-                    {showToast ? (
-                        <Toast className='toast-message' text={message} />
-                    ) : (
-                        <></>
-                    )}
+                    ))}
                 </div>
-            </div>
+            ) : (
+                ''
+            )}
+            {showToast ? (
+                <Toast className="toast-message" text={message} />
+            ) : (
+                <></>
+            )}
         </div>
     );
 };
 
 export default MessageSidebar;
-
-// const [channelMembers, setChannelMembers] = useState();
 
 /* const { type, id } = useParams(); */
 
