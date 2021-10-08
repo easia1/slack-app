@@ -103,7 +103,7 @@ const MessageSidebar = () => {
                     {channelMembers.map((member, index) => (
                         <div className="newmsg-search-item" key={index}>
                             <Pic id={member.id} name={'member'} isChip={true} />
-                            <span>{member.id}</span>
+                            <span>{member.user_id}</span>
                         </div>
                     ))}
                 </div>
