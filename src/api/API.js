@@ -92,7 +92,7 @@ export const addUserChannelAPI = (data) => {
         url: 'channel/add_member',
         data: {
             id: data.channel_id,
-            member_id: data.user_id,
+            member_id: data.member_id,
         },
         headers: {
             'access-token': data['access-token'],
