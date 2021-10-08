@@ -97,7 +97,7 @@ const MessageSidebar = () => {
                 )}
                 <Button text={'Invite user'} className="button" />
             </div>
-            {chatName && chatName.isChannel ? (
+            {chatName && channelMembers && chatName.isChannel ? (
                 <div className="search-results">
                     <span>Channel Members:</span>
                     {channelMembers.map((member, index) => (
