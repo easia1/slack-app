@@ -244,9 +244,11 @@
     opacity: 0;
     transform: translateX(5%);
     position: absolute;
+    top: 0;
     right: 0;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 400px -7px;
     animation: maincontent 0.2s ease forwards;
+    overflow: hidden;
 }
 
 .message-sidebar-closed {
