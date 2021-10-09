@@ -4,10 +4,12 @@ import './contactlist.css';
 import { default as BeginChat } from '../beginchat.svg';
 import { NavLink } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
+import Search from '../search/Search';
 
-const ContactList = () => {
+const ContactList = ({}) => {
     const {
         contactList,
+        currentUser,
         handleSetLoadData,
         removeEmail,
         setShowContent,
@@ -15,23 +17,47 @@ const ContactList = () => {
         setShowChatInfo,
     } = useContext(UserContext);
 
+    const [favoriteUsers, setFavoriteUsers] = useState([]);
+
+    useEffect(() => {
+        favoriteUsers.push(JSON.parse(localStorage.getItem(currentUser.id)));
+    }, []);
+    console.log(favoriteUsers);
+
     if (contactList.data.data.length === 0) {
         return (
-            <div className="contact-container-empty">
-                <img src={BeginChat} />
-                <span className="empty-title">Whew, there's nothing here.</span>
-                <p>Start a new conversation!</p>
+            <div className='contact-container-empty'>
+                <div>
+                    {favoriteUsers != null ? (
+                        favoriteUsers.map((user, index) => {
+                            return (
+                                <div>
+                                    <Pic id={user.id} name={user.email} />
+                                    <span>{user.email}</span>
+                                </div>
+                            );
+                        })
+                    ) : (
+                        <div>
+                            <img src={BeginChat} />
+                            <span className='empty-title'>
+                                Whew, there's nothing here.
+                            </span>
+                            <p>Start a new conversation!</p>
+                        </div>
+                    )}
+                </div>
             </div>
         );
     } else {
         return (
-            <div className="contact-container">
-                {contactList.data.data.map((user, index) => (
+            <div className='contact-container'>
+                {favoriteUsers.map((user, index) => (
                     <NavLink
                         to={`/user/${user.id}`}
-                        className="contact-item"
+                        className='contact-item'
                         key={index}
-                        activeClassName="selected-message"
+                        activeClassName='selected-message'
                         onClick={() => {
                             handleSetLoadData();
                             setShowContent(true);

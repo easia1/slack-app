@@ -64,7 +64,7 @@ export const UserProvider = ({ children }) => {
         setLoginMessage('');
         setSidebarMode('dm');
         setShowContent(false);
-        return <Redirect to="/login" />;
+        return <Redirect to='/login' />;
     };
 
     //Show new channel modal

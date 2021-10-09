@@ -56,24 +56,24 @@ const Main = () => {
 
         getListsAPI(channelListRequest)
             .then((res) => {
-                console.log('channels r', res);
-                console.log('channels', channelList);
+                // console.log('channels r', res);
+                // console.log('channels', channelList);
                 setChannelList(res);
             })
             .catch((err) => console.log(err));
 
         getListsAPI(allUsersListRequest)
             .then((res) => {
-                console.log('users r', res);
-                console.log('users', allUsers);
+                // console.log('users r', res);
+                // console.log('users', allUsers);
                 setAllUsers(res);
             })
             .catch((err) => console.log(err));
 
         getListsAPI(contactListRequest)
             .then((res) => {
-                console.log('contact r', res);
-                console.log('contact', contactList);
+                // console.log('contact r', res);
+                // console.log('contact', contactList);
                 setContactList(res);
             })
             .catch((err) => console.log(err));
@@ -161,7 +161,7 @@ const Main = () => {
     // }
     else {
         return (
-            <div className="app-container">
+            <div className='app-container'>
                 {showModal ? (
                     <NewChannel
                         showModal={showModal}
@@ -180,7 +180,7 @@ const Main = () => {
                     <Sidebar />
                 </div>
                 <Switch>
-                    <Route path="/" exact>
+                    <Route path='/' exact>
                         <div
                             className={
                                 !showContent
@@ -190,9 +190,9 @@ const Main = () => {
                                     : 'main-content'
                             }
                         >
-                            <div className="message-container-empty">
-                                <img src={Selectmessage} alt="Welcome back" />
-                                <span className="empty-title">
+                            <div className='message-container-empty'>
+                                <img src={Selectmessage} alt='Welcome back' />
+                                <span className='empty-title'>
                                     Welcome back,{' '}
                                     {removeEmail(currentUser.email)}!
                                 </span>
@@ -203,10 +203,10 @@ const Main = () => {
                             </div>
                         </div>
                     </Route>
-                    <Route path="/:type/:id" component={Messages} />
+                    <Route path='/:type/:id' component={Messages} />
                     {/* <Messages />
                     </Route> */}
-                    <Route exact path="/new-message" component={NewMessage} />
+                    <Route exact path='/new-message' component={NewMessage} />
                     {/*   <NewMessage />
                     </Route> */}
                 </Switch>
