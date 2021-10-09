@@ -1,4 +1,4 @@
-import React, { Children } from 'react';
+import React from 'react';
 import './button.css';
 
 const Button = ({ className, text, type, onClick }) => {

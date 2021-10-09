@@ -1,27 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router';
-import { getMessagesAPI } from '../api/API';
-import Loading from '../components/loading/Loading';
+import React, { useContext, useState } from 'react';
 import Pic from '../components/pic/Pic';
 import { UserContext } from '../context/UserContext';
-import ChatBubble from '../messages/ChatBubble';
-import ChatHeader from '../messages/ChatHeader';
-import Newmessage from '../components/newmessage.svg';
 import MessageInput from '../messages/MessageInput';
-import Search from '../components/search/Search';
 import NewMsgSearch from '../components/search/NewMsgSearch';
 import './newmessages.css';
 
 const NewMessage = () => {
-    const {
-        currentHeaders,
-        currentUser,
-        channelList,
-        allUsers,
-        loadData,
-        showContent,
-        setShowContent,
-    } = useContext(UserContext);
+    const { showContent, setShowContent } = useContext(UserContext);
 
     /* const { type, id } = useParams(); */
 

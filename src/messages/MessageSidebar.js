@@ -1,27 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { useContext } from 'react';
-import { useParams } from 'react-router';
 import { getListsAPI, addUserChannelAPI } from '../api/API';
 import Button from '../components/button/Button';
 import Pic from '../components/pic/Pic';
 import { UserContext } from '../context/UserContext';
-import ChannelInfoToggle from './ChannelInfoToggle';
-import ChatHeader from './ChatHeader';
 import Toast from '../components/toast/Toast';
-
+import { NavLink } from 'react-router-dom';
 const MessageSidebar = () => {
     const {
         allUsers,
-        currentUser,
         currentHeaders,
         handleSetShowChatInfo,
         showChatInfo,
-        chatInfo,
         loadData,
-        channelList,
         chatName,
         addUsers,
-        userIds,
+        returnUserName,
+        handleSetLoadData,
+        setShowContent,
+        setShowChatInfo,
     } = useContext(UserContext);
 
     const [searchList, setSearchList] = useState([]);
@@ -32,6 +29,7 @@ const MessageSidebar = () => {
     const [message, setMessage] = useState('');
     const [showToast, setShowToast] = useState(false);
     const [addNewUser, setAddNewUser] = useState();
+    const [showInvite, setShowInvite] = useState(false);
 
     const onAddingUser = () => {
         const addUserRequest = {
@@ -51,6 +49,7 @@ const MessageSidebar = () => {
                 }, 3000);
             } else {
                 setShowToast(true);
+                setShowInvite(false);
                 setMessage('User added');
                 setTimeout(() => {
                     setShowToast(false);
@@ -133,64 +132,172 @@ const MessageSidebar = () => {
         >
             <div className="modal-title">
                 <span
-                    className="close-button"
-                    onClick={() => handleSetShowChatInfo()}
+                    className="close-button-sidebar"
+                    onClick={() => {
+                        handleSetShowChatInfo();
+                        setShowInvite(false);
+                    }}
                 >
                     ✕
                 </span>
-
-                {chatName && (
-                    <>
-                        <Pic
-                            id={chatName.id}
-                            name={chatName?.name || 'none'}
-                            isChannel={chatName.isChannel}
-                        />
-                        <h1>{chatName.name}</h1>
-                    </>
-                )}
             </div>
+            {chatName && (
+                <div className="message-sidebar-title">
+                    <Pic
+                        id={chatName.id}
+                        name={chatName?.name}
+                        isChannel={chatName.isChannel}
+                    />
+                    <h1 className="sidebar-title">{chatName.name}</h1>
+                </div>
+            )}
+            {chatName && chatName?.isChannel ? (
+                <>
+                    {!showInvite ? (
+                        <div
+                            className="invite-user-toggle"
+                            onClick={() => {
+                                setShowInvite(true);
+                            }}
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-6 w-6"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={1.5}
+                                    d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"
+                                />
+                            </svg>
+                            <span>Invite user to group</span>
+                        </div>
+                    ) : (
+                        <div className="invite-user-container">
+                            {!addNewUser ? (
+                                <>
+                                    <input
+                                        className="invite-user-input"
+                                        type="text"
+                                        placeholder={'Invite a user...'}
+                                        onChange={handleSearchList}
+                                    />
+                                    {searchList.length !== 0 && (
+                                        <div className="invite-user-search-results">
+                                            {searchList
+                                                .slice(0, 5)
+                                                .map((user, index) => (
+                                                    <div
+                                                        className="newmsg-search-item"
+                                                        key={index}
+                                                        onClick={() => {
+                                                            addUser(
+                                                                user,
+                                                                index
+                                                            );
+                                                            clearSearchField();
+                                                        }}
+                                                    >
+                                                        <Pic
+                                                            id={user.id}
+                                                            name={user.email}
+                                                            isChip={true}
+                                                        />
+                                                        <span>{user.uid}</span>
+                                                    </div>
+                                                ))}
+                                        </div>
+                                    )}
+                                </>
+                            ) : (
+                                <>
+                                    <div className="invite-chip-container">
+                                        <div>
+                                            <Pic
+                                                id={addNewUser}
+                                                name={returnUserName(
+                                                    addNewUser
+                                                )}
+                                                isChip={true}
+                                            />
+                                            <span>
+                                                {returnUserName(addNewUser)}
+                                            </span>
+                                        </div>
+                                        <div
+                                            className="delete-chip-button"
+                                            onClick={() => setAddNewUser()}
+                                        >
+                                            ✕
+                                        </div>
+                                    </div>
+                                    <Button
+                                        text={'+ Invite user'}
+                                        className="button"
+                                        onClick={() => {
+                                            onAddingUser();
+                                            handleSetLoadData();
+                                        }}
+                                    />
+                                </>
+                            )}
+                        </div>
+                    )}{' '}
+                </>
+            ) : (
+                <div
+                    className="invite-user-toggle"
+                    onClick={() => {
+                        setShowInvite(true);
+                    }}
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-6 w-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={1.5}
+                            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                        />
+                    </svg>
+                    <span>Add to favorites</span>
+                </div>
+            )}
 
-            <Button text={'Invite user'} className="button" />
-            <div>
-                <input type="text" onChange={handleSearchList} />
-                {searchList.length !== 0 && (
-                    <div className="newchannel-search-results">
-                        {searchList.slice(0, 5).map((user, index) => (
-                            <div
+            {chatName && channelMembers && chatName.isChannel ? (
+                <>
+                    <span className="member-list-label">Group members</span>
+                    <div className="member-list">
+                        {channelMembers.map((member, index) => (
+                            <NavLink
+                                to={`/user/${member.user_id}`}
                                 className="newmsg-search-item"
                                 key={index}
                                 onClick={() => {
-                                    addUser(user, index);
-                                    clearSearchField();
+                                    handleSetLoadData();
+                                    setShowContent(true);
+                                    setShowChatInfo(false);
                                 }}
                             >
                                 <Pic
-                                    id={user.id}
-                                    name={user.email}
+                                    id={member.user_id}
+                                    name={returnUserName(member.user_id)}
                                     isChip={true}
                                 />
-                                <span>{user.uid}</span>
-                            </div>
+                                <span>{returnUserName(member.user_id)}</span>
+                            </NavLink>
                         ))}
                     </div>
-                )}
-            </div>
-            <Button
-                text={'+'}
-                className="button"
-                onClick={onAddingUser}
-            ></Button>
-            {chatName && channelMembers && chatName.isChannel ? (
-                <div className="search-results">
-                    <span>Channel Members:</span>
-                    {channelMembers.map((member, index) => (
-                        <div className="newmsg-search-item" key={index}>
-                            <Pic id={member.id} name={'member'} isChip={true} />
-                            <span>{member.user_id}</span>
-                        </div>
-                    ))}
-                </div>
+                </>
             ) : (
                 ''
             )}

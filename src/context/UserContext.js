@@ -64,6 +64,10 @@ export const UserProvider = ({ children }) => {
         setLoginMessage('');
         setSidebarMode('dm');
         setShowContent(false);
+        setAllChannelMessages();
+        setMessages();
+        setContactList('');
+        setChannelList('');
         return <Redirect to="/login" />;
     };
 
@@ -84,6 +88,15 @@ export const UserProvider = ({ children }) => {
     };
     const [chatInfo, setChatInfo] = useState({});
     const [chatName, setChatName] = useState();
+
+    //Function for getting name of user from ID number
+    const returnUserName = (id) => {
+        for (let i = 0; i < allUsers.data?.data?.length; i++) {
+            if (allUsers.data?.data?.[i].id === id) {
+                return allUsers.data.data[i].email;
+            }
+        }
+    };
 
     return (
         <UserContext.Provider
@@ -130,6 +143,7 @@ export const UserProvider = ({ children }) => {
                 setChatInfo,
                 chatName,
                 setChatName,
+                returnUserName,
             }}
         >
             {children}

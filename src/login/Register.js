@@ -1,8 +1,7 @@
 import React, { useState, useRef } from 'react';
 import Button from '../components/button/Button';
-import axios from 'axios';
 import { userSessionAPI } from '../api/API';
-import { Route, Switch, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './login.css';
 import Toast from '../components/toast/Toast';
 

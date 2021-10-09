@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import Pic from '../pic/Pic';
 import './contactlist.css';
 import { default as BeginChat } from '../beginchat.svg';
@@ -6,14 +6,8 @@ import { NavLink } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
 
 const ContactList = () => {
-    const {
-        contactList,
-        handleSetLoadData,
-        removeEmail,
-        setShowContent,
-        setMessages,
-        setShowChatInfo,
-    } = useContext(UserContext);
+    const { contactList, handleSetLoadData, setShowContent, setShowChatInfo } =
+        useContext(UserContext);
 
     if (contactList.data.data.length === 0) {
         return (
@@ -36,7 +30,6 @@ const ContactList = () => {
                             handleSetLoadData();
                             setShowContent(true);
                             setShowChatInfo(false);
-                            /* setMessages(); */
                         }}
                     >
                         <Pic id={user.id} name={user.email} />

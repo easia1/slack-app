@@ -1,7 +1,6 @@
-import React, { useContext, useRef, useState } from 'react';
-import { Redirect, useHistory } from 'react-router-dom';
+import React, { useContext, useRef } from 'react';
+import { useHistory } from 'react-router-dom';
 import { sendMessageAPI } from '../api/API';
-import Button from '../components/button/Button';
 import { UserContext } from '../context/UserContext';
 
 const MessageInput = ({ type, id, newMsg, setNewMessageUser }) => {
@@ -60,6 +59,7 @@ const MessageInput = ({ type, id, newMsg, setNewMessageUser }) => {
                     type="text"
                     name="message-input"
                     id="message-input"
+                    autoComplete="off"
                     placeholder="Type your message here..."
                     ref={messageInputRef}
                 />

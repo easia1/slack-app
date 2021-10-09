@@ -1,7 +1,6 @@
 import React, { useContext, useRef, useState } from 'react';
 import Button from '../components/button/Button';
 import { createChannelAPI } from '../api/API';
-import axios from 'axios';
 import Toast from '../components/toast/Toast';
 import './newchannel.css';
 import { UserContext } from '../context/UserContext';

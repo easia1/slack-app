@@ -24,15 +24,14 @@ const ChatBubble = ({ keyNum, className, id, name, message, time, type }) => {
             </div>
 
             <span className={`message-${type}-name`}>{name}</span>
-            <span className={showTime ? 'message-time' : 'message-time'}>
-                {showTime ? (
-                    <>
-                        {formattedDate} {formattedTime}
-                    </>
-                ) : (
-                    ''
-                )}
-            </span>
+
+            {showTime ? (
+                <span className={`message-time-${type}`}>
+                    {formattedDate} {formattedTime}
+                </span>
+            ) : (
+                ''
+            )}
         </div>
     );
 };

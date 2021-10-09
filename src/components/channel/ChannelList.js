@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Pic from '../pic/Pic';
 import './channellist.css';
 import { default as StartChannel } from '../startchannel.svg';
@@ -17,7 +17,6 @@ const ChannelList = () => {
         setAllChannelMessages,
         setShowContent,
         setShowChatInfo,
-        setMessages,
     } = useContext(UserContext);
 
     // const [allChannelMessages, setAllChannelMessages] = useState([]);

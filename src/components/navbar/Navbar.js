@@ -1,12 +1,11 @@
 import React, { useContext } from 'react';
-import { NavLink } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
 import Logo from '../logo/Logo';
 import Pic from '../pic/Pic';
 import './navbar.css';
 
 const Navbar = () => {
-    const { setSidebarMode, sidebarMode, currentUser } =
+    const { setSidebarMode, sidebarMode, currentUser, handleSetLoadData } =
         useContext(UserContext);
 
     return (
@@ -19,7 +18,10 @@ const Navbar = () => {
                             ? 'nav-link nav-link-active'
                             : 'nav-link'
                     }
-                    onClick={() => setSidebarMode('dm')}
+                    onClick={() => {
+                        setSidebarMode('dm');
+                        handleSetLoadData();
+                    }}
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -42,7 +44,10 @@ const Navbar = () => {
                             ? 'nav-link nav-link-active'
                             : 'nav-link'
                     }
-                    onClick={() => setSidebarMode('channel')}
+                    onClick={() => {
+                        setSidebarMode('channel');
+                        handleSetLoadData();
+                    }}
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -65,7 +70,10 @@ const Navbar = () => {
                             ? 'nav-link nav-link-active'
                             : 'nav-link'
                     }
-                    onClick={() => setSidebarMode('search')}
+                    onClick={() => {
+                        setSidebarMode('search');
+                        handleSetLoadData();
+                    }}
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"

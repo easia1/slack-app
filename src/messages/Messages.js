@@ -1,15 +1,14 @@
-import React, { useContext, useRef, useEffect, useState } from 'react';
+import React, { useContext, useRef, useEffect } from 'react';
 import { useParams } from 'react-router';
-import { getMessagesAPI, getListsAPI } from '../api/API';
+import { getMessagesAPI } from '../api/API';
 import Loading from '../components/loading/Loading';
-import Pic from '../components/pic/Pic';
+
 import { UserContext } from '../context/UserContext';
 import ChatBubble from './ChatBubble';
 import ChatHeader from './ChatHeader';
 import Nocontent from '../components/nocontent.svg';
 import MessageInput from './MessageInput';
 import ScrollDown from '../messages/ScrollDown';
-import MessageSidebar from './MessageSidebar';
 
 const Messages = () => {
     const {
@@ -33,9 +32,9 @@ const Messages = () => {
 
     // const [chatInfo, setChatInfo] = useState();
 
-    const sendMessageRef = useRef();
-    const endMessageRef = useRef(null);
-    const elementRef = useRef();
+    // const sendMessageRef = useRef();
+    // const endMessageRef = useRef(null);
+    // const elementRef = useRef();
 
     const getMessages = () => {
         let messageRequest = {
@@ -84,6 +83,7 @@ const Messages = () => {
                         id: channel.id,
                         name: channel.name,
                         isChannel: true,
+                        owner: channel.owner_id,
                     });
                 }
             });
