@@ -4,6 +4,7 @@ import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { userSessionAPI } from '../../api/API';
 import { UserContext } from '../../context/UserContext';
+import ContactList from '../contact/ContactList';
 import Pic from '../pic/Pic';
 import './search.css';
 
@@ -14,6 +15,9 @@ const Search = ({ placeholder, type }) => {
         handleSetLoadData,
         setShowContent,
         currentUser,
+        setContactList,
+        localStorageContacts,
+        contactList,
     } = useContext(UserContext);
 
     const [searchList, setSearchList] = useState([]);
@@ -49,21 +53,21 @@ const Search = ({ placeholder, type }) => {
     };
 
     return (
-        <div className='search-container'>
-            <div className='search-input-container'>
+        <div className="search-container">
+            <div className="search-input-container">
                 <input
-                    type='text'
+                    type="text"
                     placeholder={placeholder}
                     onChange={handleSearchList}
                 />
             </div>
             {searchList.length != 0 && (
-                <div className='search-results'>
+                <div className="search-results">
                     {type === 'channel' ? (
                         <>
                             {searchList.map((channel, index) => (
                                 <NavLink
-                                    className='search-item'
+                                    className="search-item"
                                     to={`/channel/${channel.id}`}
                                     key={index}
                                     onClick={() => {
@@ -84,16 +88,31 @@ const Search = ({ placeholder, type }) => {
                         <>
                             {searchList.slice(0, 5).map((user, index) => (
                                 <NavLink
-                                    className='search-item'
+                                    className="search-item"
                                     to={`/user/${user.id}`}
                                     key={index}
                                     onClick={() => {
                                         handleSetLoadData();
                                         setShowContent(true);
                                         favoriteUsers.push(user);
-                                        localStorage.setItem(
-                                            currentUser.uid,
-                                            JSON.stringify(favoriteUsers)
+                                        setContactList([
+                                            ...contactList,
+                                            { user },
+                                        ]);
+                                        // localStorage.setItem(
+                                        //     currentUser.uid,
+                                        //     JSON.stringify(favoriteUsers)
+                                        // );
+                                        localStorageContacts(
+                                            currentUser.id,
+                                            contactList
+                                        );
+                                        contactList.push(
+                                            JSON.parse(
+                                                localStorage.getItem(
+                                                    currentUser.id
+                                                )
+                                            )
                                         );
                                     }}
                                 >

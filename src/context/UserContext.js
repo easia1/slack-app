@@ -23,10 +23,15 @@ export const UserProvider = ({ children }) => {
         localStorage.setItem('User', JSON.stringify(data));
     };
 
-    //Save user to local storage
+    //Save user to session storage
     const tokenSessionStorage = (data, headers) => {
         sessionStorage.setItem('User', JSON.stringify(data));
         sessionStorage.setItem('Headers', JSON.stringify(headers));
+    };
+
+    //Save friends to local storage
+    const localStorageContacts = (id, data) => {
+        localStorage.setItem(`${id}`, JSON.stringify(data));
     };
 
     //Sidebar state
@@ -64,7 +69,7 @@ export const UserProvider = ({ children }) => {
         setLoginMessage('');
         setSidebarMode('dm');
         setShowContent(false);
-        return <Redirect to='/login' />;
+        return <Redirect to="/login" />;
     };
 
     //Show new channel modal
@@ -130,6 +135,7 @@ export const UserProvider = ({ children }) => {
                 setChatInfo,
                 chatName,
                 setChatName,
+                localStorageContacts,
             }}
         >
             {children}
