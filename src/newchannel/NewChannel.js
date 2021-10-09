@@ -15,6 +15,7 @@ const NewChannel = () => {
         addUsers,
         setAddUsers,
         setUserIds,
+        handleSetLoadData,
     } = useContext(UserContext);
 
     const channelNameRef = useRef();
@@ -160,6 +161,7 @@ const NewChannel = () => {
                     text="Create Channel"
                     onClick={(e) => {
                         e.preventDefault();
+                        handleSetLoadData();
                         onCreateChannel();
                     }}
                 />
