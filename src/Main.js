@@ -51,7 +51,7 @@ const Main = () => {
             client: currentHeaders.client,
             expiry: currentHeaders.expiry,
             uid: currentHeaders.uid,
-            url: 'users/recent',
+            url: 'users',
         };
 
         getListsAPI(channelListRequest)
@@ -83,83 +83,9 @@ const Main = () => {
         runAPI();
     }, [loadData]);
 
-    // useState(() => {
-    //     let channelListRequest = {
-    //         'access-token': currentHeaders['access-token'],
-    //         client: currentHeaders.client,
-    //         expiry: currentHeaders.expiry,
-    //         uid: currentHeaders.uid,
-    //         url: 'channels',
-    //     };
-
-    //     let allUsersListRequest = {
-    //         'access-token': currentHeaders['access-token'],
-    //         client: currentHeaders.client,
-    //         expiry: currentHeaders.expiry,
-    //         uid: currentHeaders.uid,
-    //         url: 'users',
-    //     };
-
-    //     let contactListRequest = {
-    //         'access-token': currentHeaders['access-token'],
-    //         client: currentHeaders.client,
-    //         expiry: currentHeaders.expiry,
-    //         uid: currentHeaders.uid,
-    //         url: 'users/recent/',
-    //     };
-
-    //     console.log('channelsReq', channelListRequest);
-    //     console.log('allusr', allUsersListRequest);
-    //     console.log('contr', contactListRequest);
-
-    //     getListsAPI(channelListRequest)
-    //         .then((res) => {
-    //             console.log('channels r', res);
-    //             console.log('channels', channelList);
-    //             setChannelList(res.data.data);
-    //         })
-    //         .catch((err) => console.log(err));
-
-    //     getListsAPI(allUsersListRequest)
-    //         .then((res) => {
-    //             console.log('users r', channelList);
-    //             console.log('users', allUsers);
-    //             console.log('channels r2', res);
-    //             console.log('channels2', channelList);
-    //             setAllUsers(res.data.data);
-    //         })
-    //         .catch((err) => console.log(err));
-
-    //     getListsAPI(contactListRequest)
-    //         .then((res) => {
-    //             console.log('contact r', channelList);
-    //             console.log('contact', contactList);
-    //             console.log('channels r3', res);
-    //             console.log('channels 3', channelList);
-    //             setContactList(res.data.data);
-    //         })
-    //         .catch((err) => console.log(err));
-    // }, [currentHeaders, channelList, allUsers, contactList]);
-
-    // //Logout function
-    // const logoutFunction = () => {
-    //     localStorage.setItem('User', null);
-    //     setUser(null);
-    //     setHeaders(null);
-    //     setIsLoggedIn(false);
-    //     setLoginMessage('');
-    //     setSidebarMode('dm');
-    // };
-
     if (!channelList.data || !allUsers || !contactList) {
-        // setIsLoading(false);
         return <Loading />;
-    }
-
-    // if (isLoading) {
-    // return <Loading />;
-    // }
-    else {
+    } else {
         return (
             <div className="app-container">
                 {showModal ? (
@@ -204,11 +130,7 @@ const Main = () => {
                         </div>
                     </Route>
                     <Route path="/:type/:id" component={Messages} />
-                    {/* <Messages />
-                    </Route> */}
                     <Route exact path="/new-message" component={NewMessage} />
-                    {/*   <NewMessage />
-                    </Route> */}
                 </Switch>
 
                 <MessageSidebar />

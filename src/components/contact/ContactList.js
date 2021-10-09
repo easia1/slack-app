@@ -6,10 +6,10 @@ import { NavLink } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
 
 const ContactList = () => {
-    const { contactList, handleSetLoadData, setShowContent, setShowChatInfo } =
+    const { allUsers, handleSetLoadData, setShowContent, setShowChatInfo } =
         useContext(UserContext);
 
-    if (contactList.data.data.length === 0) {
+    if (allUsers.data.data.length === 0) {
         return (
             <div className="contact-container-empty">
                 <img src={BeginChat} />
@@ -20,7 +20,7 @@ const ContactList = () => {
     } else {
         return (
             <div className="contact-container">
-                {contactList.data.data.map((user, index) => (
+                {allUsers.data.data.map((user, index) => (
                     <NavLink
                         to={`/user/${user.id}`}
                         className="contact-item"
