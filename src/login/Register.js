@@ -13,6 +13,7 @@ const Register = () => {
     const [message, setMessage] = useState();
     const [showToast, setShowToast] = useState(false);
     const [showPassError, setShowPassError] = useState(false);
+    const [isSuccess, setIsSuccess] = useState(false);
 
     // const onRegister = () => {
     //     handleError();
@@ -77,11 +78,13 @@ const Register = () => {
                 .then((res) => {
                     setMessage('Registration Success');
                     setShowToast(true);
+                    setIsSuccess(true);
                     console.log('res', res);
                 })
                 .catch((err) => {
                     setMessage('Something went wrong. Please try again');
                     setShowToast(true);
+                    setIsSuccess(false);
                     console.log('err', err);
                 });
         }
@@ -143,7 +146,14 @@ const Register = () => {
                 </NavLink>
             </div>
             {showToast || showPassError ? (
-                <Toast className="toast-message" text={message} />
+                <Toast
+                    className={
+                        isSuccess
+                            ? 'toast-message toast-message-success'
+                            : 'toast-message toast-message-error'
+                    }
+                    text={message}
+                />
             ) : (
                 <></>
             )}

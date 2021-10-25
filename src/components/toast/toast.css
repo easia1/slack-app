@@ -1,5 +1,4 @@
 .toast-message {
-    background-color: #f95959;
     color: white;
     text-align: center;
     border-radius: 5px;
@@ -11,6 +10,14 @@
     transform: translate(50%, -10%);
     margin: 50px auto;
     animation: error 0.2s ease forwards;
+}
+
+.toast-message-success {
+    background-color: #29ac8d;
+}
+
+.toast-message-error {
+    background-color: #f95959;
 }
 
 @keyframes error {

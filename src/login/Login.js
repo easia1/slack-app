@@ -38,6 +38,7 @@ const Login = () => {
     //Toast Message
     const [message, setMessage] = useState();
     const [showToast, setShowToast] = useState(false);
+    const [isSuccess, setIsSuccess] = useState(false);
 
     //Login function
     const loginFunction = () => {
@@ -54,6 +55,7 @@ const Login = () => {
 
             //Message for logging in while waiting for API response
             setMessage('Logging you in...');
+            setIsSuccess(true);
 
             //API call for creating new user session
             userSessionAPI(data)
@@ -98,6 +100,7 @@ const Login = () => {
         } else {
             setMessage('Please fill out the required fields');
             setShowToast(true);
+            setIsSuccess(false);
         }
     };
 
@@ -115,12 +118,14 @@ const Login = () => {
             setUser(sessionStorageUser);
         } else if (localStorageLoginUser) {
             setLoginMessage('Logging you in...');
+            setIsSuccess(true);
 
             userSessionAPI(localStorageLoginUser)
                 .then((res) => {
                     setHeaders(res.headers);
                     setUser(res.data.data);
                     setLoginMessage('Logged in!');
+                    setIsSuccess(true);
                     setIsLoggedIn(true);
                     tokenSessionStorage(res.data.data, res.headers);
                 })
@@ -135,14 +140,17 @@ const Login = () => {
                         setLoginMessage(err.response.data.errors[0]);
                         setTimeout(() => {
                             setLoginMessage('');
+                            setIsSuccess(false);
                         }, 3000);
                         setTimeout(() => {
                             setLoginMessage('');
+                            setIsSuccess(false);
                         }, 3000);
                     } else if (err.request) {
                         // The request was made but no response was received
                         console.log(err.request);
                         setLoginMessage('Server error, please try again.');
+                        setIsSuccess(false);
                         setTimeout(() => {
                             setLoginMessage('');
                         }, 3000);
@@ -158,7 +166,11 @@ const Login = () => {
         <div className="login-page">
             {showToast || message || loginMessage ? (
                 <Toast
-                    className="toast-message"
+                    className={
+                        isSuccess
+                            ? 'toast-message toast-message-success'
+                            : 'toast-message toast-message-error'
+                    }
                     text={message || loginMessage}
                 />
             ) : (
