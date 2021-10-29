@@ -48,7 +48,8 @@
     /* padding-top: 45px; */
     padding-right: 15px;
     padding-top: 15px;
-    overflow: scroll;
+    overflow-y: auto;
+    overflow-x: hidden;
     width: 100%;
     height: 100%;
 }
